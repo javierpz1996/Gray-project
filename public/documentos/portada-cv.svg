@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <rect width="900" height="1200" fill="#ffffff"/>
+  <rect x="0.5" y="0.5" width="899" height="1199" fill="none" stroke="#e7e4de"/>
+  <rect x="72" y="820" width="756" height="1" fill="#e7e4de"/>
+  <text x="72" y="880" font-family="Georgia, serif" font-size="52" fill="#111110">Currículum vitæ</text>
+  <text x="72" y="932" font-family="Helvetica, Arial, sans-serif" font-size="24" letter-spacing="3" fill="#6b6a66">2026</text>
+  <text x="72" y="1108" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="4" fill="#9c9a94">NOMBRE DEL ARTISTA</text>
+</svg>

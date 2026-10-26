@@ -1,0 +1,81 @@
+/*
+ * Tokens Gray (ADR 0004) — mismos valores que desing-system.css (.ds).
+ * Importar en globals.css; el sitio y shadcn consumen los alias de :root.
+ */
+
+:root {
+  --ds-bg: #f5f5f7;
+  --ds-surface: #ffffff;
+  --ds-surface-muted: #fbfbfd;
+  --ds-ink: #1d1d1f;
+  --ds-ink-soft: #424245;
+  --ds-muted: #6e6e73;
+  --ds-muted-light: #86868b;
+  --ds-line: rgb(0 0 0 / 0.08);
+  --ds-line-strong: rgb(0 0 0 / 0.16);
+
+  --ds-coral: #ff5a4e;
+  --ds-coral-hover: #e84e43;
+  --ds-coral-muted: rgb(255 90 78 / 0.14);
+  --ds-blue: #5799c6;
+  --ds-red: #bb0702;
+  --ds-orange: #ff7800;
+  --ds-yellow: #f7e335;
+  --ds-green: #3ecf8e;
+  --ds-sky: #8ecae6;
+  --ds-cream: #f5f2eb;
+
+  --ds-radius-sm: 0.375rem;
+  --ds-radius-md: 0.5rem;
+  --ds-radius-lg: 0.625rem;
+  --ds-radius-xl: 0.75rem;
+
+  --ds-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.06), 0 0 0 1px rgb(0 0 0 / 0.04);
+  --ds-shadow-md: 0 8px 24px rgb(0 0 0 / 0.08), 0 0 0 1px rgb(0 0 0 / 0.04);
+
+  --ds-duration-fast: 150ms;
+  --ds-duration-base: 200ms;
+  --ds-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Alias del sitio (utilities Tailwind existentes) */
+  --canvas: var(--ds-bg);
+  --surface: var(--ds-surface);
+  --fg: var(--ds-ink);
+  --fg-muted: var(--ds-muted);
+  --fg-subtle: var(--ds-muted-light);
+  --border: var(--ds-line);
+  --border-strong: var(--ds-line-strong);
+  --hover: var(--ds-surface-muted);
+  --ink: var(--ds-ink);
+  --coral: var(--ds-coral);
+  --coral-hover: var(--ds-coral-hover);
+
+  /* shadcn/ui */
+  --background: var(--ds-bg);
+  --foreground: var(--ds-ink);
+  --card: var(--ds-surface);
+  --card-foreground: var(--ds-ink);
+  --popover: var(--ds-surface);
+  --popover-foreground: var(--ds-ink);
+  --primary: var(--ds-coral);
+  --primary-foreground: #ffffff;
+  --secondary: var(--ds-surface-muted);
+  --secondary-foreground: var(--ds-ink);
+  --muted: var(--ds-surface-muted);
+  --muted-foreground: var(--ds-muted);
+  --accent: var(--ds-coral-muted);
+  --accent-foreground: var(--ds-coral);
+  --destructive: var(--ds-red);
+  --input: var(--ds-line-strong);
+  --ring: var(--ds-coral);
+  --radius: var(--ds-radius-md);
+
+  --sidebar: var(--ds-surface);
+  --sidebar-foreground: var(--ds-ink);
+  --sidebar-primary: var(--ds-coral);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--ds-surface-muted);
+  --sidebar-accent-foreground: var(--ds-ink);
+  --sidebar-border: var(--ds-line);
+  --sidebar-ring: var(--ds-coral);
+}
