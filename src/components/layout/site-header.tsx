@@ -1,80 +1,35 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { site } from "@/config/site";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { usePathname } from "next/navigation";
+import { Suspense } from "react";
+import { SiteBrandLink } from "@/components/layout/site-brand";
+import { SiteNavigation } from "@/components/layout/site-navigation";
+import { cn } from "@/lib/utils";
 
-/**
- * DESIGN.md §6 — Header.
- *   sticky top-0 · h-64px · bg-canvas · border-b hairline
- *   Wordmark serif a la izquierda · anclas a la derecha (text-small)
- *   Activa → text-fg + subrayado 1px · resto → fg-muted
- */
+const homeHeaderGlass =
+  "border-b border-border/30 bg-canvas/55 shadow-none backdrop-blur-md supports-[backdrop-filter]:bg-canvas/45";
+
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-surface/80 backdrop-blur-[20px] backdrop-saturate-[180%]">
-      <div className="mx-auto flex h-16 w-full max-w-site items-center justify-between px-6">
-        <Link
-          href="/"
-          className="font-display text-h3 font-semibold uppercase leading-heading tracking-title text-fg"
+    <header
+      className={cn(
+        "site-header-top top-0 z-50 w-full",
+        isHome ? "fixed" : "sticky border-b border-border bg-canvas",
+        isHome && homeHeaderGlass,
+      )}
+    >
+      <div className="flex h-[var(--site-header-height)] w-full items-stretch">
+        <div
+          className="flex min-w-0 flex-1 items-center justify-end px-4 sm:px-6 lg:px-8 xl:justify-start"
         >
-          {site.shortName}
-        </Link>
-
-        {/* Desktop */}
-        <nav className="hidden items-center gap-6 md:flex">
-          {site.nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-small text-fg-muted underline-offset-4 transition-colors duration-150 ease-out hover:text-primary hover:underline"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Button asChild size="sm">
-            <Link href="/desing-system">Desing system</Link>
-          </Button>
-        </nav>
-
-        {/* Mobile */}
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger className="text-small text-fg md:hidden">
-            Menú
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="w-72 border-l border-border bg-canvas p-0"
-          >
-            <SheetTitle className="sr-only">Navegación</SheetTitle>
-            <nav className="flex flex-col gap-6 px-6 pt-10">
-              {site.nav.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="font-display text-h3 font-semibold uppercase leading-heading tracking-title text-fg"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <Button asChild className="w-fit">
-                <Link href="/desing-system" onClick={() => setOpen(false)}>
-                  Desing system
-                </Link>
-              </Button>
-            </nav>
-          </SheetContent>
-        </Sheet>
+          <Suspense fallback={<span className="hidden h-9 w-24 xl:block" />}>
+            <SiteNavigation />
+          </Suspense>
+        </div>
+        <SiteBrandLink className="shrink-0" />
       </div>
     </header>
   );

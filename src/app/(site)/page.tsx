@@ -1,20 +1,9 @@
-import { HomeIntro } from "@/components/home/home-intro";
+import { HomeDesign } from "@/components/home/home-design";
+import { parseHomeDesign } from "@/lib/home-design";
 
-/**
- * Landing — estructura genérica.
- * Añade bloques con `Section` (o rutas propias) cuando definas el contenido.
- */
-export default function Page() {
-  return (
-    <>
-      <HomeIntro />
+export default async function Page({ searchParams }: PageProps<"/">) {
+  const params = await searchParams;
+  const design = parseHomeDesign(params.diseno);
 
-      <div
-        className="mx-auto w-full max-w-site px-6 py-16 md:py-24"
-        aria-label="Contenido principal"
-      >
-        {/* Secciones futuras: portafolio, documentos, bio, contacto… */}
-      </div>
-    </>
-  );
+  return <HomeDesign design={design} />;
 }

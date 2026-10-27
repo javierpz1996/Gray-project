@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/reveal";
+import { cn } from "@/lib/utils";
 
 /**
  * Patrón de sección — DESIGN.md §6.
@@ -16,17 +17,25 @@ export function Section({
   children,
 }: {
   id?: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   intro?: string;
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="py-16 md:py-24">
+    <section
+      id={id}
+      className={cn(
+        "py-16 md:py-24",
+        id ? "scroll-mt-[var(--site-header-height)]" : null,
+      )}
+    >
       <div className="mx-auto w-full max-w-site px-6">
         <Reveal>
-          <p className="eyebrow">{eyebrow}</p>
-          <h2 className="mt-4 font-display text-h2 font-bold leading-heading tracking-title text-fg">
+          {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
+          <h2
+            className={`font-display text-h2 font-bold leading-heading tracking-title text-fg ${eyebrow ? "mt-4" : ""}`}
+          >
             {title}
           </h2>
           {intro ? (
@@ -34,7 +43,7 @@ export function Section({
           ) : null}
         </Reveal>
 
-        <Grid12>{children}</Grid12>
+        <Grid12 className="mt-10 md:mt-12">{children}</Grid12>
       </div>
     </section>
   );

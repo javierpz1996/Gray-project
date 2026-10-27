@@ -22,6 +22,11 @@
   --color-ink: var(--ink);
   --color-coral: var(--coral);
   --color-coral-hover: var(--coral-hover);
+  --color-ds-blue: var(--ds-blue);
+  --color-ds-sky: var(--ds-sky);
+  --color-ds-red: var(--ds-red);
+  --color-ds-yellow: var(--ds-yellow);
+  --color-ds-orange: var(--ds-orange);
 
   --font-sans: var(--font-inter);
   --font-display: var(--font-barlow-condensed), var(--font-inter), system-ui,
@@ -75,6 +80,7 @@
   --text-body: 1.0625rem;
   --text-small: 0.9375rem;
   --text-micro: 0.8125rem;
+  --text-nano: 0.75rem;
 
   --leading-display: 1.05;
   --leading-heading: 1.15;
@@ -128,6 +134,60 @@
     border-radius: var(--ds-radius-sm);
   }
 
+  /* Navbar desplegable abierto → atenuar hero / contenido bajo el header */
+  .nav-hero-dim {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+  }
+
+  body:has([data-slot="dropdown-menu-trigger"][data-state="open"]) .nav-hero-dim {
+    opacity: 0.48;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-hero-dim {
+      transition: none;
+    }
+  }
+
+  /* Detalle de libro (portal en body): sin flash de grilla ni franja gris bajo el viewport */
+  body[data-libro-detalle="open"] > main,
+  body[data-libro-detalle="open"] > footer {
+    visibility: hidden;
+  }
+
+  /* Home diseño 3: barra lateral fija; sin header superior en escritorio */
+  body[data-home-design="3"] {
+    --site-sidebar-width: 17.5rem;
+  }
+
+  body[data-home-design="3"] .site-main {
+    padding-top: var(--site-header-height);
+  }
+
+  @media (min-width: 1024px) {
+    body[data-home-design="3"] {
+      --site-header-height: 0px;
+    }
+
+    body[data-home-design="3"] .site-header-top {
+      display: none;
+    }
+
+    body[data-home-design="3"] .site-main {
+      padding-top: 0;
+      padding-left: var(--site-sidebar-width);
+    }
+
+    body[data-home-design="3"] .site-footer {
+      padding-left: var(--site-sidebar-width);
+    }
+
+    body[data-home-design="3"] .nav-hero-dim {
+      display: none;
+    }
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
@@ -148,4 +208,111 @@
 
 @utility shadow-elevated {
   box-shadow: var(--ds-shadow-md);
+}
+
+@utility shadow-book {
+  box-shadow: var(--ds-shadow-book);
+}
+
+/*
+ * Fondo papel (secciones editoriales).
+ * No usar `bg-paper`: el theme generaría solo background-color.
+ */
+@layer components {
+  .section-paper {
+    --section-paper-base: color-mix(
+      in srgb,
+      var(--paper) 38%,
+      var(--surface) 58%,
+      var(--ds-yellow) 4%
+    );
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    background-color: var(--section-paper-base);
+    background-image: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--surface) 55%, transparent) 0%,
+        transparent 22%,
+        transparent 78%,
+        color-mix(in srgb, var(--fg) 2.5%, transparent) 100%
+      ),
+      repeating-linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 32px,
+        color-mix(in srgb, var(--fg) 3.5%, transparent) 32px,
+        color-mix(in srgb, var(--fg) 3.5%, transparent) 33px
+      );
+    background-size: 100% 100%, 100% 33px;
+  }
+
+  .section-paper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.12;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    mix-blend-mode: multiply;
+  }
+
+  .section-paper::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 0;
+    height: min(32vh, 14rem);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--canvas) 55%, transparent) 45%,
+      var(--canvas) 100%
+    );
+  }
+
+  /* Sobre mí — líneas editoriales (tokens Gray; encima del PNG) */
+  .sobre-mi-figure {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .sobre-mi-figure__corner {
+    position: absolute;
+    left: 3%;
+    top: 3%;
+    z-index: 3;
+    width: min(30%, 6.75rem);
+    height: min(30%, 6.75rem);
+    pointer-events: none;
+    border-left: 4px solid var(--ds-coral);
+    border-top: 4px solid var(--ds-coral);
+  }
+
+  .sobre-mi-figure__rule {
+    position: absolute;
+    left: 14%;
+    bottom: 7%;
+    z-index: 3;
+    width: min(24%, 5rem);
+    height: 4px;
+    pointer-events: none;
+    background: var(--ds-yellow);
+  }
+
+  .sobre-mi-figure__tick {
+    position: absolute;
+    right: 6%;
+    top: 18%;
+    z-index: 3;
+    width: 3px;
+    height: min(22%, 4.25rem);
+    pointer-events: none;
+    background: var(--ds-blue);
+  }
 }

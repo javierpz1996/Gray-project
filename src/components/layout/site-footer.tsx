@@ -9,7 +9,7 @@ import { site } from "@/config/site";
  */
 export function SiteFooter() {
   return (
-    <footer>
+    <footer className="site-footer">
       <div className="mx-auto flex w-full max-w-site flex-col gap-6 px-6 py-12 text-small text-fg-muted sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-prose">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute

@@ -32,6 +32,9 @@
 
   --ds-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.06), 0 0 0 1px rgb(0 0 0 / 0.04);
   --ds-shadow-md: 0 8px 24px rgb(0 0 0 / 0.08), 0 0 0 1px rgb(0 0 0 / 0.04);
+  /** Portadas de libros (más elevación que shadow-md). */
+  --ds-shadow-book: 0 6px 14px rgb(0 0 0 / 0.1), 0 18px 40px rgb(0 0 0 / 0.12),
+    0 0 0 1px rgb(0 0 0 / 0.05);
 
   --ds-duration-fast: 150ms;
   --ds-duration-base: 200ms;
@@ -46,6 +49,10 @@
   --border: var(--ds-line);
   --border-strong: var(--ds-line-strong);
   --hover: var(--ds-surface-muted);
+  /** Fondo cálido tipo papel (secciones editoriales). */
+  --paper: var(--ds-cream);
+  /** Altura del header del sitio (`site-header`). */
+  --site-header-height: 5rem;
   --ink: var(--ds-ink);
   --coral: var(--ds-coral);
   --coral-hover: var(--ds-coral-hover);

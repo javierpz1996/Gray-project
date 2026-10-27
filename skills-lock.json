@@ -37,6 +37,12 @@
       "skillPath": ".agents/skills/impeccable/SKILL.md",
       "computedHash": "e3bb18720f45bb007f97042d0eaf0253531af1f85f9425a89f87bc22708bc3b4"
     },
+    "ponytail": {
+      "source": "dietrichgebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail/SKILL.md",
+      "computedHash": "061f887d9e3e735f85db3be3655a8936a00f24d5fb65ac4ab74a968a770fe342"
+    },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceType": "github",
