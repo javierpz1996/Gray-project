@@ -92,9 +92,11 @@ function NavLink({
 function NavBarDropdown({
   item,
   onNavigate,
+  centered,
 }: {
   item: SiteNavDropdown;
   onNavigate?: () => void;
+  centered?: boolean;
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -110,7 +112,11 @@ function NavBarDropdown({
         {item.label}
         <NavDropdownCaret />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" sideOffset={0} className={navDropdownPanel}>
+      <DropdownMenuContent
+        align={centered ? "center" : "start"}
+        sideOffset={0}
+        className={navDropdownPanel}
+      >
         {item.items.map((entry) => {
           const href = resolveNavHref(entry.href, pathname, diseno);
           return (
@@ -154,9 +160,12 @@ function SheetNavLink({
 function renderNavItem(
   item: SiteNavItem,
   onNavigate?: () => void,
+  centered?: boolean,
 ): ReactNode {
   if (item.kind === "dropdown") {
-    return <NavBarDropdown item={item} onNavigate={onNavigate} />;
+    return (
+      <NavBarDropdown item={item} onNavigate={onNavigate} centered={centered} />
+    );
   }
   if (item.kind === "link" || item.kind === "external") {
     return <NavLink item={item} onNavigate={onNavigate} />;
@@ -164,7 +173,7 @@ function renderNavItem(
   return null;
 }
 
-export function SiteNavigation() {
+export function SiteNavigation({ centered = false }: { centered?: boolean }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -175,16 +184,22 @@ export function SiteNavigation() {
   return (
     <>
       <nav
-        className="hidden min-w-0 flex-1 items-center justify-start xl:flex"
+        className={cn(
+          "hidden min-w-0 items-center xl:flex",
+          centered ? "w-full flex-1 justify-center" : "flex-1 justify-start",
+        )}
         aria-label="Principal"
       >
         <ul
-          className="m-0 flex list-none flex-wrap items-center justify-start gap-x-4 p-0 sm:gap-x-5"
+          className={cn(
+            "m-0 flex list-none flex-wrap items-center gap-x-4 p-0 sm:gap-x-5",
+            centered ? "justify-center" : "justify-start",
+          )}
         >
           {barItems.map((item, index) => (
             <Fragment key={item.label}>
               {index > 0 ? <NavBarSeparator /> : null}
-              <li>{renderNavItem(item)}</li>
+              <li>{renderNavItem(item, undefined, centered)}</li>
             </Fragment>
           ))}
         </ul>

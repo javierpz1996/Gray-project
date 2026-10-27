@@ -9,14 +9,16 @@ export function resolveNavHref(
   pathname: string,
   diseno: HomeDesignId,
 ): string {
+  if (href.startsWith("#") || href.startsWith("/#")) {
+    const hash = href.startsWith("#") ? href.slice(1) : href.slice(2);
+    return homeDesignAnchor(diseno, hash);
+  }
+
   if (pathname !== "/") {
     return href;
   }
   if (href === "/") {
     return homeDesignHref(diseno);
-  }
-  if (href.startsWith("/#")) {
-    return homeDesignAnchor(diseno, href.slice(2));
   }
   return href;
 }

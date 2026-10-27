@@ -7,6 +7,12 @@
       "skillPath": "skills/caveman/SKILL.md",
       "computedHash": "71b600c88c8d1d36f18c4875db23b53c5d6cb9ba3195e19451d6b1bb67db07c4"
     },
+    "clone-website": {
+      "source": "julianromli/ai-skills",
+      "sourceType": "github",
+      "skillPath": "skills/clone-website/SKILL.md",
+      "computedHash": "f8bb3724afae412770cd73b377d0e83672d1c00619789c03ac09d8213c9cd24a"
+    },
     "deploy-to-vercel": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",

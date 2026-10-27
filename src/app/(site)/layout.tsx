@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { SiteDesignChrome } from "@/components/layout/site-design-chrome";
+import { HomeDesignMarker } from "@/components/layout/home-design-marker";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { NavHeroDimOverlay } from "@/components/layout/nav-hero-dim-overlay";
@@ -21,7 +21,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
       </Suspense>
       <Suspense fallback={null}>
-        <SiteDesignChrome />
+        <HomeDesignMarker />
       </Suspense>
       <NavHeroDimOverlay />
       <main className="site-main flex-1">{children}</main>

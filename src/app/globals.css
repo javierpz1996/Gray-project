@@ -20,6 +20,7 @@
   --color-border-strong: var(--border-strong);
   --color-hover: var(--hover);
   --color-ink: var(--ink);
+  --color-ink-nav: var(--ink-nav);
   --color-coral: var(--coral);
   --color-coral-hover: var(--coral-hover);
   --color-ds-blue: var(--ds-blue);
@@ -156,35 +157,39 @@
     visibility: hidden;
   }
 
-  /* Home diseño 3: barra lateral fija; sin header superior en escritorio */
-  body[data-home-design="3"] {
+  /* Home diseño 2 (portal): chrome propio; sin header/footer globales */
+  body:has(.design-2-portal),
+  body[data-home-design="2"] {
     --site-sidebar-width: 17.5rem;
+  }
+
+  body:has(.design-2-portal) .site-header-top,
+  body[data-home-design="2"] .site-header-top,
+  body:has(.design-2-portal) .site-footer,
+  body[data-home-design="2"] .site-footer,
+  body:has(.design-2-portal) .nav-hero-dim,
+  body[data-home-design="2"] .nav-hero-dim {
+    display: none;
+  }
+
+  body:has(.design-2-portal) .site-main,
+  body[data-home-design="2"] .site-main {
+    padding-top: 0;
+    padding-left: 0;
+  }
+
+  /* Home diseño 3: navbar superior en dos filas */
+  body[data-home-design="3"] {
+    --site-header-height: 5.25rem;
   }
 
   body[data-home-design="3"] .site-main {
     padding-top: var(--site-header-height);
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     body[data-home-design="3"] {
-      --site-header-height: 0px;
-    }
-
-    body[data-home-design="3"] .site-header-top {
-      display: none;
-    }
-
-    body[data-home-design="3"] .site-main {
-      padding-top: 0;
-      padding-left: var(--site-sidebar-width);
-    }
-
-    body[data-home-design="3"] .site-footer {
-      padding-left: var(--site-sidebar-width);
-    }
-
-    body[data-home-design="3"] .nav-hero-dim {
-      display: none;
+      --site-header-height: 5.5rem;
     }
   }
 
@@ -315,4 +320,53 @@
     pointer-events: none;
     background: var(--ds-blue);
   }
+}
+
+/*
+ * Portal hero — panel derecho (fuera de @layer para que no lo pisen utilities).
+ * Ink + rejilla argyle + grano; sin verde.
+ */
+.design-2-hero-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.design-2-hero-panel__surface {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--ds-ink);
+  background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ds-ink) 10%, transparent) 0%,
+      transparent 20%,
+      transparent 80%,
+      color-mix(in srgb, var(--ds-ink) 16%, transparent) 100%
+    ),
+    repeating-linear-gradient(
+      60deg,
+      color-mix(in srgb, var(--primary-foreground) 9%, transparent) 0,
+      color-mix(in srgb, var(--primary-foreground) 9%, transparent) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      -60deg,
+      color-mix(in srgb, var(--primary-foreground) 7.5%, transparent) 0,
+      color-mix(in srgb, var(--primary-foreground) 7.5%, transparent) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+}
+
+.design-2-hero-panel__surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.11;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: soft-light;
 }

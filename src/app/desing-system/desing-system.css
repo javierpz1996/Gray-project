@@ -12,6 +12,7 @@
   --ds-surface: #ffffff;
   --ds-surface-muted: #fbfbfd;
   --ds-ink: #1d1d1f;
+  --ds-ink-nav: color-mix(in srgb, var(--ds-ink) 55%, black 45%);
   --ds-ink-soft: #424245;
   --ds-muted: #6e6e73;
   --ds-muted-light: #86868b;

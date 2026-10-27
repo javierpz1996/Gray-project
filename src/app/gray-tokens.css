@@ -8,6 +8,8 @@
   --ds-surface: #ffffff;
   --ds-surface-muted: #fbfbfd;
   --ds-ink: #1d1d1f;
+  /** Navbar diseño 3 — negro un paso más profundo que --ds-ink. */
+  --ds-ink-nav: color-mix(in srgb, var(--ds-ink) 55%, black 45%);
   --ds-ink-soft: #424245;
   --ds-muted: #6e6e73;
   --ds-muted-light: #86868b;
@@ -54,6 +56,7 @@
   /** Altura del header del sitio (`site-header`). */
   --site-header-height: 5rem;
   --ink: var(--ds-ink);
+  --ink-nav: var(--ds-ink-nav);
   --coral: var(--ds-coral);
   --coral-hover: var(--ds-coral-hover);
 

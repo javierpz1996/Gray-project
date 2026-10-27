@@ -84,6 +84,9 @@ export const site = {
   /** Logo oficial: `public/Imagenes/Varias/logoPrincipal.png`. */
   logoSrc: "/Imagenes/Varias/logoPrincipal.png",
 
+  /** Logo navbar diseño 3: `public/Imagenes/Varias/logoSecundario.png`. */
+  logoSecondarySrc: "/Imagenes/Varias/logoSecundario.png",
+
   /** Banner principal bajo el navbar (`banner-expansive.png`, 2089×753). */
   homeBannerSrc: "/Imagenes/Varias/banner-expansive.png",
   homeBannerAlt: "Grayby art — ilustración y libros de autoría",
@@ -104,6 +107,8 @@ export const site = {
   /** Enlaces externos. Editar o eliminar los que no apliquen. */
   links: {
     instagram: "https://instagram.com/",
+    x: "https://x.com/",
+    tiktok: "https://www.tiktok.com/",
     behance: "",
     linkedin: "",
   },
