@@ -15,20 +15,22 @@ export function HomeDesignMarker() {
   const design = pathname === "/" ? diseno : diseno === 3 ? 3 : null;
 
   useEffect(() => {
-    if (design === 2 || design === 3) {
-      document.body.dataset.homeDesign = String(design);
-    } else if (diseno === 3) {
-      document.body.dataset.homeDesign = "3";
-    } else {
+    if (pathname !== "/") {
       delete document.body.dataset.homeDesign;
+      return;
     }
+    document.body.dataset.homeDesign = String(diseno);
     return () => {
       delete document.body.dataset.homeDesign;
     };
-  }, [design, diseno]);
+  }, [diseno, pathname]);
 
   if (design === 2) {
     return <div className="design-2-portal" hidden aria-hidden />;
+  }
+
+  if (pathname === "/" && diseno === 10) {
+    return <div className="home-design-10-chrome" hidden aria-hidden />;
   }
 
   return null;

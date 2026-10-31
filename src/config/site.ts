@@ -7,6 +7,11 @@
  * @see DESIGN.md — los tokens visuales no se tocan aquí, van en globals.css
  */
 
+import {
+  homeDesign1HeroAnimations,
+  homeDesign1HeroHref,
+} from "@/lib/home-design-1-hero-animation";
+
 export type SiteNavLink = {
   readonly kind: "link";
   readonly href: string;
@@ -96,6 +101,19 @@ export const site = {
   homeBannerDesign2Alt:
     "Collage de ilustración Grayby — personajes y estilos de autoría",
 
+  /** Hero diseño 10 — split diagonal (referencia comisiones / SATO). */
+  homeDesign10: {
+    wordmark: "SATO",
+    headline: "Ilustraciones que cuentan tu historia",
+    subline: "Comisiones abiertas de arte anime y personajes originales.",
+    ctaLabel: "Ver comisiones",
+    ctaHref: "/?diseno=10#libros",
+    contactLabel: "Contacto",
+    contactHref: `mailto:${siteEmail}`,
+    imageSrc: "/Imagenes/Varias/hero-diseno-10-illustration.png",
+    imageAlt: "Ilustración anime — composición en tres paneles de color",
+  },
+
   /** Rótulo vertical del hero diseño 2 (una línea, rotada). */
   homeBannerDesign2SideLabel: "GRAYBYART - GRAYBYART",
 
@@ -123,7 +141,7 @@ export const site = {
         { href: "/#libro-fundamentos-dibujo", label: "Edición completa" },
         { href: "/#libro-formas-espacio-3d", label: "Tema I" },
         { href: "/#libro-anatomia-constructiva", label: "Tema II" },
-        { href: "/#libros", label: "Tema III" },
+        { href: "/#libro-apunte-dibujo", label: "Tema III" },
         { href: "/#libro-rostro-proporciones", label: "Tema IV" },
       ],
     },
@@ -132,9 +150,16 @@ export const site = {
       kind: "dropdown",
       label: "Diseños",
       items: [
-        { href: "/?diseno=1", label: "1" },
-        { href: "/?diseno=2", label: "2" },
-        { href: "/?diseno=3", label: "3" },
+        { href: "/?diseno=1", label: "1 · Pop (principal)" },
+        ...homeDesign1HeroAnimations.filter((entry) => entry.id !== 3).map(
+          (entry) => ({
+            href: homeDesign1HeroHref(entry.id),
+            label: entry.navLabel,
+          }),
+        ),
+        { href: "/?diseno=2", label: "2 · Portal" },
+        { href: "/?diseno=3", label: "3 · Editorial" },
+        { href: "/?diseno=10", label: "10 · Diagonal (SATO)" },
       ],
     },
     {

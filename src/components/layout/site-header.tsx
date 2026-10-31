@@ -61,7 +61,7 @@ export function SiteHeader() {
 function SiteHeaderFallback() {
   return (
     <header
-      className="site-header-top top-0 z-50 h-[var(--site-header-height)] w-full shrink-0 border-b border-border bg-canvas"
+      className="site-header-top fixed top-0 z-50 h-[var(--site-header-height)] w-full border-b border-border bg-canvas"
       aria-hidden="true"
     />
   );

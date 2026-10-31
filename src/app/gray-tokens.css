@@ -40,6 +40,7 @@
 
   --ds-duration-fast: 150ms;
   --ds-duration-base: 200ms;
+  --ds-duration-slow: 600ms;
   --ds-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Alias del sitio (utilities Tailwind existentes) */

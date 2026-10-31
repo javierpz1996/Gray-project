@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Fragment, useState, type ReactNode } from "react";
+import { HomeDesign1ReplayButton } from "@/components/layout/home-design-1-replay-button";
 import { SiteBrand } from "@/components/layout/site-brand";
 import type { SiteNavDropdown, SiteNavItem } from "@/config/site";
 import { site } from "@/config/site";
@@ -200,6 +201,14 @@ export function SiteNavigation({ centered = false }: { centered?: boolean }) {
             <Fragment key={item.label}>
               {index > 0 ? <NavBarSeparator /> : null}
               <li>{renderNavItem(item, undefined, centered)}</li>
+              {item.kind === "dropdown" && item.label === "Diseños" ? (
+                <>
+                  <NavBarSeparator />
+                  <li>
+                    <HomeDesign1ReplayButton />
+                  </li>
+                </>
+              ) : null}
             </Fragment>
           ))}
         </ul>
@@ -240,6 +249,12 @@ export function SiteNavigation({ centered = false }: { centered?: boolean }) {
                           onNavigate={close}
                         />
                       ))}
+                      {item.label === "Diseños" ? (
+                        <HomeDesign1ReplayButton
+                          className="text-left"
+                          onAfterReplay={close}
+                        />
+                      ) : null}
                     </div>
                   );
                 }

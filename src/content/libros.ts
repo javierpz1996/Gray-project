@@ -26,6 +26,8 @@ export type Libro = {
   readonly paginas: number;
   readonly formato: string;
   readonly idioma: string;
+  readonly kind: "completo" | "tema";
+  readonly temaNumero?: number;
   readonly apuntes?: readonly string[];
   readonly contenido?: readonly string[];
   readonly consultaIndice?: string;
@@ -36,10 +38,15 @@ export type Libro = {
 };
 
 export const librosSection = {
-  eyebrow: "01. Clásico y limpio",
+  eyebrow: "01. Material de estudio",
   title: "Libros",
   intro:
-    "Material de estudio y referencia para mejorar en el dibujo, la anatomía y la construcción de personajes.",
+    "Fundamentos del dibujo: comprá la edición completa en un solo PDF o elegí cada tema por separado.",
+  temasCalloutLines: [
+    "También podés",
+    "comprar cada tema",
+    "por separado",
+  ] as const,
   verTodosHref: "/documentos",
   verTodosLabel: "Ver todos",
   volverLabel: "Volver a libros",
@@ -56,6 +63,11 @@ function comprarMailto(titulo: string): string {
 const PRECIO_APUNTE: LibroPrecio = {
   ars: "$6.500 ARS",
   usd: "$17,55 USD",
+};
+
+const PRECIO_COMPLETO: LibroPrecio = {
+  ars: "$24.000 ARS",
+  usd: "$65 USD",
 };
 
 const CONSULTA_INDICE =
@@ -77,6 +89,8 @@ function fichaApuntePdf(
 ): Pick<
   Libro,
   | "eyebrow"
+  | "kind"
+  | "temaNumero"
   | "paginas"
   | "formato"
   | "apuntes"
@@ -91,6 +105,8 @@ function fichaApuntePdf(
     eyebrow: `PDF Nº${numero}`,
     paginas,
     formato: "PDF A4 · full color",
+    kind: "tema" as const,
+    temaNumero: numero,
     apuntes: apuntesPdf(paginas),
     contenido,
     consultaIndice: CONSULTA_INDICE,
@@ -113,13 +129,46 @@ function galeriaDesdePortada(
   ];
 }
 
-export const libros: readonly Libro[] = [
+export const libroEdicionCompleta: Libro = {
+  slug: "fundamentos-dibujo",
+  titulo: "Fundamentos del dibujo",
+  autor: "Grayby art",
+  imagen: "/Imagenes/Libros/LibroCompleto.jpg",
+  alt: "Portada — Edición completa Fundamentos del dibujo",
+  descripcion:
+    "Compilación en PDF A4 con forma, anatomía, rostro y ejercicios guiados en un solo material.",
+  idioma: "Español",
+  kind: "completo",
+  eyebrow: "Edición completa",
+  paginas: 64,
+  formato: "PDF A4 · full color",
+  apuntes: apuntesPdf(64),
+  contenido: [
+    "Forma y volumen en el espacio",
+    "Anatomía constructiva",
+    "Apunte de dibujo",
+    "Rostro: proporciones y estructura",
+    "Ruta de estudio sugerida",
+  ],
+  consultaIndice: CONSULTA_INDICE,
+  consultaIndiceHref: comprarMailto(
+    "Edición completa — Índice de contenido: Fundamentos del dibujo",
+  ),
+  precio: PRECIO_COMPLETO,
+  comprarHref: comprarMailto("Edición completa — Fundamentos del dibujo"),
+  galeria: galeriaDesdePortada(
+    "/Imagenes/Libros/LibroCompleto.jpg",
+    "Portada — Fundamentos del dibujo",
+  ),
+};
+
+export const librosTemas: readonly Libro[] = [
   {
     slug: "formas-espacio-3d",
     titulo: "Las formas en el espacio 3D",
     autor: "Grayby art",
-    imagen: "/Imagenes/Libros/portada 1.jpg",
-    alt: "Portada — PDF Nº1 Las formas en el espacio 3D",
+    imagen: "/Imagenes/Libros/LibroTema1.jpg",
+    alt: "Portada — Tema I Las formas en el espacio 3D",
     descripcion:
       "Apunte en PDF A4 con volúmenes, perspectiva y luz aplicada al dibujo de personajes y escenarios.",
     idioma: "Español",
@@ -131,7 +180,7 @@ export const libros: readonly Libro[] = [
       "Del boceto geométrico a la ilustración",
     ]),
     galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/portada 1.jpg",
+      "/Imagenes/Libros/LibroTema1.jpg",
       "Portada — Las formas en el espacio 3D",
     ),
   },
@@ -139,8 +188,8 @@ export const libros: readonly Libro[] = [
     slug: "anatomia-constructiva",
     titulo: "Anatomía constructiva",
     autor: "Grayby art",
-    imagen: "/Imagenes/Libros/portada 3.jpg",
-    alt: "Portada — PDF Nº2 Anatomía constructiva",
+    imagen: "/Imagenes/Libros/LibroTema2.jpg",
+    alt: "Portada — Tema II Anatomía constructiva",
     descripcion:
       "Apunte en PDF A4 para construir el cuerpo con bloques, ejes y proporciones antes del detalle anatómico.",
     idioma: "Español",
@@ -152,16 +201,37 @@ export const libros: readonly Libro[] = [
       "Figura en movimiento",
     ]),
     galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/portada 3.jpg",
+      "/Imagenes/Libros/LibroTema2.jpg",
       "Portada — Anatomía constructiva",
+    ),
+  },
+  {
+    slug: "apunte-dibujo",
+    titulo: "Apunte de dibujo",
+    autor: "Grayby art",
+    imagen: "/Imagenes/Libros/LibroTema3.jpg",
+    alt: "Portada — Tema III Apunte de dibujo",
+    descripcion:
+      "Apunte en PDF A4 con ejercicios de observación, línea y ritmo para afianzar el trazo.",
+    idioma: "Español",
+    ...fichaApuntePdf(3, "Apunte de dibujo", 16, [
+      "Línea y peso del trazo",
+      "Observación y simplificación",
+      "Boceto rápido y repaso",
+      "Referencia y memoria visual",
+      "Ejercicios diarios sugeridos",
+    ]),
+    galeria: galeriaDesdePortada(
+      "/Imagenes/Libros/LibroTema3.jpg",
+      "Portada — Apunte de dibujo",
     ),
   },
   {
     slug: "rostro-proporciones",
     titulo: "Rostro, Proporciones, Estructura",
     autor: "Grayby art",
-    imagen: "/Imagenes/Libros/portada 4.jpg",
-    alt: "Portada — PDF Nº4 Rostro, proporciones y estructura",
+    imagen: "/Imagenes/Libros/LibroTema4.jpg",
+    alt: "Portada — Tema IV Rostro, proporciones y estructura",
     descripcion:
       "Apunte en PDF A4, 16 páginas full color, con técnicas e ilustraciones paso a paso.",
     idioma: "Español",
@@ -173,42 +243,13 @@ export const libros: readonly Libro[] = [
       "Volumetría, esquemas constructivos",
     ]),
     galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/portada 4.jpg",
+      "/Imagenes/Libros/LibroTema4.jpg",
       "Portada — Rostro, proporciones y estructura",
     ),
   },
-  {
-    slug: "fundamentos-dibujo",
-    titulo: "Fundamentos del dibujo",
-    autor: "Grayby art",
-    imagen: "/Imagenes/Libros/portada libro completo.jpg",
-    alt: "Portada — Edición completa Fundamentos del dibujo",
-    descripcion:
-      "Compilación en PDF A4 con forma, anatomía, rostro y ejercicios guiados en un solo material.",
-    idioma: "Español",
-    eyebrow: "Edición completa",
-    paginas: 64,
-    formato: "PDF A4 · full color",
-    apuntes: apuntesPdf(64),
-    contenido: [
-      "Forma y volumen en el espacio",
-      "Anatomía constructiva",
-      "Rostro: proporciones y estructura",
-      "Ejercicios guiados por tema",
-      "Ruta de estudio sugerida",
-    ],
-    consultaIndice: CONSULTA_INDICE,
-    consultaIndiceHref: comprarMailto(
-      "Edición completa — Índice de contenido: Fundamentos del dibujo",
-    ),
-    precio: PRECIO_APUNTE,
-    comprarHref: comprarMailto("Edición completa — Fundamentos del dibujo"),
-    galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/portada libro completo.jpg",
-      "Portada — Fundamentos del dibujo",
-    ),
-  },
 ];
+
+export const libros: readonly Libro[] = [libroEdicionCompleta, ...librosTemas];
 
 /** @deprecated Usar `libros`. */
 export const librosPortadas = libros;

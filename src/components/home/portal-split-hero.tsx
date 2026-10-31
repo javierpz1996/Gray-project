@@ -11,6 +11,8 @@ import { homeDesignAnchor } from "@/lib/home-design";
 import { cn } from "@/lib/utils";
 
 function PortalSplitHeroNews({ design }: { design: HomeDesignId }) {
+  const editorial = design === 3;
+
   return (
     <div
       id="noticias"
@@ -18,7 +20,12 @@ function PortalSplitHeroNews({ design }: { design: HomeDesignId }) {
     >
       <Link
         href={homeDesignAnchor(design, "libros")}
-        className="inline-flex w-fit bg-ds-yellow px-2 py-0.5 font-sans text-micro font-extrabold uppercase tracking-[0.1em] text-ink shadow-[0_2px_0_color-mix(in_srgb,var(--ds-ink)_35%,transparent)] transition-opacity duration-150 ease-out hover:opacity-90 motion-reduce:transition-none"
+        className={cn(
+          "inline-flex w-fit px-2 py-0.5 font-sans text-micro font-extrabold uppercase tracking-[0.1em] shadow-[0_2px_0_color-mix(in_srgb,var(--ds-ink)_35%,transparent)] transition-opacity duration-150 ease-out hover:opacity-90 motion-reduce:transition-none",
+          editorial
+            ? "bg-ds-red text-primary-foreground"
+            : "bg-ds-yellow text-ink",
+        )}
       >
         {design2PortalHero.newsIndexLabel}
       </Link>
@@ -26,22 +33,43 @@ function PortalSplitHeroNews({ design }: { design: HomeDesignId }) {
         {design2PortalNews.map((item) => (
           <li
             key={item.pageRange}
-            className="grid grid-cols-[auto_auto_1fr] items-start gap-x-2.5 border-t border-[color-mix(in_srgb,var(--ds-yellow)_28%,var(--primary-foreground)_72%)] py-2 first:border-t-0 md:gap-x-3 md:py-2.5"
+            className={cn(
+              "grid grid-cols-[auto_auto_1fr] items-start gap-x-2.5 py-2 first:border-t-0 md:gap-x-3 md:py-2.5",
+              editorial
+                ? "border-t border-[color-mix(in_srgb,var(--ds-ink)_22%,transparent)]"
+                : "border-t border-[color-mix(in_srgb,var(--ds-yellow)_28%,var(--primary-foreground)_72%)]",
+            )}
           >
             <span
-              className="font-sans text-[0.5625rem] font-bold tracking-[0.18em] text-ds-yellow/70 [writing-mode:vertical-rl] rotate-180"
+              className={cn(
+                "font-sans text-[0.5625rem] font-bold tracking-[0.18em] [writing-mode:vertical-rl] rotate-180",
+                editorial ? "text-ds-red/80" : "text-ds-yellow/70",
+              )}
               aria-hidden
             >
               Pags
             </span>
             <span
-              className="font-sans text-small font-extrabold leading-none tracking-tight text-ds-yellow md:text-h3"
+              className={cn(
+                "font-sans text-small font-extrabold leading-none tracking-tight md:text-h3",
+                editorial ? "text-ds-red" : "text-ds-yellow",
+              )}
             >
               {item.pageRange}
             </span>
-            <p className="font-sans text-micro leading-snug text-primary-foreground md:text-small">
+            <p
+              className={cn(
+                "font-sans text-micro leading-snug md:text-small",
+                editorial ? "text-ink" : "text-primary-foreground",
+              )}
+            >
               <span className="font-semibold">{item.heading}:</span>{" "}
-              <span className="font-normal text-primary-foreground/85">
+              <span
+                className={cn(
+                  "font-normal",
+                  editorial ? "text-ink/75" : "text-primary-foreground/85",
+                )}
+              >
                 {item.description}
               </span>
             </p>
@@ -67,21 +95,27 @@ export function PortalSplitHero({
 }: PortalSplitHeroProps) {
   const underHeader = layout === "under-header";
 
+  const isDesign3 = design === 3;
+
   return (
     <section
       id="inicio"
       className={cn(
-        "grid w-full bg-ink text-primary-foreground",
+        "portal-split-hero grid w-full bg-ink text-primary-foreground",
+        isDesign3 && "portal-split-hero--design-3",
         underHeader && "scroll-mt-[var(--site-header-height)]",
         underHeader
           ? "lg:min-h-[min(calc(100dvh-var(--site-header-height)),56rem)]"
           : "lg:min-h-[min(100dvh,56rem)]",
-        "lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]",
+        isDesign3
+          ? "lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]"
+          : "lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]",
       )}
     >
       <div
         className={cn(
-          "relative overflow-hidden",
+          "portal-split-hero__visual relative overflow-hidden",
+          isDesign3 && "portal-split-hero__visual--diagonal lg:order-2",
           underHeader
             ? "min-h-[min(70vh,26rem)] lg:min-h-0 lg:h-full"
             : "min-h-[min(72vh,28rem)] lg:min-h-0 lg:h-full",
@@ -90,12 +124,30 @@ export function PortalSplitHero({
         <PortalSplitHeroVisual />
       </div>
 
-      <div className="design-2-hero-panel relative flex min-h-0 flex-col">
-        <div className="design-2-hero-panel__surface" aria-hidden />
+      <div
+        className={cn(
+          "relative flex min-h-0 flex-col",
+          isDesign3
+            ? "design-3-hero-panel lg:order-1"
+            : "design-2-hero-panel",
+          isDesign3 && "text-ink",
+        )}
+      >
+        <div
+          className={
+            isDesign3
+              ? "design-3-hero-panel__surface"
+              : "design-2-hero-panel__surface"
+          }
+          aria-hidden
+        />
         <div
           className="relative z-[1] flex w-full flex-col items-start px-6 py-10 md:px-10 md:py-12 lg:px-12 lg:py-14"
         >
-          <Design2HeroTrailer eyebrowVariant={heroEyebrowVariant} />
+          <Design2HeroTrailer
+            eyebrowVariant={heroEyebrowVariant}
+            panelTone={isDesign3 ? "light" : "dark"}
+          />
           <PortalSplitHeroNews design={design} />
         </div>
       </div>
