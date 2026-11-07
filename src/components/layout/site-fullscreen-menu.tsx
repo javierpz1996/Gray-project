@@ -52,6 +52,8 @@ const EDGE_LINE = `${site.wordmark}    ·    `.repeat(8);
 const COLUMNS: { items: MenuLink[] }[] = [
   {
     items: [
+      { href: "/", label: "Diseño 1", sub: "Principal" },
+      { href: "/?diseno=2", label: "Diseño 2", sub: "Versión" },
       { href: "/#inicio", label: "Inicio", sub: "Portada" },
       { href: "/#portafolio", label: "Obra", sub: "Piezas" },
       { href: "/desing-system", label: "Sistema", sub: "Guía visual" },
