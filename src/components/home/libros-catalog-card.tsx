@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { Libro } from "@/content/libros";
+import type { OpenLibroHandler } from "@/lib/libros-open-flight";
 
 const INCLINACION = [
   "-rotate-[4deg]",
@@ -19,7 +20,7 @@ type LibrosCatalogCardProps = {
   /** Menos texto y márgenes (p. ej. grilla 2×2 junto a la edición completa). */
   compact?: boolean;
   badge?: string;
-  onOpen: (libro: Libro) => void;
+  onOpen: OpenLibroHandler;
   onPreload: (libro: Libro) => void;
   className?: string;
 };
@@ -43,7 +44,7 @@ const TEMA_THUMB_COVER = cn(
 type LibrosTemaThumbProps = {
   libro: Libro;
   badge: string;
-  onOpen: (libro: Libro) => void;
+  onOpen: OpenLibroHandler;
   onPreload: (libro: Libro) => void;
   /** Rellena la celda de la grilla 2×2 al lado de la edición completa (desktop). */
   fillCell?: boolean;
@@ -63,7 +64,7 @@ export function LibrosTemaThumb({
       <button
         type="button"
         aria-label={`${libro.titulo} — ${badge}`}
-        onClick={() => onOpen(libro)}
+        onClick={(e) => onOpen(libro, e.currentTarget)}
         onPointerEnter={() => onPreload(libro)}
         onFocus={() => onPreload(libro)}
         className={cn(
@@ -92,7 +93,7 @@ export function LibrosTemaThumb({
     <button
       type="button"
       aria-label={`${libro.titulo} — ${badge}`}
-      onClick={() => onOpen(libro)}
+      onClick={(e) => onOpen(libro, e.currentTarget)}
       onPointerEnter={() => onPreload(libro)}
       onFocus={() => onPreload(libro)}
       className={cn(
@@ -135,10 +136,11 @@ export function LibrosCatalogCard({
     <article className={cn("flex h-full min-h-0 flex-col", className)}>
       <button
         type="button"
-        onClick={() => onOpen(libro)}
+        aria-label={libro.titulo}
+        onClick={(e) => onOpen(libro, e.currentTarget)}
         onPointerEnter={() => onPreload(libro)}
         onFocus={() => onPreload(libro)}
-        className="group flex h-full min-h-0 w-full cursor-pointer flex-col rounded-md text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+        className="group block w-full cursor-pointer rounded-md text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
       >
         <div
           className={cn(
@@ -180,28 +182,28 @@ export function LibrosCatalogCard({
             />
           </div>
         </div>
-        <h3
+      </button>
+      <h3
+        className={cn(
+          "font-sans font-bold leading-snug text-fg",
+          compact ? "mt-2 line-clamp-2 text-micro" : "mt-5 text-small",
+        )}
+      >
+        {libro.titulo}
+      </h3>
+      {compact ? null : (
+        <p className="mt-1.5 text-micro text-fg-muted">{libro.autor}</p>
+      )}
+      {libro.precio ? (
+        <p
           className={cn(
-            "font-sans font-bold leading-snug text-fg group-hover:text-primary",
-            compact ? "mt-2 line-clamp-2 text-micro" : "mt-5 text-small",
+            "text-micro font-medium text-fg-subtle",
+            compact ? "mt-1" : "mt-2",
           )}
         >
-          {libro.titulo}
-        </h3>
-        {compact ? null : (
-          <p className="mt-1.5 text-micro text-fg-muted">{libro.autor}</p>
-        )}
-        {libro.precio ? (
-          <p
-            className={cn(
-              "text-micro font-medium text-fg-subtle",
-              compact ? "mt-1" : "mt-2",
-            )}
-          >
-            {libro.precio.ars}
-          </p>
-        ) : null}
-      </button>
+          {libro.precio.ars}
+        </p>
+      ) : null}
     </article>
   );
 }

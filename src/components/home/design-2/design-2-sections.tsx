@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PortalSplitHero } from "@/components/home/portal-split-hero";
 import { design2PortalSeries } from "@/content/design-2-portal";
 import { libros } from "@/content/libros";
-import { homeDesignAnchor } from "@/lib/home-design";
+import { productDetailHref } from "@/lib/product-detail-path";
 
 export function Design2Hero() {
   return <PortalSplitHero design={2} layout="portal" />;
@@ -35,7 +35,6 @@ export function Design2Series() {
         ))}
       </div>
       <div
-        id="libros"
         className="mt-14 scroll-mt-[var(--site-header-height)] border-t border-[color-mix(in_srgb,var(--primary-foreground)_12%,transparent)] pt-12 lg:scroll-mt-6"
       >
         <h3 className="font-display text-h2 font-bold uppercase tracking-title text-primary-foreground">
@@ -45,7 +44,7 @@ export function Design2Series() {
           {libros.map((libro) => (
             <li key={libro.slug}>
               <Link
-                href={homeDesignAnchor(2, `libro-${libro.slug}`)}
+                href={productDetailHref(libro.slug)}
                 className="group block"
               >
                 <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-surface-muted shadow-book">

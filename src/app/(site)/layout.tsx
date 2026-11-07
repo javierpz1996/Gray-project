@@ -3,11 +3,12 @@ import { HomeDesignMarker } from "@/components/layout/home-design-marker";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { NavHeroDimOverlay } from "@/components/layout/nav-hero-dim-overlay";
+import { SiteScrollHygiene } from "@/components/layout/site-scroll-hygiene";
 
 function SiteHeaderFallback() {
   return (
     <div
-      className="site-header-top h-[var(--site-header-height)] w-full shrink-0 border-b border-border bg-canvas"
+      className="site-header-top sticky top-0 z-50 h-0 w-full"
       aria-hidden="true"
     />
   );
@@ -22,6 +23,9 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       </Suspense>
       <Suspense fallback={null}>
         <HomeDesignMarker />
+      </Suspense>
+      <Suspense fallback={null}>
+        <SiteScrollHygiene />
       </Suspense>
       <NavHeroDimOverlay />
       <main className="site-main flex-1">{children}</main>

@@ -22,3 +22,18 @@ export function resolveNavHref(
   }
   return href;
 }
+
+/** Enlaces del ítem «Inicio» (home + ancla #inicio). */
+export function isInicioNavHref(href: string | null | undefined): boolean {
+  if (!href) return false;
+  if (href === "#inicio" || href === "/#inicio") return true;
+  try {
+    const url = new URL(
+      href,
+      typeof window !== "undefined" ? window.location.origin : "https://example.com",
+    );
+    return url.pathname === "/" && url.hash === "#inicio";
+  } catch {
+    return false;
+  }
+}

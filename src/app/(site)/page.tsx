@@ -27,6 +27,8 @@ async function HomePageContent({
   );
   const showHeroEyebrowPreview =
     design === 3 && firstParam(params.eyebrowPreview) === "1";
+  const showLibrosVariantPicker =
+    firstParam(params.librosVariantes) === "1";
 
   return (
     <HomeDesign
@@ -35,6 +37,7 @@ async function HomePageContent({
       logoAnimation={design === 1 ? logoAnimation : 0}
       heroEyebrowVariant={heroEyebrowVariant}
       showHeroEyebrowPreview={showHeroEyebrowPreview}
+      showLibrosVariantPicker={showLibrosVariantPicker}
     />
   );
 }

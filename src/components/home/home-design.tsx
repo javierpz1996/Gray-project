@@ -3,7 +3,8 @@ import { Design2HeroEyebrowPreview } from "@/components/home/design-2/design-2-h
 import { HomeDesign2Portal } from "@/components/home/design-2/home-design-2-portal";
 import { HomeDesign1TriPanelHero } from "@/components/home/home-design-1-tri-panel-hero";
 import { PortalSplitHero } from "@/components/home/portal-split-hero";
-import { LibrosSection } from "@/components/home/libros-section";
+import { LibrosShowcaseSection } from "@/components/home/libros-showcase/libros-showcase-section";
+import { HomeSnsSection } from "@/components/home/sns/home-sns-section";
 import { HomeSobreMi } from "@/components/home/home-sections";
 import { HomeDesign10Hero } from "@/components/home/design-10/home-design-10-hero";
 import type { HomeDesignId } from "@/lib/home-design";
@@ -16,6 +17,7 @@ type HomeDesignProps = {
   logoAnimation?: HomeDesign1LogoAnimationId;
   heroEyebrowVariant?: Design2HeroEyebrowVariantId;
   showHeroEyebrowPreview?: boolean;
+  showLibrosVariantPicker?: boolean;
 };
 
 export function HomeDesign({
@@ -24,6 +26,7 @@ export function HomeDesign({
   logoAnimation = 0,
   heroEyebrowVariant = "b",
   showHeroEyebrowPreview = false,
+  showLibrosVariantPicker = false,
 }: HomeDesignProps) {
   if (design === 2) {
     return (
@@ -44,7 +47,8 @@ export function HomeDesign({
           layout="under-header"
           heroEyebrowVariant={heroEyebrowVariant}
         />
-        <LibrosSection />
+        <HomeSnsSection />
+        <LibrosShowcaseSection showVariantPicker={showLibrosVariantPicker} />
         <HomeSobreMi />
       </>
     );
@@ -54,7 +58,8 @@ export function HomeDesign({
     return (
       <div className="home-design-10-shell">
         <HomeDesign10Hero heroAnimation={heroAnimation} />
-        <LibrosSection />
+        <HomeSnsSection />
+        <LibrosShowcaseSection showVariantPicker={showLibrosVariantPicker} />
         <HomeSobreMi />
       </div>
     );
@@ -66,7 +71,8 @@ export function HomeDesign({
         heroAnimation={heroAnimation}
         logoAnimation={logoAnimation}
       />
-      <LibrosSection />
+      <HomeSnsSection />
+      <LibrosShowcaseSection showVariantPicker={showLibrosVariantPicker} />
       <HomeSobreMi />
     </>
   );

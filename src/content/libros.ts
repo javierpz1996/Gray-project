@@ -3,6 +3,10 @@
  */
 
 import { site } from "@/config/site";
+import {
+  indiceRostroProporciones,
+  type LibroIndiceDetallado,
+} from "@/content/libros-indice-detallado";
 
 export type LibroGaleriaImagen = {
   readonly src: string;
@@ -30,6 +34,7 @@ export type Libro = {
   readonly temaNumero?: number;
   readonly apuntes?: readonly string[];
   readonly contenido?: readonly string[];
+  readonly indiceDetallado?: LibroIndiceDetallado;
   readonly consultaIndice?: string;
   readonly consultaIndiceHref?: string;
   readonly precio?: LibroPrecio;
@@ -39,9 +44,21 @@ export type Libro = {
 
 export const librosSection = {
   eyebrow: "01. Material de estudio",
-  title: "Libros",
+  title: "Fundamentos del dibujo",
   intro:
-    "Fundamentos del dibujo: comprá la edición completa en un solo PDF o elegí cada tema por separado.",
+    "Conseguí la edición completa o elegí los temas que más te interesen.\nAprendé a tu propio ritmo",
+  showcaseIntroParts: [
+    {
+      text: "Conseguí la edición completa o elegí los temas que más te interesen.",
+    },
+    { text: "Aprendé a tu propio ritmo", block: true },
+  ] as const,
+  showcasePaths: [
+    { id: "completo", label: "Libro completo" },
+    { id: "temas", label: "Temas" },
+  ] as const,
+  showcaseLevelPostitLines: ["Para", "todos", "los", "niveles", "desde 0"] as const,
+  showcaseFollowPostitLines: ["Clases", "personalizadas"] as const,
   temasCalloutLines: [
     "También podés",
     "comprar cada tema",
@@ -53,6 +70,8 @@ export const librosSection = {
   comprarLabel: "Comprar libro",
   detalleFondoSrc: "/Imagenes/Varias/detalleLibroFondo.png",
   detalleFondoAlt: "",
+  /** Índice inicial del carrusel en home (0-based); 2 → contador 03 / N. */
+  defaultShowcaseIndex: 2,
 } as const;
 
 function comprarMailto(titulo: string): string {
@@ -242,6 +261,7 @@ export const librosTemas: readonly Libro[] = [
       "Los planos del rostro",
       "Volumetría, esquemas constructivos",
     ]),
+    indiceDetallado: indiceRostroProporciones,
     galeria: galeriaDesdePortada(
       "/Imagenes/Libros/LibroTema4.jpg",
       "Portada — Rostro, proporciones y estructura",

@@ -1,4 +1,5 @@
 import { Design2PortalChrome } from "@/components/home/design-2/design-2-portal-chrome";
+import { LibrosShowcaseSection } from "@/components/home/libros-showcase/libros-showcase-section";
 import { HomeLibrosCarousel } from "@/components/home/home-libros-carousel";
 import { HomeSobreMi } from "@/components/home/home-sections";
 import {
@@ -26,6 +27,9 @@ export function HomeDesign2Portal() {
           Trailer
         </p>
         <HomeLibrosCarousel />
+      </div>
+      <div className="bg-canvas px-0 py-8 text-fg md:py-12">
+        <LibrosShowcaseSection />
       </div>
       <HomeSobreMi />
       </div>

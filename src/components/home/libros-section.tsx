@@ -1,14 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useState, type ComponentType } from "react";
-import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, type ComponentType } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Reveal } from "@/components/reveal";
-import { LibroDetailDialog } from "@/components/home/libro-detail-dialog";
 import {
   LibrosLayoutClasico,
   LibrosLayoutDestacado,
   LibrosLayoutEditorial,
-  LibrosLayoutEstante,
   LibrosLayoutMitad,
   LibrosLayoutMitadLista,
   LibrosLayoutMitadPoster,
@@ -20,18 +18,18 @@ import { Button } from "@/components/ui/button";
 import { preloadLibroDetalle } from "@/lib/preload-libro-detalle";
 import { preloadImageSrc } from "@/lib/preload-image";
 import { parseLibrosLayout } from "@/lib/libros-layout";
+import { productDetailHref } from "@/lib/product-detail-path";
+import type { OpenLibroHandler } from "@/lib/libros-open-flight";
 import type { Libro } from "@/content/libros";
 import {
   libroEdicionCompleta,
   libros,
-  librosSection,
   librosTemas,
 } from "@/content/libros";
 
 const LIBROS_LAYOUTS: Record<LibrosLayoutId, ComponentType<LibrosLayoutBodyProps>> = {
   1: LibrosLayoutClasico,
   2: LibrosLayoutDestacado,
-  3: LibrosLayoutEstante,
   4: LibrosLayoutEditorial,
   5: LibrosLayoutMitad,
   6: LibrosLayoutMitadLista,
@@ -40,104 +38,106 @@ const LIBROS_LAYOUTS: Record<LibrosLayoutId, ComponentType<LibrosLayoutBodyProps
 };
 
 export function LibrosSection() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const layout = parseLibrosLayout(searchParams.get("libros"));
-  const [libroAbierto, setLibroAbierto] = useState<Libro | null>(null);
 
   useEffect(() => {
-    const precargarSeccion = () => {
-      preloadImageSrc(librosSection.detalleFondoSrc);
-      for (const item of libros) {
-        preloadImageSrc(item.imagen);
-      }
-    };
-
-    if (typeof window.requestIdleCallback === "function") {
-      window.requestIdleCallback(precargarSeccion);
-    } else {
-      window.setTimeout(precargarSeccion, 300);
+    for (const item of libros) {
+      preloadImageSrc(item.imagen);
     }
   }, []);
 
-  const abrirLibro = useCallback((libro: Libro) => {
-    preloadLibroDetalle(libro);
-    document.body.dataset.libroDetalle = "open";
-    document.documentElement.style.overflow = "hidden";
-    setLibroAbierto(libro);
-  }, []);
+  const abrirPortada: OpenLibroHandler = useCallback(
+    (libro) => {
+      preloadLibroDetalle(libro);
+      preloadImageSrc(libro.imagen);
+      router.push(productDetailHref(libro.slug));
+    },
+    [router],
+  );
 
-  const precargarLibro = useCallback((libro: Libro) => {
-    preloadLibroDetalle(libro);
-  }, []);
-
-  const onModalOpenChange = useCallback((nextOpen: boolean) => {
-    if (!nextOpen) {
-      setLibroAbierto(null);
-    }
-  }, []);
+  const precargarLibro = useCallback(
+    (libro: Libro) => {
+      preloadLibroDetalle(libro);
+      router.prefetch(productDetailHref(libro.slug));
+    },
+    [router],
+  );
 
   const layoutProps = {
     completo: libroEdicionCompleta,
     temas: librosTemas,
-    onOpen: abrirLibro,
+    onOpen: abrirPortada,
     onPreload: precargarLibro,
   };
 
   const LayoutBody = LIBROS_LAYOUTS[layout];
 
+  const scrollAlCatalogo = () => {
+    document
+      .querySelector(".libros-split__completo-portada")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   return (
-    <>
-      <section
-        id="libros"
-        className="section-paper scroll-mt-[var(--site-header-height)] py-16 md:py-24"
-        aria-labelledby="libros-title"
-        data-libros-layout={layout}
-      >
-        <div className="relative z-[1] mx-auto w-full max-w-site px-6">
-          <Reveal>
-            <div
-              id={`libro-${libroEdicionCompleta.slug}`}
-              className="max-w-xl scroll-mt-[var(--site-header-height)]"
+    <section
+      id="libros"
+      className="section-paper scroll-mt-[var(--site-header-height)] py-16 md:py-24"
+      aria-labelledby="libros-title"
+      data-libros-layout={layout}
+    >
+      <div className="relative z-[1] mx-auto w-full max-w-site px-6">
+        <Reveal>
+          <div
+            id={`libro-${libroEdicionCompleta.slug}`}
+            className="max-w-xl scroll-mt-[var(--site-header-height)]"
+          >
+            <p className="eyebrow">{libroEdicionCompleta.eyebrow}</p>
+            <h2
+              id="libros-title"
+              className="mt-3 font-display text-h1 font-bold leading-heading tracking-title text-fg"
             >
-              <p className="eyebrow">{libroEdicionCompleta.eyebrow}</p>
-              <h2
-                id="libros-title"
-                className="mt-3 font-display text-h1 font-bold leading-heading tracking-title text-fg"
-              >
-                {libroEdicionCompleta.titulo}
-              </h2>
-              <p className="mt-4 max-w-prose text-body text-fg-muted">
-                {libroEdicionCompleta.descripcion}
+              {libroEdicionCompleta.titulo}
+            </h2>
+            <p className="mt-4 max-w-prose text-body text-fg-muted">
+              {libroEdicionCompleta.descripcion}
+            </p>
+            {libroEdicionCompleta.precio ? (
+              <p className="mt-4 text-body font-semibold text-fg">
+                {libroEdicionCompleta.precio.ars} ·{" "}
+                {libroEdicionCompleta.precio.usd}
               </p>
-              {libroEdicionCompleta.precio ? (
-                <p className="mt-4 text-body font-semibold text-fg">
-                  {libroEdicionCompleta.precio.ars} ·{" "}
-                  {libroEdicionCompleta.precio.usd}
-                </p>
-              ) : null}
-              <Button
-                type="button"
-                variant="default"
-                size="sm"
-                className="mt-4 h-11 rounded-none font-semibold text-primary-foreground hover:text-primary-foreground"
-                onClick={() => abrirLibro(libroEdicionCompleta)}
-                onPointerEnter={() => precargarLibro(libroEdicionCompleta)}
-                onFocus={() => precargarLibro(libroEdicionCompleta)}
-              >
-                Ver detalle →
-              </Button>
-            </div>
-          </Reveal>
+            ) : null}
+            <Button
+              type="button"
+              variant="default"
+              size="sm"
+              className="mt-4 h-11 rounded-none font-semibold text-primary-foreground hover:text-primary-foreground"
+              onClick={scrollAlCatalogo}
+              onPointerEnter={() => precargarLibro(libroEdicionCompleta)}
+              onFocus={() => precargarLibro(libroEdicionCompleta)}
+            >
+              Ver libros →
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="mt-4 ml-0 h-11 rounded-none sm:ml-3"
+              onClick={() => {
+                document
+                  .getElementById("estante-3d")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+            >
+              Estante 3D →
+            </Button>
+          </div>
+        </Reveal>
 
-          <LayoutBody {...layoutProps} />
-        </div>
-      </section>
-
-      <LibroDetailDialog
-        libro={libroAbierto}
-        open={libroAbierto !== null}
-        onOpenChange={onModalOpenChange}
-      />
-    </>
+        <LayoutBody {...layoutProps} />
+      </div>
+    </section>
   );
 }

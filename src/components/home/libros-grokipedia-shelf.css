@@ -1,0 +1,479 @@
+.libros-grokipedia {
+  --libros-grokipedia-h: clamp(14rem, 40svh, 22.5rem);
+  --libros-grokipedia-spine: 2.875rem;
+  --libros-grokipedia-cover: calc(var(--libros-grokipedia-h) * 0.72);
+  --libros-grokipedia-depth: 0.55rem;
+  --libros-grokipedia-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  margin-top: 0;
+  min-height: min(78svh, 44rem);
+  padding: clamp(1.25rem, 3.5vw, 2rem) 0 clamp(5.75rem, 11vw, 7.25rem);
+  color: var(--ds-ink);
+  background: var(--ds-surface-muted);
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-lg);
+  overflow: clip;
+}
+
+.libros-grokipedia__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 clamp(1rem, 4vw, 2.5rem) 1rem;
+}
+
+.libros-grokipedia__kicker {
+  margin: 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ds-ink);
+}
+
+.libros-grokipedia__title {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: clamp(0.8125rem, 1.2vw, 0.875rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ds-muted);
+}
+
+.libros-grokipedia__sub {
+  margin: 0.75rem 0 0;
+  max-width: 32rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--ds-muted-light);
+}
+
+.libros-grokipedia__nav {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.35rem;
+}
+
+.libros-grokipedia__nav button {
+  display: grid;
+  width: 2.125rem;
+  height: 2.125rem;
+  place-items: center;
+  color: var(--ds-muted);
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    color var(--ds-duration-fast) var(--ds-ease-out),
+    border-color var(--ds-duration-fast) var(--ds-ease-out),
+    transform var(--ds-duration-fast) var(--ds-ease-out);
+}
+
+.libros-grokipedia__nav button:hover {
+  color: var(--ds-ink);
+  border-color: var(--ds-line-strong);
+  transform: translateY(-1px);
+}
+
+.libros-grokipedia__nav button:focus-visible {
+  outline: 2px solid var(--border-strong);
+  outline-offset: 2px;
+}
+
+.libros-grokipedia__nav svg {
+  width: 0.9375rem;
+  height: 0.9375rem;
+  stroke-width: 1.75;
+}
+
+.libros-grokipedia__viewport {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 1.25rem clamp(0.5rem, 3vw, 2rem) 2rem;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  outline: none;
+}
+
+.libros-grokipedia__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.libros-grokipedia__viewport:focus-visible {
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--ring) 40%, transparent);
+  border-radius: var(--ds-radius-md);
+}
+
+.libros-grokipedia__track {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  width: max-content;
+  min-width: 100%;
+  min-height: calc(var(--libros-grokipedia-h) + 2.5rem);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 8vw, 6rem);
+  perspective: 1600px;
+  perspective-origin: 50% 85%;
+}
+
+.libros-grokipedia__item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  list-style: none;
+}
+
+.libros-grokipedia__book {
+  position: relative;
+  display: block;
+  width: var(--libros-grokipedia-spine);
+  height: var(--libros-grokipedia-h);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  outline: none;
+  transform-origin: 50% 100%;
+  transition:
+    width 560ms var(--libros-grokipedia-ease),
+    transform 560ms var(--libros-grokipedia-ease);
+}
+
+.libros-grokipedia__book[data-active="true"]:not([data-expanded="true"]) {
+  transform: translateY(-0.2rem);
+}
+
+.libros-grokipedia__book[data-expanded="true"] {
+  z-index: 30;
+  width: calc(var(--libros-grokipedia-cover) + var(--libros-grokipedia-spine));
+  transform: translateY(-0.5rem);
+}
+
+.libros-grokipedia__book[data-active="true"] {
+  z-index: 10;
+}
+
+.libros-grokipedia__book:focus-visible {
+  z-index: 40;
+}
+
+.libros-grokipedia__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: 0 100%;
+}
+
+.libros-grokipedia__spine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 0.7rem 0.25rem 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--ds-ink) 12%, transparent);
+  border-radius: 2px 3px 3px 2px;
+  box-shadow:
+    inset -1px 0 0 color-mix(in srgb, var(--ds-ink) 8%, transparent),
+    var(--ds-shadow-book);
+  backface-visibility: hidden;
+  transition: opacity 400ms var(--libros-grokipedia-ease);
+}
+
+.libros-grokipedia__book[data-expanded="true"] .libros-grokipedia__spine {
+  box-shadow:
+    inset -1px 0 0 color-mix(in srgb, var(--ds-ink) 14%, transparent),
+    var(--ds-shadow-book);
+}
+
+.libros-grokipedia__spine-art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.libros-grokipedia__spine-tint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--libros-grokipedia-spine-tint, transparent);
+  mix-blend-mode: multiply;
+}
+
+.libros-grokipedia__spine-title {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--ds-surface) 80%, transparent);
+  color: var(--ds-ink);
+}
+
+.libros-grokipedia__spine-mark {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-instrument-serif), serif;
+  font-size: 0.6875rem;
+  line-height: 1;
+  opacity: 0.65;
+}
+
+.libros-grokipedia__cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--libros-grokipedia-spine);
+  z-index: 3;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--ds-ink) 14%, transparent);
+  border-radius: 3px;
+  box-shadow: var(--ds-shadow-book);
+  opacity: 1;
+  clip-path: inset(0 100% 0 0);
+  transform: translateX(-0.35rem);
+  transform-origin: left center;
+  backface-visibility: hidden;
+  transition:
+    clip-path 560ms var(--libros-grokipedia-ease),
+    transform 560ms var(--libros-grokipedia-ease);
+}
+
+.libros-grokipedia__book[data-expanded="true"] .libros-grokipedia__cover {
+  clip-path: inset(0 0 0 0);
+  transform: translateX(0);
+}
+
+.libros-grokipedia__cover-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ds-ink-deep) 18%, transparent) 0%,
+    transparent 35%,
+    color-mix(in srgb, var(--ds-ink-deep) 55%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
+.libros-grokipedia__cover-brand {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  z-index: 2;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ds-surface);
+}
+
+.libros-grokipedia__cover-heading {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 2.35rem;
+  left: 0.75rem;
+  z-index: 2;
+  font-family: var(--font-instrument-serif), serif;
+  font-size: clamp(0.875rem, 2.2vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--ds-surface);
+}
+
+.libros-grokipedia__cover-reads {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ds-surface) 88%, transparent);
+}
+
+.libros-grokipedia__edge {
+  position: absolute;
+  top: 2%;
+  right: -0.12rem;
+  z-index: 1;
+  width: var(--libros-grokipedia-depth);
+  height: 96%;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--ds-ink) 22%, var(--ds-surface-muted)),
+    color-mix(in srgb, var(--ds-ink) 8%, var(--ds-surface))
+  );
+  opacity: 0;
+  transform: translateZ(-2px);
+  transition: opacity 400ms var(--libros-grokipedia-ease);
+}
+
+.libros-grokipedia__book[data-expanded="true"] .libros-grokipedia__edge {
+  opacity: 1;
+}
+
+.libros-grokipedia__shadow {
+  position: absolute;
+  right: 10%;
+  bottom: -0.65rem;
+  left: 10%;
+  z-index: 0;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ds-ink-deep) 22%, transparent);
+  filter: blur(10px);
+  opacity: 0.35;
+  transform: scaleX(0.7);
+  transition:
+    opacity 500ms var(--libros-grokipedia-ease),
+    transform 500ms var(--libros-grokipedia-ease),
+    filter 500ms var(--libros-grokipedia-ease);
+  pointer-events: none;
+}
+
+.libros-grokipedia__book[data-expanded="true"] .libros-grokipedia__shadow {
+  opacity: 0.55;
+  filter: blur(16px);
+  transform: scaleX(1.05);
+}
+
+.libros-grokipedia__dock {
+  position: absolute;
+  right: clamp(1rem, 4vw, 2.5rem);
+  bottom: clamp(1rem, 3vw, 1.75rem);
+  left: clamp(1rem, 4vw, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem 0.85rem;
+  padding: 0.55rem 0.95rem;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.8125rem;
+  background: color-mix(in srgb, var(--ds-surface) 92%, transparent);
+  border: 1px solid var(--ds-line);
+  border-radius: 999px;
+  box-shadow: var(--ds-shadow-sm);
+  backdrop-filter: blur(8px);
+}
+
+.libros-grokipedia__dock-index {
+  min-width: 1.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ds-muted);
+  text-align: center;
+}
+
+.libros-grokipedia__dock-title {
+  font-weight: 700;
+  color: var(--ds-ink);
+}
+
+.libros-grokipedia__dock-meta {
+  color: var(--ds-muted);
+}
+
+.libros-grokipedia__dock-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  margin-left: 0.15rem;
+}
+
+.libros-grokipedia__dock-read {
+  padding: 0;
+  font-weight: 600;
+  color: var(--ds-ink);
+  background: transparent;
+  border: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+  transition: color var(--ds-duration-fast) var(--ds-ease-out);
+}
+
+.libros-grokipedia__dock-read:hover {
+  color: var(--primary);
+}
+
+.libros-grokipedia__dock-put {
+  padding: 0;
+  font-weight: 600;
+  color: var(--ds-muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--ds-duration-fast) var(--ds-ease-out);
+}
+
+.libros-grokipedia__dock-put:hover:not(:disabled) {
+  color: var(--ds-ink);
+}
+
+.libros-grokipedia__dock-put:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .libros-grokipedia__book {
+    transition-duration: 0.01ms !important;
+  }
+
+  .libros-grokipedia__spine,
+  .libros-grokipedia__cover,
+  .libros-grokipedia__edge,
+  .libros-grokipedia__shadow {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .libros-grokipedia__head {
+    flex-direction: column;
+  }
+
+  .libros-grokipedia__nav {
+    align-self: flex-end;
+  }
+
+  .libros-grokipedia__dock {
+    border-radius: var(--ds-radius-lg);
+  }
+
+  .libros-grokipedia__track {
+    justify-content: flex-start;
+    padding-inline: 1.25rem;
+  }
+}

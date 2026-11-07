@@ -1,0 +1,385 @@
+.filmografia-section {
+  --tape-h: min(62svh, 36vw);
+  position: relative;
+  z-index: 60;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  height: 100svh;
+  min-height: 38rem;
+  color: var(--ds-ink);
+  background: var(--ds-cream);
+}
+
+.filmografia-section__content {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.filmografia-section__tabs {
+  position: absolute;
+  z-index: 3;
+  top: clamp(2rem, 8.3svh, 4.5rem);
+  left: 50%;
+  display: flex;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  margin: 0;
+  overflow-x: auto;
+  border: 1px solid var(--ds-ink);
+  scrollbar-width: none;
+  transform: translateX(-50%);
+}
+
+.filmografia-section__tabs::-webkit-scrollbar { display: none; }
+
+.filmografia-section__tabs button {
+  min-height: 1.55rem;
+  padding: 0 .7rem;
+  color: var(--ds-ink);
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--ds-ink);
+  font-family: var(--font-inter), sans-serif;
+  font-size: .64rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--ds-duration-base) var(--ds-ease-out), background-color var(--ds-duration-base) var(--ds-ease-out);
+}
+
+.filmografia-section__tabs button:last-child { border-right: 0; }
+.filmografia-section__tabs button[aria-pressed="true"] { color: var(--ds-ink); background: var(--ds-blue); }
+
+.filmografia-section__shelf {
+  position: absolute;
+  top: 15.2svh;
+  left: 0;
+  width: 100%;
+  height: 62svh;
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.filmografia-section__stage {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.filmografia-section__tape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: calc(var(--tape-h) * .169);
+  height: var(--tape-h);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform: translate3d(calc(var(--offset-x) - 50%), -50%, var(--offset-z));
+  transform-style: preserve-3d;
+  transition: transform 600ms var(--ds-ease-out), filter 300ms var(--ds-ease-out);
+  cursor: pointer;
+  will-change: transform;
+}
+
+.filmografia-section__tape:hover { filter: brightness(1.04); }
+.filmografia-section__tape:focus-visible { z-index: 3; }
+
+.filmografia-section__spine, .filmografia-section__cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background-repeat: no-repeat;
+  box-shadow: var(--ds-shadow-book);
+  backface-visibility: hidden;
+}
+
+.filmografia-section__spine { width: 100%; transform: translateZ(2px); }
+
+.filmografia-section__cover {
+  left: 50%;
+  width: calc(var(--tape-h) * .527);
+  transform: translateX(-50%) translateZ(18px);
+  box-shadow: var(--ds-shadow-book);
+}
+
+.filmografia-section__active-tape {
+  z-index: 2;
+  width: calc(var(--tape-h) * .527);
+  transform: translate3d(-50%, calc(-50% - .45rem), 50px) rotateY(-4deg) rotateZ(-4.5deg);
+}
+
+.filmografia-section__active-tape .filmografia-section__cover { transform: none; }
+
+.filmografia-section__play {
+  position: absolute;
+  z-index: 3;
+  bottom: 9%;
+  left: -1.5rem;
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  color: var(--ds-blue);
+  background: var(--ds-cream);
+  border: 1px solid var(--ds-blue);
+  border-radius: 50%;
+}
+
+.filmografia-section__play::before {
+  width: 0;
+  height: 0;
+  margin-left: .2rem;
+  border-top: .4rem solid transparent;
+  border-bottom: .4rem solid transparent;
+  border-left: .55rem solid currentColor;
+  content: "";
+}
+
+.filmografia-section__arrow {
+  position: absolute;
+  z-index: 4;
+  top: 109%;
+  left: 2.5vw;
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  color: var(--ds-ink);
+  background: transparent;
+  border: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: color var(--ds-duration-fast) var(--ds-ease-out);
+}
+
+.filmografia-section__arrow:hover { color: var(--ds-blue); }
+.filmografia-section__arrow svg { width: 1.25rem; height: 1.25rem; stroke-width: 1.5; }
+.filmografia-section__next { left: auto; right: 2.5vw; }
+
+.filmografia-section__caption {
+  position: absolute;
+  top: 79.5svh;
+  left: 50%;
+  width: min(90vw, 40rem);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.filmografia-section__next-section {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.35rem 0.75rem;
+  color: var(--ds-ink);
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-line-strong);
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition:
+    color var(--ds-duration-fast) var(--ds-ease-out),
+    border-color var(--ds-duration-fast) var(--ds-ease-out);
+}
+
+.filmografia-section__next-section:hover {
+  color: var(--ds-blue);
+  border-color: var(--ds-blue);
+}
+
+.filmografia-section__caption h3 {
+  margin: 0;
+  font-family: var(--font-barlow-condensed), var(--font-inter), sans-serif;
+  font-size: clamp(1.75rem, 2.2vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.filmografia-section__romanized, .filmografia-section__year, .filmografia-section__meta, .filmografia-section__credit {
+  margin: 0;
+  font-family: var(--font-inter), sans-serif;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .045em;
+}
+
+.filmografia-section__romanized { margin-top: .7rem; color: var(--ds-blue); }
+.filmografia-section__romanized span { color: var(--ds-ink); }
+.filmografia-section__year { margin-top: .35rem; color: var(--ds-ink); font-variant-numeric: tabular-nums; }
+
+.filmografia-section__cursor {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  color: var(--ds-ink);
+  background: transparent;
+  border: 1px solid var(--ds-ink);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(var(--x, -100px), var(--y, -100px), 0) translate(-50%, -50%);
+  transition: width 400ms var(--ds-ease-out), height 400ms var(--ds-ease-out), background-color 400ms var(--ds-ease-out), border-color 400ms var(--ds-ease-out), opacity 150ms ease-out;
+}
+
+.filmografia-section__cursor i {
+  width: .3rem;
+  height: .3rem;
+  background: currentColor;
+  border-radius: 50%;
+  transition: transform 300ms var(--ds-ease-out);
+}
+
+.filmografia-section__cursor b {
+  position: absolute;
+  font-family: var(--font-inter), sans-serif;
+  font-size: .48rem;
+  font-weight: 700;
+  letter-spacing: .045em;
+  transform: scale(0);
+  transition: transform 300ms var(--ds-ease-out);
+}
+
+.filmografia-section__cursor[data-mode="spine"] { width: 1.8rem; height: 1.8rem; }
+.filmografia-section__cursor[data-mode="button"] { width: 1.35rem; height: 1.35rem; }
+.filmografia-section__cursor[data-mode="button"] i, .filmografia-section__cursor[data-mode="open"] i { transform: scale(0); }
+.filmografia-section__cursor[data-mode="open"] { width: 5rem; height: 5rem; color: var(--ds-ink); background: var(--ds-blue); border-color: var(--ds-blue); }
+.filmografia-section__cursor[data-mode="open"] b { transform: scale(1); }
+
+@media (pointer: fine) {
+  .filmografia-section:not([data-detail-open]), .filmografia-section:not([data-detail-open]) * { cursor: none !important; }
+}
+
+.filmografia-section[data-detail-open] .filmografia-section__cursor {
+  display: none;
+}
+
+.filmografia-section__detail,
+.filmografia-section__detail * {
+  cursor: auto !important;
+}
+
+@media (pointer: fine) {
+  .filmografia-section__close,
+  .filmografia-section__close * {
+    cursor: pointer !important;
+  }
+}
+
+@media (pointer: coarse) {
+  .filmografia-section__cursor { display: none; }
+}
+
+.filmografia-section__detail:not([open]) {
+  display: none;
+  pointer-events: none;
+}
+
+.filmografia-section__detail[open] {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  grid-template-columns: minmax(16rem, .8fr) minmax(18rem, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: 6rem 8vw 3rem;
+  color: var(--ds-ink);
+  background: var(--ds-surface-muted);
+  border: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.filmografia-section__detail::backdrop { background: var(--ds-ink-deep); }
+
+.filmografia-section__close {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  color: var(--ds-ink);
+  background: transparent;
+  border: 1px solid var(--ds-line-strong);
+  cursor: pointer;
+}
+
+.filmografia-section__close svg { width: 1.1rem; height: 1.1rem; }
+
+.filmografia-section__detail-poster {
+  justify-self: end;
+  width: min(100%, 25rem);
+  aspect-ratio: 474 / 900;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: var(--ds-shadow-book);
+}
+
+.filmografia-section__detail-text { max-width: 34rem; }
+
+.filmografia-section__detail-text h3 {
+  margin: 1rem 0;
+  font-family: var(--font-barlow-condensed), var(--font-inter), sans-serif;
+  font-size: clamp(2.75rem, 5.4vw, 5rem);
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+
+.filmografia-section__meta, .filmografia-section__credit { color: var(--ds-muted); }
+.filmografia-section__synopsis { max-width: 42ch; margin: 1.5rem 0; font-family: var(--font-inter), sans-serif; font-size: 1.1rem; line-height: 1.6; }
+.filmografia-section__credit { font-style: italic; }
+
+@media (max-width: 767px) {
+  .filmografia-section { --tape-h: min(60vw, 40svh); min-height: 0; }
+  .filmografia-section__tabs { top: 8svh; max-width: calc(100vw - 1.5rem); }
+  .filmografia-section__tabs button { min-height: 1.5rem; padding-inline: .55rem; font-size: .59rem; }
+  .filmografia-section__shelf { top: 21svh; height: 42svh; }
+  .filmografia-section__active-tape { transform: translate3d(-50%, calc(-50% - .25rem), 30px) rotateY(-4deg) rotateZ(-3deg); }
+  .filmografia-section__play { left: -1rem; width: 2.4rem; height: 2.4rem; }
+  .filmografia-section__arrow { top: 115%; left: .5rem; }
+  .filmografia-section__next { left: auto; right: .5rem; }
+  .filmografia-section__caption { top: 75svh; width: calc(100% - 4rem); }
+  .filmografia-section__caption h3 { font-size: 1.55rem; }
+  .filmografia-section__romanized, .filmografia-section__year { font-size: .58rem; }
+  .filmografia-section__detail[open] { grid-template-columns: 1fr; align-content: start; gap: 1.25rem; overflow-y: auto; padding: 5rem 1.4rem 2rem; }
+  .filmografia-section__detail-poster { justify-self: center; width: auto; height: 42svh; }
+  .filmografia-section__detail-text { max-width: none; }
+  .filmografia-section__detail-text h3 { margin: .55rem 0; font-size: 2.6rem; }
+  .filmografia-section__synopsis { margin: .85rem 0; font-size: 1rem; }
+  .filmografia-section__close { top: 1rem; left: 1rem; width: 2.5rem; height: 2.5rem; }
+}
+
+@media (max-height: 650px) and (min-width: 768px) {
+  .filmografia-section { --tape-h: min(58svh, 30vw); }
+  .filmografia-section__tabs { top: 5svh; }
+  .filmografia-section__shelf { top: 12svh; height: 60svh; }
+  .filmografia-section__caption { top: 76svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .filmografia-section__tape, .filmografia-section__tabs button, .filmografia-section__arrow, .filmografia-section__cursor, .filmografia-section__cursor i, .filmografia-section__cursor b { transition-duration: 1ms; }
+}

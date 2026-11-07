@@ -1,7 +1,8 @@
 @import "tailwindcss";
-@import "tw-animate-css";
+@import "../../node_modules/tw-animate-css/dist/tw-animate.css";
 @import "shadcn/tailwind.css";
 @import "./gray-tokens.css";
+@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -21,6 +22,7 @@
   --color-hover: var(--hover);
   --color-ink: var(--ink);
   --color-ink-nav: var(--ink-nav);
+  --color-ink-deep: var(--ink-deep);
   --color-coral: var(--coral);
   --color-coral-hover: var(--coral-hover);
   --color-ds-blue: var(--ds-blue);
@@ -152,10 +154,10 @@
     }
   }
 
-  /* Detalle de libro (portal en body): sin flash de grilla ni franja gris bajo el viewport */
-  body[data-libro-detalle="open"] > main,
-  body[data-libro-detalle="open"] > footer {
-    visibility: hidden;
+  /* Detalle de libro: scroll en capa fija del portal; el documento no se desplaza */
+  body[data-libro-detalle="open"],
+  body[data-film-detail-open] {
+    overflow: hidden;
   }
 
   /* Home diseño 2 (portal): chrome propio; sin header/footer globales */
@@ -188,7 +190,7 @@
     padding-top: var(--site-header-height);
   }
 
-  /* Home diseño 1: hero a pantalla completa; paneles debajo del navbar fijo. */
+  /* Home diseño 1: el sticker del menú flota; el hero llega al borde. */
   body[data-home-design="1"] .site-main {
     padding-top: 0;
   }
@@ -196,12 +198,12 @@
   body[data-home-design="1"] .home-design-1-tri-hero {
     box-sizing: border-box;
     min-height: 100dvh;
-    padding-top: var(--site-header-height);
+    padding-top: 0;
   }
 
   body[data-home-design="1"] .home-design-1-tri-hero__frame {
-    min-height: calc(100dvh - var(--site-header-height));
-    height: calc(100dvh - var(--site-header-height));
+    min-height: 100dvh;
+    height: 100dvh;
   }
 
   @media (min-width: 768px) {
@@ -493,7 +495,8 @@
 /* Diseño 1 — laboratorio de animaciones (chips sobre el hero). */
 .home-design-1-hero-lab {
   position: absolute;
-  right: 0.75rem;
+  left: 0.75rem;
+  right: auto;
   top: 0.75rem;
   z-index: 8;
   max-width: min(20rem, calc(100% - 1.5rem));
@@ -505,6 +508,30 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.home-design-1-hero-lab__toggle {
+  align-self: flex-start;
+  margin: 0 0 0.45rem;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--ds-ink) 35%, transparent);
+  background: var(--canvas);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--ds-ink);
+}
+
+.home-design-1-hero-lab__toggle:hover {
+  background: var(--ds-yellow);
+}
+
+.home-design-1-hero-lab:not(:has(.home-design-1-hero-lab__grid)) .home-design-1-hero-lab__toggle {
+  margin-bottom: 0;
 }
 
 .home-design-1-hero-lab__title {
@@ -945,7 +972,8 @@ body[data-home-design="10"] .site-main {
 
 .home-design-10-hero__stage > .home-design-10-hero-lab.home-design-1-hero-lab {
   top: auto;
-  right: 1rem;
+  left: 1rem;
+  right: auto;
   bottom: 1rem;
 }
 

@@ -1,4 +1,4 @@
-export const LIBROS_LAYOUT_IDS = [1, 2, 3, 4, 5, 6, 7, 8] as const;
+export const LIBROS_LAYOUT_IDS = [1, 2, 4, 5, 6, 7, 8] as const;
 
 export type LibrosLayoutId = (typeof LIBROS_LAYOUT_IDS)[number];
 
@@ -15,10 +15,6 @@ export const librosLayoutMeta: Record<
   2: {
     label: "Destacado",
     hint: "Edición completa grande + temas en bloque",
-  },
-  3: {
-    label: "Estante",
-    hint: "Scroll horizontal tipo librería",
   },
   4: {
     label: "Editorial",
@@ -44,10 +40,13 @@ export const librosLayoutMeta: Record<
 
 export function parseLibrosLayout(value: string | null | undefined): LibrosLayoutId {
   const parsed = Number(value);
+  if (parsed === 3) {
+    return 1;
+  }
   if (layoutIdSet.has(parsed)) {
     return parsed as LibrosLayoutId;
   }
-  return 5;
+  return 1;
 }
 
 /** Conserva `diseno`, `hero`, `logo`, etc. al cambiar maquetación. */
@@ -56,7 +55,7 @@ export function librosLayoutHref(
   searchParams: URLSearchParams,
 ): string {
   const next = new URLSearchParams(searchParams);
-  if (layout === 5) {
+  if (layout === 1) {
     next.delete("libros");
   } else {
     next.set("libros", String(layout));

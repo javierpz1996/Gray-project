@@ -5,12 +5,13 @@ import Image from "next/image";
 import { LibrosCatalogCard, LibrosTemaThumb } from "@/components/home/libros-catalog-card";
 import { LibrosTemasCallout } from "@/components/home/libros-temas-callout";
 import type { Libro } from "@/content/libros";
+import type { OpenLibroHandler } from "@/lib/libros-open-flight";
 import { cn } from "@/lib/utils";
 
 export type LibrosLayoutBodyProps = {
   completo: Libro;
   temas: readonly Libro[];
-  onOpen: (libro: Libro) => void;
+  onOpen: OpenLibroHandler;
   onPreload: (libro: Libro) => void;
 };
 
@@ -46,7 +47,7 @@ function LibrosCompletoMitad({
     >
       <button
         type="button"
-        onClick={() => onOpen(completo)}
+        onClick={(e) => onOpen(completo, e.currentTarget)}
         onPointerEnter={() => onPreload(completo)}
         onFocus={() => onPreload(completo)}
         className="group flex w-full cursor-pointer flex-col text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
@@ -205,43 +206,6 @@ export function LibrosLayoutDestacado({
   );
 }
 
-/** 3 — Scroll horizontal: completo ancho + temas en fila. */
-export function LibrosLayoutEstante({
-  completo,
-  temas,
-  onOpen,
-  onPreload,
-}: LibrosLayoutBodyProps) {
-  const items = [completo, ...temas];
-
-  return (
-    <div className="libros-shelf mt-12 lg:mt-14">
-      <ul className="libros-shelf__track flex list-none gap-6 overflow-x-auto pb-4 pt-2 [-ms-overflow-style:none] [scrollbar-width:thin] snap-x snap-mandatory sm:gap-8">
-        {items.map((libro, index) => (
-          <li
-            key={libro.slug}
-            id={`libro-${libro.slug}`}
-            className={cn(
-              "shrink-0 snap-start scroll-mt-[var(--site-header-height)]",
-              libro.kind === "completo" ? "w-[min(85vw,22rem)]" : "w-[min(72vw,15rem)]",
-            )}
-          >
-            <LibrosCatalogCard
-              libro={libro}
-              index={index}
-              inclinar={false}
-              size={libro.kind === "completo" ? "lg" : "md"}
-              badge={libro.kind === "completo" ? "Completo" : temaBadge(libro)}
-              onOpen={onOpen}
-              onPreload={onPreload}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 /** 4 — Banda horizontal del completo + fila de temas debajo. */
 export function LibrosLayoutEditorial({
   completo,
@@ -257,7 +221,7 @@ export function LibrosLayoutEditorial({
       >
         <button
           type="button"
-          onClick={() => onOpen(completo)}
+          onClick={(e) => onOpen(completo, e.currentTarget)}
           onPointerEnter={() => onPreload(completo)}
           onFocus={() => onPreload(completo)}
           className="group grid w-full cursor-pointer text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50 md:grid-cols-[minmax(0,14rem)_1fr]"
@@ -324,7 +288,7 @@ function LibrosTemasMatchGrid({
   onPreload,
 }: {
   temas: readonly Libro[];
-  onOpen: (libro: Libro) => void;
+  onOpen: OpenLibroHandler;
   onPreload: (libro: Libro) => void;
 }) {
   return (
@@ -392,7 +356,7 @@ export function LibrosLayoutMitadLista({
           >
             <button
               type="button"
-              onClick={() => onOpen(libro)}
+              onClick={(e) => onOpen(libro, e.currentTarget)}
               onPointerEnter={() => onPreload(libro)}
               onFocus={() => onPreload(libro)}
               className="group flex w-full cursor-pointer items-center gap-4 rounded-lg border border-border bg-surface p-3 text-left shadow-card transition-colors duration-150 ease-out hover:border-border-strong outline-none focus-visible:ring-3 focus-visible:ring-ring/50"

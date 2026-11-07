@@ -1,0 +1,82 @@
+.home-sns {
+  background-color: var(--ds-yellow);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--ds-surface) 38%, transparent) 1.35px,
+    transparent 1.55px
+  );
+  background-size: 16px 16px;
+}
+
+.home-sns__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  margin: 0;
+  padding: 1.5rem clamp(1rem, 3vw, 2rem);
+  list-style: none;
+  background: transparent;
+  color: var(--ds-ink);
+}
+
+.home-sns__list a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--ds-surface);
+  border-radius: 0;
+  color: var(--ds-ink);
+  font-family: var(--ds-font-display);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 5px 5px 0 var(--ds-ink);
+  transition:
+    transform 150ms ease-out,
+    box-shadow 150ms ease-out,
+    color 150ms ease-out;
+}
+
+.home-sns__list a:hover {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--ds-ink);
+  color: var(--ds-red);
+}
+
+.home-sns__list a:focus-visible {
+  outline: 2px solid var(--ds-ink);
+  outline-offset: 3px;
+}
+
+.home-sns__mark {
+  display: grid;
+  place-items: center;
+}
+
+.home-sns__mark svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+
+.home-sns + .libros-showcase .libros-showcase__inner {
+  padding-top: 0;
+}
+
+@media (max-width: 720px) {
+  .home-sns__list {
+    gap: 0.85rem 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-sns__list a,
+  .home-sns__list a:hover {
+    transition: none;
+    transform: none;
+  }
+}

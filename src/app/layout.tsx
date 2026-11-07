@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Inter } from "next/font/google";
+import { Barlow_Condensed, Inter, Oswald, Outfit } from "next/font/google";
 import { site } from "@/config/site";
 import "./globals.css";
 
@@ -16,6 +16,20 @@ const barlowCondensed = Barlow_Condensed({
   weight: ["700", "800"],
   display: "swap",
   variable: "--font-barlow-condensed",
+});
+
+const oswald = Oswald({
+  subsets: ["latin", "latin-ext"],
+  weight: ["500"],
+  display: "swap",
+  variable: "--font-oswald",
+});
+
+const outfit = Outfit({
+  subsets: ["latin", "latin-ext"],
+  weight: ["800"],
+  display: "swap",
+  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
@@ -61,7 +75,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="es"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${barlowCondensed.variable} h-full antialiased`}
+      className={`${inter.variable} ${barlowCondensed.variable} ${oswald.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>

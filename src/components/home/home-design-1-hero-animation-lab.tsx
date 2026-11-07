@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import {
   homeDesign1HeroAnimations,
@@ -29,6 +30,7 @@ export function HomeDesign1HeroAnimationLab({
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [open, setOpen] = useState(true);
   const diseno = parseHomeDesign(searchParams.get("diseno") ?? undefined);
   const activeHero = parseHomeDesign1HeroAnimation(
     searchParams.get("hero") ?? undefined,
@@ -49,6 +51,16 @@ export function HomeDesign1HeroAnimationLab({
       )}
       aria-label="Laboratorio de animaciones del hero"
     >
+      <button
+        type="button"
+        className="home-design-1-hero-lab__toggle"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        {open ? "Ocultar animaciones" : "Animaciones hero"}
+      </button>
+      {open ? (
+      <>
       <p className="home-design-1-hero-lab__title">Animaciones hero</p>
       <div className="home-design-1-hero-lab__grid">
         {homeDesign1HeroAnimations.map((entry) => (
@@ -103,6 +115,8 @@ export function HomeDesign1HeroAnimationLab({
           </Link>
         ))}
       </div>
+      </>
+      ) : null}
     </div>
   );
 }

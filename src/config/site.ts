@@ -11,6 +11,7 @@ import {
   homeDesign1HeroAnimations,
   homeDesign1HeroHref,
 } from "@/lib/home-design-1-hero-animation";
+import { productDetailHref } from "@/lib/product-detail-path";
 
 export type SiteNavLink = {
   readonly kind: "link";
@@ -127,6 +128,8 @@ export const site = {
     instagram: "https://instagram.com/",
     x: "https://x.com/",
     tiktok: "https://www.tiktok.com/",
+    youtube: "https://www.youtube.com/",
+    deviantart: "https://www.deviantart.com/",
     behance: "",
     linkedin: "",
   },
@@ -138,14 +141,30 @@ export const site = {
       kind: "dropdown",
       label: "Libros",
       items: [
-        { href: "/#libro-fundamentos-dibujo", label: "Edición completa" },
-        { href: "/#libro-formas-espacio-3d", label: "Tema I" },
-        { href: "/#libro-anatomia-constructiva", label: "Tema II" },
-        { href: "/#libro-apunte-dibujo", label: "Tema III" },
-        { href: "/#libro-rostro-proporciones", label: "Tema IV" },
+        { href: "/#libros", label: "Libros" },
+        {
+          href: productDetailHref("fundamentos-dibujo"),
+          label: "Edición completa",
+        },
+        {
+          href: productDetailHref("formas-espacio-3d"),
+          label: "Tema I",
+        },
+        {
+          href: productDetailHref("anatomia-constructiva"),
+          label: "Tema II",
+        },
+        {
+          href: productDetailHref("apunte-dibujo"),
+          label: "Tema III",
+        },
+        {
+          href: productDetailHref("rostro-proporciones"),
+          label: "Tema IV",
+        },
       ],
     },
-    { kind: "link", href: "/portafolio/sin-titulo-i", label: "Obra" },
+    { kind: "link", href: "/#portafolio", label: "Obra" },
     {
       kind: "dropdown",
       label: "Diseños",
