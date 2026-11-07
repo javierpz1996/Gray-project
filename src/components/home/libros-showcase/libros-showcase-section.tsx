@@ -458,15 +458,14 @@ export function LibrosShowcaseSection({
             <p className="libros-showcase__heading-intro mt-3">
               {librosSection.showcaseIntroParts.map((part, index) => {
                 const isOutline = "block" in part && part.block;
+                const isHighlight =
+                  "highlight" in part && part.highlight === true && !isOutline;
                 return (
                   <span
                     key={`intro-${index}`}
                     className={cn(
                       !isOutline && "libros-showcase__heading-intro-copy",
-                      "highlight" in part &&
-                        part.highlight &&
-                        !isOutline &&
-                        "libros-showcase__heading-intro-highlight",
+                      isHighlight && "libros-showcase__heading-intro-highlight",
                       isOutline &&
                         "libros-showcase__heading-intro-break libros-showcase__heading-intro-outline",
                     )}
