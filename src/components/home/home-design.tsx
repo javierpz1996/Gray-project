@@ -1,5 +1,6 @@
 import type { Design2HeroEyebrowVariantId } from "@/components/home/design-2/design-2-hero-eyebrow";
 import { Design2HeroEyebrowPreview } from "@/components/home/design-2/design-2-hero-eyebrow-preview";
+import { HomeDesign2Page } from "@/components/home/design-2/home-design-2-page";
 import { HomeDesign1TriPanelHero } from "@/components/home/home-design-1-tri-panel-hero";
 import { PortalSplitHero } from "@/components/home/portal-split-hero";
 import { LibrosShowcaseSection } from "@/components/home/libros-showcase/libros-showcase-section";
@@ -29,11 +30,11 @@ export function HomeDesign({
 }: HomeDesignProps) {
   if (design === 2) {
     return (
-      <div className="grid min-h-dvh w-full place-items-center">
-        <p className="m-0 text-center font-display text-[clamp(2rem,6vw,4.5rem)] font-extrabold tracking-wide text-ink">
-          diseño 2
-        </p>
-      </div>
+      <HomeDesign2Page
+        heroAnimation={heroAnimation}
+        logoAnimation={logoAnimation}
+        showLibrosVariantPicker={showLibrosVariantPicker}
+      />
     );
   }
 

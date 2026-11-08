@@ -201,6 +201,22 @@
     height: 100dvh;
   }
 
+  /* Home diseño 2: copia del diseño 1, con sus propias clases. */
+  body[data-home-design="2"] .site-main {
+    padding-top: 0;
+  }
+
+  body[data-home-design="2"] .home-design-2-tri-hero {
+    box-sizing: border-box;
+    min-height: 100dvh;
+    padding-top: 0;
+  }
+
+  body[data-home-design="2"] .home-design-2-tri-hero__frame {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+
   @media (min-width: 768px) {
     body[data-home-design="3"] {
       --site-header-height: 5.5rem;
@@ -481,6 +497,79 @@
 }
 
 .home-design-1-tri-hero__logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Diseño 2 — copia del hero de diseño 1. */
+.home-design-2-tri-hero {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.home-design-2-tri-hero__frame {
+  --d2-panel-step: 520ms;
+  --d2-logo-diameter-ratio: 0.36;
+  --d2-logo-size: min(
+    calc((100dvh - var(--site-header-height)) * var(--d2-logo-diameter-ratio)),
+    calc(100vw * 753 / 2089 * var(--d2-logo-diameter-ratio))
+  );
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  border: 10px solid var(--ds-ink);
+  background: var(--ds-ink);
+}
+
+.home-design-2-tri-hero__image {
+  position: relative;
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.home-design-2-tri-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.home-design-2-tri-hero__overlay--lines {
+  z-index: 3;
+}
+
+.home-design-2-tri-hero__overlay line {
+  stroke: var(--ds-ink);
+  stroke-linecap: square;
+}
+
+.home-design-2-tri-hero__panel--logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.home-design-2-tri-hero__logo-disc {
+  display: block;
+  width: var(--d2-logo-size);
+  height: var(--d2-logo-size);
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--ds-yellow);
+}
+
+.home-design-2-tri-hero__logo-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -828,9 +917,19 @@ body[data-home-design="10"] .site-main {
   filter: saturate(0.35) brightness(0.55);
 }
 
+.home-design-2-tri-hero[data-hero-intro="pending"] .home-design-2-tri-hero__photo {
+  animation: none;
+  filter: saturate(0.35) brightness(0.55);
+}
+
 /* Cada panel se enciende en orden con más color cuando termina el intro de carga. */
 .home-design-10-hero[data-hero-intro="ready"] .home-design-10-hero__panel,
 .home-design-1-tri-hero[data-hero-intro="ready"] .home-design-1-tri-hero__photo {
+  filter: saturate(1) brightness(0.8);
+  animation: hero-photo-light-sequence 2.4s ease-out both;
+}
+
+.home-design-2-tri-hero[data-hero-intro="ready"] .home-design-2-tri-hero__photo {
   filter: saturate(1) brightness(0.8);
   animation: hero-photo-light-sequence 2.4s ease-out both;
 }
@@ -860,6 +959,19 @@ body[data-home-design="10"] .site-main {
   background-position: center;
 }
 
+.home-design-2-tri-hero__photos {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.home-design-2-tri-hero__photo {
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+}
+
 /* Secuencia compartida por los heroes con fotos (diseño 1 y 10). */
 @keyframes hero-photo-light-sequence {
   0% {
@@ -876,6 +988,10 @@ body[data-home-design="10"] .site-main {
 @media (prefers-reduced-motion: reduce) {
   .home-design-10-hero__panel,
   .home-design-1-tri-hero__photo {
+    animation: none;
+  }
+
+  .home-design-2-tri-hero__photo {
     animation: none;
   }
 }

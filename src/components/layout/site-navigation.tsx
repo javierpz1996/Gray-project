@@ -1,7 +1,11 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
+import { Design2Menu } from "@/components/layout/design-2-menu";
+import type { MenuTransitionId } from "@/components/layout/design-2-menu-tiles";
 import { SiteFullscreenMenu } from "@/components/layout/site-fullscreen-menu";
+import { parseHomeDesign } from "@/lib/home-design";
 import "./site-fullscreen-menu.css";
 
 const MENU_FRAMES = [1, 2, 3, 4, 5, 6] as const;
@@ -9,6 +13,13 @@ const MENU_FRAMES = [1, 2, 3, 4, 5, 6] as const;
 export function SiteNavigation() {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
+  const [transition, setTransition] =
+    useState<MenuTransitionId>("triangulos");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const isDesign2 =
+    pathname === "/" &&
+    parseHomeDesign(searchParams.get("diseno") ?? undefined) === 2;
 
   return (
     <>
@@ -33,7 +44,17 @@ export function SiteNavigation() {
         </span>
         <span className="sr-only">Abrir menú</span>
       </button>
-      <SiteFullscreenMenu open={open} onClose={close} />
+      {isDesign2 ? (
+        open ? (
+          <Design2Menu
+            onClose={close}
+            transition={transition}
+            onTransitionChange={setTransition}
+          />
+        ) : null
+      ) : (
+        <SiteFullscreenMenu open={open} onClose={close} />
+      )}
     </>
   );
 }

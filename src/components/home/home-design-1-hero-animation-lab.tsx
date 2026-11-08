@@ -15,10 +15,11 @@ import {
 import { homeDesignHref, parseHomeDesign } from "@/lib/home-design";
 import { cn } from "@/lib/utils";
 
-type HeroLabDesign = 1 | 10;
+type HeroLabDesign = 1 | 2 | 10;
 
 const OTHER_DESIGNS: Record<HeroLabDesign, readonly (1 | 2 | 3 | 10)[]> = {
   1: [2, 3, 10],
+  2: [1, 3, 10],
   10: [1, 2, 3],
 };
 
@@ -79,7 +80,7 @@ export function HomeDesign1HeroAnimationLab({
           </Link>
         ))}
       </div>
-      {design === 1 ? (
+      {design === 1 || design === 2 ? (
         <>
           <p className="home-design-1-hero-lab__title home-design-1-hero-lab__title--section">
             Animaciones logo

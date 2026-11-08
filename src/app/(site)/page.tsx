@@ -33,8 +33,10 @@ async function HomePageContent({
   return (
     <HomeDesign
       design={design}
-      heroAnimation={design === 1 || design === 10 ? heroAnimation : 3}
-      logoAnimation={design === 1 ? logoAnimation : 0}
+      heroAnimation={
+        design === 1 || design === 2 || design === 10 ? heroAnimation : 3
+      }
+      logoAnimation={design === 1 || design === 2 ? logoAnimation : 0}
       heroEyebrowVariant={heroEyebrowVariant}
       showHeroEyebrowPreview={showHeroEyebrowPreview}
       showLibrosVariantPicker={showLibrosVariantPicker}

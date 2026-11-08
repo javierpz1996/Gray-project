@@ -40,7 +40,7 @@ const ANIMATIONS = [
 
 type AnimationId = (typeof ANIMATIONS)[number]["id"];
 
-type MenuLink = {
+export type MenuLink = {
   href: string;
   label: string;
   sub: string;
@@ -49,7 +49,7 @@ type MenuLink = {
 
 const EDGE_LINE = `${site.wordmark}    ·    `.repeat(8);
 
-const COLUMNS: { items: MenuLink[] }[] = [
+export const COLUMNS: { items: MenuLink[] }[] = [
   {
     items: [
       { href: "/", label: "Diseño 1", sub: "Principal" },

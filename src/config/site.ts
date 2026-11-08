@@ -127,6 +127,7 @@ export const site = {
   links: {
     instagram: "https://instagram.com/",
     x: "https://x.com/",
+    facebook: "https://www.facebook.com/",
     tiktok: "https://www.tiktok.com/",
     youtube: "https://www.youtube.com/",
     deviantart: "https://www.deviantart.com/",

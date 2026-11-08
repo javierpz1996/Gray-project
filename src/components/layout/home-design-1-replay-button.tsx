@@ -21,7 +21,7 @@ export function HomeDesign1ReplayButton({
   const searchParams = useSearchParams();
   const diseno = parseHomeDesign(searchParams.get("diseno") ?? undefined);
 
-  if (pathname !== "/" || diseno !== 1) {
+  if (pathname !== "/" || (diseno !== 1 && diseno !== 2)) {
     return null;
   }
 

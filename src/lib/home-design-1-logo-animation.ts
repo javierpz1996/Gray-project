@@ -55,7 +55,7 @@ export function homeDesign1Href({
   hero = 3,
   logo = 0,
 }: {
-  design?: 1 | 10;
+  design?: 1 | 2 | 10;
   hero?: HomeDesign1HeroAnimationId;
   logo?: HomeDesign1LogoAnimationId;
 }): string {
