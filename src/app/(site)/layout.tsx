@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { NavHeroDimOverlay } from "@/components/layout/nav-hero-dim-overlay";
 import { SiteScrollHygiene } from "@/components/layout/site-scroll-hygiene";
+import { readMenuApplied } from "@/lib/site-menu";
 
 function SiteHeaderFallback() {
   return (
@@ -15,11 +16,12 @@ function SiteHeaderFallback() {
 }
 
 /** Chrome del portafolio: header y footer solo en rutas del sitio público. */
-export default function SiteLayout({ children }: LayoutProps<"/">) {
+export default async function SiteLayout({ children }: LayoutProps<"/">) {
+  const menuApplied = await readMenuApplied();
   return (
     <>
       <Suspense fallback={<SiteHeaderFallback />}>
-        <SiteHeader />
+        <SiteHeader menuApplied={menuApplied} />
       </Suspense>
       <Suspense fallback={null}>
         <HomeDesignMarker />

@@ -52,6 +52,7 @@ import { parseHomeDesign1HeroAnimation } from "@/lib/home-design-1-hero-animatio
 import { parseCover2LogoMark } from "@/lib/cover-2-logo";
 import { parseCover2Menu, parseCover2SlideEvery, parseCover2SlideMotion } from "@/lib/cover-2-menu";
 import { parseHomeDesign1LogoAnimation } from "@/lib/home-design-1-logo-animation";
+import { writeMenuApplied } from "@/lib/site-menu";
 import {
   closePanelAdminSession,
   isPanelAdmin,
@@ -308,4 +309,15 @@ export async function updateHeroPanels(formData: FormData) {
   revalidatePath("/");
   revalidatePath("/panel-admin");
   redirect(`/panel-admin?ok=${slot}`);
+}
+
+export async function setSiteMenu(formData: FormData) {
+  if (!(await isPanelAdmin())) {
+    redirect("/panel-admin");
+  }
+  const intent = String(formData.get("intent") ?? "");
+  await writeMenuApplied(intent !== "remove");
+  revalidatePath("/");
+  revalidatePath("/panel-admin");
+  redirect("/panel-admin?ok=menu");
 }

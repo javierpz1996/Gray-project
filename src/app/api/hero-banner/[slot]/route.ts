@@ -14,11 +14,18 @@ export async function GET(
     if (!file) return new Response("Sin fondo", { status: 404 });
     const bytes = new Uint8Array(file.bytes);
     const video = file.contentType.startsWith("video/");
+    const tag = `"${file.bytes.length.toString(16)}-${file.bytes[0] ?? 0}${file.bytes[file.bytes.length - 1] ?? 0}"`;
     const headers = {
       "Content-Type": file.contentType,
-      "Cache-Control": "no-store",
+      "Cache-Control": video
+        ? "private, max-age=3600"
+        : "public, max-age=86400, stale-while-revalidate=604800",
+      ETag: tag,
       "Accept-Ranges": "bytes",
     };
+    if (request.headers.get("if-none-match") === tag) {
+      return new Response(null, { status: 304, headers });
+    }
     if (!video) {
       return new Response(bytes, { headers });
     }

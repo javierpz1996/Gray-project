@@ -7,7 +7,8 @@ import { SiteNavigation } from "@/components/layout/site-navigation";
 import { parseHomeDesign } from "@/lib/home-design";
 import { cn } from "@/lib/utils";
 
-function SiteHeaderDefault() {
+function SiteHeaderDefault({ menuApplied }: { menuApplied: boolean }) {
+  if (!menuApplied) return null;
   return (
     <Suspense fallback={null}>
       <SiteNavigation />
@@ -15,7 +16,7 @@ function SiteHeaderDefault() {
   );
 }
 
-function SiteHeaderInner() {
+function SiteHeaderInner({ menuApplied }: { menuApplied: boolean }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isHome = pathname === "/";
@@ -33,15 +34,15 @@ function SiteHeaderInner() {
           "pointer-events-none sticky h-0 min-h-0 w-full overflow-visible bg-transparent",
       )}
     >
-      {isDesign3Nav ? <Design3Navbar /> : <SiteHeaderDefault />}
+      {isDesign3Nav ? <Design3Navbar /> : <SiteHeaderDefault menuApplied={menuApplied} />}
     </header>
   );
 }
 
-export function SiteHeader() {
+export function SiteHeader({ menuApplied = true }: { menuApplied?: boolean }) {
   return (
     <Suspense fallback={<SiteHeaderFallback />}>
-      <SiteHeaderInner />
+      <SiteHeaderInner menuApplied={menuApplied} />
     </Suspense>
   );
 }

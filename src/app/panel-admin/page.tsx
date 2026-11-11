@@ -4,7 +4,9 @@ import { heroPanelLabels } from "@/content/hero-panels";
 import { defaultHeroCoverConfig, readHeroCoverConfig } from "@/lib/hero-config";
 import { defaultLibrosBandsConfig, readLibrosBands } from "@/lib/libros-bands";
 import { heroPanelRevision } from "@/lib/hero-panel-store";
+import { heroBannerEpoch } from "@/lib/hero-banner-store";
 import { isPanelAdmin } from "@/lib/panel-admin-session";
+import { readMenuApplied } from "@/lib/site-menu";
 import { enterPanelAdmin } from "./actions";
 import { PanelWorkspace } from "./panel-workspace";
 import { PanelNotice } from "./panel-notice";
@@ -41,9 +43,10 @@ async function PanelScreen({
 }) {
   const params = await searchParams;
   const signedIn = await isPanelAdmin();
-  const revision = signedIn ? await heroPanelRevision() : 0;
+  const revision = signedIn ? `${await heroPanelRevision()}|${heroBannerEpoch()}` : "0";
   const cover = signedIn ? await readHeroCoverConfig() : null;
   const libros = signedIn ? await readLibrosBands() : null;
+  const menuApplied = signedIn ? await readMenuApplied() : true;
   const error = params.error ? errors[params.error] : undefined;
   const saved =
     params.ok === "portada" || (params.ok && params.ok in heroPanelLabels)
@@ -102,6 +105,7 @@ async function PanelScreen({
         revision={String(revision)}
         initial={cover ?? defaultHeroCoverConfig()}
         libros={libros ?? defaultLibrosBandsConfig()}
+        menuApplied={menuApplied}
       />
     </main>
   );

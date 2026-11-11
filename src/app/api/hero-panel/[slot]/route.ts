@@ -2,7 +2,7 @@ import { isHeroPanelSlot } from "@/content/hero-panels";
 import { readHeroPanelFile } from "@/lib/hero-panel-store";
 
 export async function GET(
-  _request: Request,
+  request: Request,
   context: { params: Promise<{ slot: string }> },
 ) {
   const { slot } = await context.params;
@@ -12,12 +12,16 @@ export async function GET(
 
   try {
     const { bytes, contentType } = await readHeroPanelFile(slot);
-    return new Response(new Uint8Array(bytes), {
-      headers: {
-        "Content-Type": contentType,
-        "Cache-Control": "no-store",
-      },
-    });
+    const tag = `"${bytes.length.toString(16)}-${bytes[0] ?? 0}${bytes[bytes.length - 1] ?? 0}"`;
+    const headers = {
+      "Content-Type": contentType,
+      "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
+      ETag: tag,
+    };
+    if (request.headers.get("if-none-match") === tag) {
+      return new Response(null, { status: 304, headers });
+    }
+    return new Response(new Uint8Array(bytes), { headers });
   } catch {
     return new Response("Imagen no disponible", { status: 404 });
   }

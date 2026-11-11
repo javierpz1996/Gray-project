@@ -7,18 +7,21 @@ import { PanelBannerSection } from "./panel-banner-section";
 import { PanelCoverSection } from "./panel-cover-section";
 import { PanelCover2Section } from "./panel-cover-2-section";
 import { PanelLibrosSection } from "./panel-libros-section";
+import { PanelMenuSection } from "./panel-menu-section";
 import { PanelSide } from "./panel-side";
 
 export function PanelWorkspace({
   revision,
   initial,
   libros,
+  menuApplied,
 }: {
   revision: string;
   initial: HeroCoverConfig;
   libros: LibrosBandsConfig;
+  menuApplied: boolean;
 }) {
-  const [section, setSection] = useState<"portada" | "banners" | "libros">("portada");
+  const [section, setSection] = useState<"portada" | "banners" | "libros" | "menu">("portada");
   const [cover, setCover] = useState<1 | 2>(1);
   const [librosPart, setLibrosPart] = useState<"bandas" | "texto" | "imagenes" | "sticker" | "fondo">("bandas");
 
@@ -39,10 +42,12 @@ export function PanelWorkspace({
         }}
       />
       <section className="panel-main">
-        {section === "banners" ? (
-          <PanelBannerSection key={`banners-${revision}`} initial={initial} />
+        {section === "menu" ? (
+          <PanelMenuSection applied={menuApplied} />
+        ) : section === "banners" ? (
+          <PanelBannerSection key={`banners-${revision}`} revision={revision} initial={initial} />
         ) : section === "libros" ? (
-          <PanelLibrosSection key={`libros-${revision}`} initial={libros} part={librosPart} />
+          <PanelLibrosSection key={`libros-${revision}`} revision={revision} initial={libros} part={librosPart} />
         ) : (
           <>
             <p className="panel-crumb">Panel / Hero</p>

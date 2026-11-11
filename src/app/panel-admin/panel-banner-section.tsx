@@ -6,7 +6,13 @@ import { parseBannerRgb, type BannerFocus, type BannerPattern, type HeroCoverCon
 import { saveCover } from "./actions";
 import { PanelNotice } from "./panel-notice";
 
-export function PanelBannerSection({ initial }: { initial: HeroCoverConfig }) {
+export function PanelBannerSection({
+  initial,
+  revision,
+}: {
+  initial: HeroCoverConfig;
+  revision: string;
+}) {
   const [bannerMode, setBannerMode] = useState(initial.bannerMode);
   const [bannerPattern, setBannerPattern] = useState<BannerPattern>(initial.bannerPattern);
   const parsed = parseBannerRgb(initial.bannerColor);
@@ -15,6 +21,7 @@ export function PanelBannerSection({ initial }: { initial: HeroCoverConfig }) {
       ? (parsed.split(",").map(Number) as [number, number, number])
       : [255, 255, 255],
   );
+  const saved = (slot: string) => `/api/hero-banner/${slot}?v=${encodeURIComponent(revision)}`;
   const bannerColor = rgb.join(",");
   const parsedBase = parseBannerRgb(initial.bannerBase);
   const [base, setBase] = useState<[number, number, number]>(
@@ -73,9 +80,9 @@ export function PanelBannerSection({ initial }: { initial: HeroCoverConfig }) {
       <div className="mt-6">
         <HomeSnsSection
           banners={[
-            pending["1"] ?? "/api/hero-banner/1",
-            pending["2"] ?? "/api/hero-banner/2",
-            pending["3"] ?? "/api/hero-banner/3",
+            pending["1"] ?? saved("1"),
+            pending["2"] ?? saved("2"),
+            pending["3"] ?? saved("3"),
           ]}
           mode={bannerMode}
           pattern={bannerPattern}
@@ -85,7 +92,7 @@ export function PanelBannerSection({ initial }: { initial: HeroCoverConfig }) {
           positions={positions}
           links={links}
           motion={motion}
-          tile={bannerPattern === "custom" ? (pending.tile ?? "/api/hero-banner/tile") : null}
+          tile={bannerPattern === "custom" ? (pending.tile ?? saved("tile")) : null}
           tileSize={tileSize}
           tileGap={tileGap}
           speed={speed}
@@ -93,7 +100,7 @@ export function PanelBannerSection({ initial }: { initial: HeroCoverConfig }) {
           shadow={shadow}
           hover={hover}
           frameColor={frameColor}
-          background={pending.bg ?? (bannerMode === "image" ? "/api/hero-banner/bg" : null)}
+          background={pending.bg ?? (bannerMode === "image" ? saved("bg") : null)}
         />
       </div>
       <div className="panel-anims">
@@ -102,7 +109,7 @@ export function PanelBannerSection({ initial }: { initial: HeroCoverConfig }) {
           {(["1", "2", "3"] as const).map((slot) => (
             <div key={slot} className="panel-file">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={pending[slot] ?? `/api/hero-banner/${slot}`} alt="" />
+              <img src={pending[slot] ?? saved(slot)} alt="" />
               <span className="text-small font-semibold">Banner {slot}</span>
               <span className="text-nano text-fg-muted">Encuadre</span>
               <div className="panel-anims-grid">

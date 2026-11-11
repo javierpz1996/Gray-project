@@ -1,0 +1,164 @@
+.mo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  margin-top: 36px;
+}
+
+.mo-grid figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.mo-grid figcaption {
+  max-width: 26ch;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.mo-btn {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background: #fcff0e;
+  box-shadow: #000 0 4px 0 0;
+  color: #000;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.mo-bars {
+  width: 54px;
+  height: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.mo-bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: 5px;
+  background: #000;
+}
+
+.mo-bars span:first-child {
+  top: 0;
+}
+
+.mo-bars span:last-child {
+  bottom: 0;
+}
+
+.mo-ring {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  overflow: visible;
+}
+
+.mo-ring text {
+  font-size: 11px;
+  font-family: gothiks, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  fill: #000;
+}
+
+.mo-ring.is-spin {
+  animation: mo-spin 8s linear infinite;
+}
+
+.mo-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  font-family: gothiks, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.mo-halo {
+  position: absolute;
+  inset: 7px;
+  border: 2px dashed #000;
+  border-radius: 50%;
+  animation: mo-spin 10s linear infinite;
+}
+
+.mo-btn.is-disc {
+  animation: mo-spin 8s linear infinite;
+}
+
+.mo-still {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  animation: mo-spin 8s linear infinite reverse;
+}
+
+.mo-word {
+  font-family: gothiks, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.mo-side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mo-spine {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: gothiks, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+}
+
+.mo-toggle .mo-ring.is-spin,
+.mo-toggle.is-orbit .mo-word {
+  opacity: 0;
+}
+
+.mo-toggle.is-orbit .mo-ring.is-spin {
+  opacity: 1;
+}
+
+.mo-btn .mo-word {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+@keyframes mo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-ring.is-spin,
+  .mo-halo,
+  .mo-btn.is-disc,
+  .mo-still {
+    animation: none;
+  }
+}

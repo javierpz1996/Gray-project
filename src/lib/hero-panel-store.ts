@@ -36,12 +36,19 @@ async function fallbackBytes(slot: HeroPanelSlot): Promise<Buffer> {
   );
 }
 
+const memory = new Map<HeroPanelSlot, { bytes: Buffer; contentType: string }>();
+
 export async function readHeroPanelFile(slot: HeroPanelSlot): Promise<{
   bytes: Buffer;
   contentType: string;
 }> {
+  const cached = memory.get(slot);
+  if (cached) return cached;
+
   if (!process.env.SUPABASE_SECRET_KEY) {
-    return { bytes: await fallbackBytes(slot), contentType: "image/png" };
+    const file = { bytes: await fallbackBytes(slot), contentType: "image/png" };
+    memory.set(slot, file);
+    return file;
   }
 
   const supabase = createSupabaseAdmin();
@@ -53,11 +60,15 @@ export async function readHeroPanelFile(slot: HeroPanelSlot): Promise<{
 
   if (error) throw new Error(error.message);
   if (!data) {
-    return { bytes: await fallbackBytes(slot), contentType: "image/png" };
+    const file = { bytes: await fallbackBytes(slot), contentType: "image/png" };
+    memory.set(slot, file);
+    return file;
   }
 
   const row = data as HeroPanelRow;
-  return { bytes: decodeBytea(row.image), contentType: row.content_type };
+  const file = { bytes: decodeBytea(row.image), contentType: row.content_type };
+  memory.set(slot, file);
+  return file;
 }
 
 export async function saveHeroPanelFile(
@@ -73,12 +84,18 @@ export async function saveHeroPanelFile(
     image: `\\x${bytes.toString("hex")}`,
   });
   if (error) throw new Error(error.message);
+  memory.delete(slot);
+  revisionMemory = null;
 }
 
+let revisionMemory: string | null = null;
+
 export async function heroPanelRevision(): Promise<string> {
+  if (revisionMemory) return revisionMemory;
   if (!process.env.SUPABASE_SECRET_KEY) return "0";
   const supabase = createSupabaseAdmin();
   const { data, error } = await supabase.from(TABLE).select("slot, updated_at");
   if (error || !data) return "0";
-  return data.map((row) => `${row.slot}:${row.updated_at}`).join("|");
+  revisionMemory = data.map((row) => `${row.slot}:${row.updated_at}`).join("|");
+  return revisionMemory;
 }

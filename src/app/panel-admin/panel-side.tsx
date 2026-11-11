@@ -7,6 +7,7 @@ import {
   GalleryHorizontal,
   House,
   Image as ImageIcon,
+  Menu,
   Palette,
   Settings,
 } from "lucide-react";
@@ -30,10 +31,10 @@ export function PanelSide({
   onCover,
   onLibros,
 }: {
-  section: "portada" | "banners" | "libros";
+  section: "portada" | "banners" | "libros" | "menu";
   cover: 1 | 2;
   librosPart: "bandas" | "texto" | "imagenes" | "sticker" | "fondo";
-  onSection: (section: "portada" | "banners" | "libros") => void;
+  onSection: (section: "portada" | "banners" | "libros" | "menu") => void;
   onCover: (cover: 1 | 2) => void;
   onLibros: (part: "bandas" | "texto" | "imagenes" | "sticker" | "fondo") => void;
 }) {
@@ -119,6 +120,16 @@ export function PanelSide({
             ))}
           </ul>
         </div>
+        <button
+          type="button"
+          className="panel-nav-row"
+          data-active={section === "menu" ? "true" : "false"}
+          aria-current={section === "menu" ? "page" : undefined}
+          onClick={() => onSection("menu")}
+        >
+          <Menu aria-hidden="true" />
+          <span>Menú</span>
+        </button>
         <button type="button" className="panel-nav-row">
           <Palette aria-hidden="true" />
           <span>Estilos</span>

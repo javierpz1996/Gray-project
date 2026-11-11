@@ -210,9 +210,11 @@ const partCopy = {
 export function PanelLibrosSection({
   initial,
   part,
+  revision,
 }: {
   initial: LibrosBandsConfig;
   part: "bandas" | "texto" | "imagenes" | "sticker" | "fondo";
+  revision: string;
 }) {
   const [speed1, setSpeed1] = useState(initial.speed1);
   const [speed2, setSpeed2] = useState(initial.speed2);
@@ -224,6 +226,7 @@ export function PanelLibrosSection({
   const [tilt2, setTilt2] = useState(initial.tilt2);
   const [opacity1, setOpacity1] = useState(initial.opacity1);
   const [opacity2, setOpacity2] = useState(initial.opacity2);
+  const saved = (slot: string) => `/api/hero-banner/${slot}?v=${encodeURIComponent(revision)}`;
   const [bright1, setBright1] = useState(initial.bright1);
   const [bright2, setBright2] = useState(initial.bright2);
   const [lead, setLead] = useState(initial.lead);
@@ -274,8 +277,8 @@ export function PanelLibrosSection({
       <div className="panel-libros-stage" aria-hidden="true">
         {(
           [
-            ["back", pending.banda1 ?? "/api/hero-banner/banda1", speed1, size1, top1, tilt1, opacity1, bright1],
-            ["front", pending.banda2 ?? "/api/hero-banner/banda2", speed2, size2, top2, tilt2, opacity2, bright2],
+            ["back", pending.banda1 ?? saved("banda1"), speed1, size1, top1, tilt1, opacity1, bright1],
+            ["front", pending.banda2 ?? saved("banda2"), speed2, size2, top2, tilt2, opacity2, bright2],
           ] as const
         ).map(([place, src, speed, size, top, tilt, opacity, bright]) => (
           <div
@@ -565,8 +568,8 @@ export function PanelLibrosSection({
             {(() => {
               const kind = heading.stickerKind;
               const local = mediaPreview[kind];
-              const saved = initial.heading.stickerKind === kind ? `/api/hero-banner/profesor?media=${kind}` : "";
-              const src = local || saved;
+              const savedMedia = initial.heading.stickerKind === kind ? `${saved("profesor")}&media=${kind}` : "";
+              const src = local || savedMedia;
               const edge = kind === "video" ? heading.videoEdge : kind === "image" ? heading.imageEdge : heading.stickerEdge;
               const border = kind === "video" ? heading.videoBorder : kind === "image" ? heading.imageBorder : heading.stickerBorder;
               if (!src) {
@@ -940,8 +943,8 @@ export function PanelLibrosSection({
               ["--wash-speed" as string]: `${heading.bgSpeed}s`,
               ["--wash-tile-size" as string]: `${heading.bgTile}px`,
               ["--wash-shade" as string]: heading.bgShade / 100,
-              ["--wash-photo" as string]: `url(${bgPreview.photo ?? "/api/hero-banner/librosbg"})`,
-              ["--wash-tile" as string]: `url(${bgPreview.tile ?? "/api/hero-banner/librostile"})`,
+              ["--wash-photo" as string]: `url(${bgPreview.photo ?? saved("librosbg")})`,
+              ["--wash-tile" as string]: `url(${bgPreview.tile ?? saved("librostile")})`,
             }}
           />
           <div className="panel-texto-editor">
@@ -1127,7 +1130,7 @@ export function PanelLibrosSection({
             <div key={slot} className="panel-tema">
               <div className="panel-tema-photo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={temaPreview[slot] ?? `/api/hero-banner/${slot}`} alt="" />
+                <img src={temaPreview[slot] ?? saved(slot)} alt="" />
                 <span>{id}</span>
               </div>
               <div className="panel-tema-fields">
@@ -1179,7 +1182,7 @@ export function PanelLibrosSection({
                   />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={cuboPreview[`cubo${index + 1}`] ?? `/api/hero-banner/cubo${index + 1}`}
+                    src={cuboPreview[`cubo${index + 1}`] ?? saved(`cubo${index + 1}`)}
                     alt=""
                     className="mt-2 h-16 w-16 object-contain"
                   />
