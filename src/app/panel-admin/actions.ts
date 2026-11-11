@@ -213,7 +213,7 @@ export async function saveLibros(formData: FormData): Promise<{ ok: true } | { o
   }
 
   try {
-    for (const slot of ["banda1", "banda2", "tema1", "tema2", "tema3", "tema4", "tema5", "profesor", "librosbg", "librostile"] as const) {
+    for (const slot of ["banda1", "banda2", "tema1", "tema2", "tema3", "tema4", "tema5", "cubo1", "cubo2", "cubo3", "cubo4", "cubo5", "profesor", "librosbg", "librostile"] as const) {
       const file = formData.get(slot);
       if (!(file instanceof File) || file.size === 0) continue;
       if (file.size > MAX_BYTES) return { ok: false, message: "El archivo supera 8 MB." };

@@ -106,7 +106,7 @@ alter table public.hero_config
   add column if not exists cover2_slide_every int not null default 0;
 
 create table if not exists public.hero_banners (
-  slot text primary key check (slot in ('1', '2', '3', 'bg', 'tile', 'banda1', 'banda2', 'tema1', 'tema2', 'tema3', 'tema4', 'tema5', 'profesor', 'librosbg', 'librostile', 'logo', 'portada2', 'portada22', 'portada23', 'portada24', 'portada25', 'portada26', 'logotop')),
+  slot text primary key check (slot in ('1', '2', '3', 'bg', 'tile', 'banda1', 'banda2', 'tema1', 'tema2', 'tema3', 'tema4', 'tema5', 'cubo1', 'cubo2', 'cubo3', 'cubo4', 'cubo5', 'profesor', 'librosbg', 'librostile', 'logo', 'portada2', 'portada22', 'portada23', 'portada24', 'portada25', 'portada26', 'logotop')),
   content_type text not null,
   image bytea not null,
   updated_at timestamptz not null default now()
@@ -128,4 +128,4 @@ alter table public.hero_banners drop constraint if exists hero_banners_slot_chec
 
 alter table public.hero_banners
   add constraint hero_banners_slot_check
-  check (slot in ('1', '2', '3', 'bg', 'tile', 'banda1', 'banda2', 'tema1', 'tema2', 'tema3', 'tema4', 'tema5', 'profesor', 'librosbg', 'librostile', 'logo', 'portada2', 'portada22', 'portada23', 'portada24', 'portada25', 'portada26', 'logotop'));
+  check (slot in ('1', '2', '3', 'bg', 'tile', 'banda1', 'banda2', 'tema1', 'tema2', 'tema3', 'tema4', 'tema5', 'cubo1', 'cubo2', 'cubo3', 'cubo4', 'cubo5', 'profesor', 'librosbg', 'librostile', 'logo', 'portada2', 'portada22', 'portada23', 'portada24', 'portada25', 'portada26', 'logotop'));

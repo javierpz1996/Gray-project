@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { createSupabaseAdmin } from "@/lib/supabase/client";
 
-export const heroBannerSlots = ["1", "2", "3", "bg", "tile", "banda1", "banda2", "tema1", "tema2", "tema3", "tema4", "tema5", "profesor", "librosbg", "librostile", "logo", "portada2", "portada22", "portada23", "portada24", "portada25", "portada26", "logotop"] as const;
+export const heroBannerSlots = ["1", "2", "3", "bg", "tile", "banda1", "banda2", "tema1", "tema2", "tema3", "tema4", "tema5", "cubo1", "cubo2", "cubo3", "cubo4", "cubo5", "profesor", "librosbg", "librostile", "logo", "portada2", "portada22", "portada23", "portada24", "portada25", "portada26", "logotop"] as const;
 export type HeroBannerSlot = (typeof heroBannerSlots)[number];
 
 const TABLE = "hero_banners";
@@ -88,6 +88,9 @@ async function fallbackFile(slot: HeroBannerSlot): Promise<{ bytes: Buffer; cont
   }
   if (slot === "logo" || slot === "logotop") {
     return { bytes: await readFile(path.join(process.cwd(), "public", "media", "marca", "logo.png")), contentType: "image/png" };
+  }
+  if (slot === "cubo1" || slot === "cubo2" || slot === "cubo3" || slot === "cubo4" || slot === "cubo5") {
+    return { bytes: await readFile(path.join(process.cwd(), "public", "media", "decoracion", "cubo.png")), contentType: "image/png" };
   }
   const color = flatColors[slot] ?? [214, 214, 218];
   return { bytes: solidPng(color[0], color[1], color[2]), contentType: "image/png" };

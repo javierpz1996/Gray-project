@@ -233,6 +233,8 @@ export function PanelLibrosSection({
   const [stories, setStories] = useState(initial.stories);
   const [temaFiles, setTemaFiles] = useState<Partial<Record<string, File>>>({});
   const [temaPreview, setTemaPreview] = useState<Partial<Record<string, string>>>({});
+  const [cuboFiles, setCuboFiles] = useState<Partial<Record<string, File>>>({});
+  const [cuboPreview, setCuboPreview] = useState<Partial<Record<string, string>>>({});
   const [mediaPreview, setMediaPreview] = useState<Partial<Record<"sticker" | "image" | "video", string>>>({});
   const [mediaFiles, setMediaFiles] = useState<Partial<Record<"sticker" | "image" | "video", File>>>({});
   const [pending, setPending] = useState<Partial<Record<"banda1" | "banda2", string>>>({});
@@ -1153,6 +1155,36 @@ export function PanelLibrosSection({
                 />
                 </label>
                 <label>
+                  Cubo
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="cursor-pointer text-nano file:cursor-pointer file:rounded-md file:border-0 file:bg-hover file:px-2 file:py-1 file:text-nano"
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      if (!file) return;
+                      if (file.size > 8 * 1024 * 1024) {
+                        setNotice({ tone: "error", message: "La imagen supera 8 MB.", id: Date.now() });
+                        return;
+                      }
+                      const cube = `cubo${index + 1}`;
+                      const url = URL.createObjectURL(file);
+                      setCuboPreview((current) => {
+                        const previous = current[cube];
+                        if (previous) URL.revokeObjectURL(previous);
+                        return { ...current, [cube]: url };
+                      });
+                      setCuboFiles((current) => ({ ...current, [cube]: file }));
+                    }}
+                  />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={cuboPreview[`cubo${index + 1}`] ?? `/api/hero-banner/cubo${index + 1}`}
+                    alt=""
+                    className="mt-2 h-16 w-16 object-contain"
+                  />
+                </label>
+                <label>
                   Título
                   <input
                   className="panel-field"
@@ -1220,7 +1252,7 @@ export function PanelLibrosSection({
               data.set(`title${index}`, story.title);
               data.set(`text${index}`, story.text);
             });
-            for (const [slot, file] of Object.entries(temaFiles)) {
+            for (const [slot, file] of Object.entries({ ...temaFiles, ...cuboFiles })) {
               if (file) data.set(slot, file);
             }
             const media = mediaFiles[heading.stickerKind];

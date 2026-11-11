@@ -80,7 +80,13 @@ function storyLineStyle(style: { font: string; bold: boolean; color: string; bg:
     backgroundColor: style.bg ? `rgb(${style.bg})` : "transparent",
   };
 }
-const CUBE_SRC = "/media/decoracion/cubo.png";
+const CUBE_SRC = [
+  "/api/hero-banner/cubo1",
+  "/api/hero-banner/cubo2",
+  "/api/hero-banner/cubo3",
+  "/api/hero-banner/cubo4",
+  "/api/hero-banner/cubo5",
+];
 const SCOOTER_FRAMES = [1, 2, 3, 4, 5, 6, 7, 8].map(
   (n) => `/media/decoracion/scooter/fotograma-0${n}.png`,
 );
@@ -678,7 +684,7 @@ export function StorySection({
                   }
                 >
                   <Image
-                    src={CUBE_SRC}
+                    src={CUBE_SRC[index] ?? "/media/decoracion/cubo.png"}
                     alt=""
                     width={80}
                     height={80}
