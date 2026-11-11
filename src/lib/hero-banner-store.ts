@@ -114,13 +114,10 @@ function sniffContentType(bytes: Buffer, stored: string): string {
   return stored;
 }
 
-const memory = new Map<HeroBannerSlot, { bytes: Buffer; contentType: string }>();
-
 let bannerEpoch = 0;
 
-function forgetHeroBanner(slot: HeroBannerSlot) {
+function forgetHeroBanner(_slot: HeroBannerSlot) {
   bannerEpoch += 1;
-  memory.delete(slot);
 }
 
 export function heroBannerEpoch(): string {
@@ -131,13 +128,7 @@ export async function readHeroBannerFile(slot: HeroBannerSlot): Promise<{
   bytes: Buffer;
   contentType: string;
 } | null> {
-  const cached = memory.get(slot);
-  if (cached) return cached;
-  if (!process.env.SUPABASE_SECRET_KEY) {
-    const file = await fallbackFile(slot);
-    if (file) memory.set(slot, file);
-    return file;
-  }
+  if (!process.env.SUPABASE_SECRET_KEY) return fallbackFile(slot);
 
   const supabase = createSupabaseAdmin();
   const { data, error } = await supabase
@@ -147,19 +138,13 @@ export async function readHeroBannerFile(slot: HeroBannerSlot): Promise<{
     .maybeSingle();
 
   if (error) throw new Error(error.message);
-  if (!data) {
-    const file = await fallbackFile(slot);
-    if (file) memory.set(slot, file);
-    return file;
-  }
+  if (!data) return fallbackFile(slot);
 
   const bytes = decodeBytea(data.image);
-  const file = {
+  return {
     bytes,
     contentType: sniffContentType(bytes, String(data.content_type)),
   };
-  memory.set(slot, file);
-  return file;
 }
 
 export async function saveHeroBannerFile(

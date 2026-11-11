@@ -333,13 +333,8 @@ function bright(value: unknown): BandaBright {
   return bandaBrights.includes(Number(value) as BandaBright) ? (Number(value) as BandaBright) : 100;
 }
 
-let librosMemory: LibrosBandsConfig | null = null;
-
 export async function readLibrosBands(): Promise<LibrosBandsConfig> {
-  if (librosMemory) return librosMemory;
-  const config = await loadLibrosBands();
-  librosMemory = config;
-  return config;
+  return loadLibrosBands();
 }
 
 async function loadLibrosBands(): Promise<LibrosBandsConfig> {
@@ -398,5 +393,4 @@ export async function saveLibrosBands(config: LibrosBandsConfig): Promise<void> 
     ),
   });
   if (error) throw new Error(error.message);
-  librosMemory = config;
 }

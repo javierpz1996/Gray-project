@@ -17,9 +17,7 @@ export async function GET(
     const tag = `"${file.bytes.length.toString(16)}-${file.bytes[0] ?? 0}${file.bytes[file.bytes.length - 1] ?? 0}"`;
     const headers = {
       "Content-Type": file.contentType,
-      "Cache-Control": video
-        ? "private, max-age=3600"
-        : "public, max-age=86400, stale-while-revalidate=604800",
+      "Cache-Control": "private, no-cache",
       ETag: tag,
       "Accept-Ranges": "bytes",
     };

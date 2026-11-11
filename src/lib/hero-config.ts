@@ -161,13 +161,8 @@ function clampSlides(value: number): number {
 }
 
 export async function readHeroCoverConfig(): Promise<HeroCoverConfig> {
-  if (coverMemory) return coverMemory;
-  const config = await loadHeroCoverConfig();
-  coverMemory = config;
-  return config;
+  return loadHeroCoverConfig();
 }
-
-let coverMemory: HeroCoverConfig | null = null;
 
 async function loadHeroCoverConfig(): Promise<HeroCoverConfig> {
   const fallback = defaultHeroCoverConfig();
@@ -297,5 +292,4 @@ export async function saveHeroCoverConfig(config: HeroCoverConfig): Promise<void
     banner_hover: config.bannerHover,
   });
   if (error) throw new Error(error.message);
-  coverMemory = config;
 }
