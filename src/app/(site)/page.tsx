@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { HomeDesign } from "@/components/home/home-design";
 import { SiteLoadingIntro } from "@/components/layout/site-loading-intro";
 import { readHeroCoverConfig } from "@/lib/hero-config";
+import { heroPanelRevision } from "@/lib/hero-panel-store";
 import { readLibrosBands } from "@/lib/libros-bands";
 import { parseHomeDesign1LogoAnimation } from "@/lib/home-design-1-logo-animation";
 
@@ -14,6 +15,7 @@ async function HomePageContent({
   await connection();
   const params = await searchParams;
   const cover = await readHeroCoverConfig();
+  const panelStamp = encodeURIComponent(await heroPanelRevision());
   const bannerStamp = encodeURIComponent(cover.bannerRevision);
   const bands = await readLibrosBands();
   const logoAnimation = params.logo == null ? cover.logoAnimation : parseHomeDesign1LogoAnimation(params.logo);
@@ -33,6 +35,13 @@ async function HomePageContent({
       particles={cover.particles}
       veil={cover.veil}
       halftone={cover.halftone}
+      heroPhotos={{
+        left: `/api/hero-panel/left?v=${panelStamp}`,
+        center: `/api/hero-panel/center?v=${panelStamp}`,
+        right: `/api/hero-panel/right?v=${panelStamp}`,
+      }}
+      heroLogo={`/api/hero-banner/logo?v=${bannerStamp}`}
+      mediaStamp={bannerStamp}
       banner={{
         banners: [
           `/api/hero-banner/1?v=${bannerStamp}`,

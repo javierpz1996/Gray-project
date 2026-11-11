@@ -17,7 +17,7 @@ export async function GET(
     const tag = `"${file.bytes.length.toString(16)}-${file.bytes[0] ?? 0}${file.bytes[file.bytes.length - 1] ?? 0}"`;
     const headers = {
       "Content-Type": file.contentType,
-      "Cache-Control": "private, no-cache",
+      "Cache-Control": "no-store",
       ETag: tag,
       "Accept-Ranges": "bytes",
     };

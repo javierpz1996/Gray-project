@@ -20,6 +20,9 @@ type HomeDesignProps = {
   particles?: boolean;
   veil?: boolean;
   halftone?: boolean;
+  heroPhotos?: Partial<Record<"left" | "center" | "right", string>>;
+  heroLogo?: string;
+  mediaStamp?: string;
   banner?: HomeSnsBannerProps;
   bands?: StoryBands;
 };
@@ -38,6 +41,9 @@ export function HomeDesign({
   particles = true,
   veil = true,
   halftone = true,
+  heroPhotos,
+  heroLogo,
+  mediaStamp = "0",
   banner,
   bands,
 }: HomeDesignProps) {
@@ -56,6 +62,9 @@ export function HomeDesign({
       particles={particles}
       veil={veil}
       halftone={halftone}
+      heroPhotos={heroPhotos}
+      heroLogo={heroLogo}
+      mediaStamp={mediaStamp}
       banner={banner}
       bands={bands}
     />

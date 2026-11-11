@@ -15,7 +15,7 @@ export async function GET(
     const tag = `"${bytes.length.toString(16)}-${bytes[0] ?? 0}${bytes[bytes.length - 1] ?? 0}"`;
     const headers = {
       "Content-Type": contentType,
-      "Cache-Control": "private, no-cache",
+        "Cache-Control": "no-store",
       ETag: tag,
     };
     if (request.headers.get("if-none-match") === tag) {

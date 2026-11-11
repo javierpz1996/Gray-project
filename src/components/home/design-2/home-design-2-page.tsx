@@ -22,6 +22,9 @@ type HomeDesign2PageProps = {
   particles?: boolean;
   veil?: boolean;
   halftone?: boolean;
+  heroPhotos?: Partial<Record<"left" | "center" | "right", string>>;
+  heroLogo?: string;
+  mediaStamp?: string;
   banner?: HomeSnsBannerProps;
   bands?: StoryBands;
 };
@@ -41,6 +44,9 @@ export function HomeDesign2Page({
   particles = true,
   veil = true,
   halftone = true,
+  heroPhotos,
+  heroLogo = "/api/hero-banner/logo",
+  mediaStamp = "0",
   banner,
   bands,
 }: HomeDesign2PageProps) {
@@ -49,9 +55,9 @@ export function HomeDesign2Page({
       {coverOption === 2 ? (
         <Cover2Hero
           mark={cover2Logo}
-          topSrc={cover2Stack ? "/api/hero-banner/logotop" : null}
+          topSrc={cover2Stack ? `/api/hero-banner/logotop?v=${mediaStamp}` : null}
           menu={cover2Menu}
-          slides={cover2SlideSlots.slice(0, cover2Slides).map((slot) => `/api/hero-banner/${slot}`)}
+          slides={cover2SlideSlots.slice(0, cover2Slides).map((slot) => `/api/hero-banner/${slot}?v=${mediaStamp}`)}
           slideMotion={cover2SlideMotion}
           slideEvery={cover2SlideEvery}
         />
@@ -59,11 +65,12 @@ export function HomeDesign2Page({
         <HomeDesign2TriPanelHero
           heroAnimation={heroAnimation}
           logoAnimation={logoAnimation}
-          logoSrc="/api/hero-banner/logo"
+          logoSrc={heroLogo}
           dividerWidth={dividerWidth}
           scatterPreset={particles ? "flicker" : null}
           showVeil={veil}
           showHalftone={halftone}
+          photos={heroPhotos}
         />
       )}
       <HomeSnsSection {...banner} />

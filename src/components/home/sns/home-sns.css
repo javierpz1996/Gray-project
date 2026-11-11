@@ -2,7 +2,7 @@
   position: relative;
   max-width: 100%;
   overflow: hidden;
-  background-color: #fff;
+  background-color: var(--banner-base, var(--ds-surface));
   background-image: none;
   background-image: radial-gradient(
     circle,
@@ -623,13 +623,6 @@
   .home-sns__list {
     gap: 0.85rem 1.15rem;
   }
-}
-
-.home-sns[data-pattern],
-.home-sns[data-mode="image"],
-.home-sns[data-mode="pattern"] {
-  background-color: #fff;
-  background-image: none;
 }
 
 .home-sns__banner {
