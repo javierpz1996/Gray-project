@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { connection } from "next/server";
 import { HomeDesign } from "@/components/home/home-design";
 import { SiteLoadingIntro } from "@/components/layout/site-loading-intro";
 import { readHeroCoverConfig } from "@/lib/hero-config";
@@ -10,8 +11,10 @@ async function HomePageContent({
 }: {
   searchParams: PageProps<"/">["searchParams"];
 }) {
+  await connection();
   const params = await searchParams;
   const cover = await readHeroCoverConfig();
+  const bannerStamp = encodeURIComponent(cover.bannerRevision);
   const bands = await readLibrosBands();
   const logoAnimation = params.logo == null ? cover.logoAnimation : parseHomeDesign1LogoAnimation(params.logo);
 
@@ -31,7 +34,11 @@ async function HomePageContent({
       veil={cover.veil}
       halftone={cover.halftone}
       banner={{
-        banners: ["/api/hero-banner/1", "/api/hero-banner/2", "/api/hero-banner/3"],
+        banners: [
+          `/api/hero-banner/1?v=${bannerStamp}`,
+          `/api/hero-banner/2?v=${bannerStamp}`,
+          `/api/hero-banner/3?v=${bannerStamp}`,
+        ],
         mode: cover.bannerMode,
         pattern: cover.bannerPattern,
         color: cover.bannerColor,
@@ -40,7 +47,7 @@ async function HomePageContent({
         positions: cover.bannerPositions,
         links: cover.bannerLinks,
         motion: cover.bannerMotion,
-        tile: cover.bannerPattern === "custom" ? "/api/hero-banner/tile" : null,
+        tile: cover.bannerPattern === "custom" ? `/api/hero-banner/tile?v=${bannerStamp}` : null,
         tileSize: cover.bannerTile,
         tileGap: cover.bannerGap,
         speed: cover.bannerSpeed,
@@ -48,7 +55,7 @@ async function HomePageContent({
         shadow: cover.bannerShadow,
         frameColor: cover.bannerFrameColor,
         hover: cover.bannerHover,
-        background: cover.bannerMode === "image" ? "/api/hero-banner/bg" : null,
+        background: cover.bannerMode === "image" ? `/api/hero-banner/bg?v=${bannerStamp}` : null,
       }}
       bands={{
         src1: "/api/hero-banner/banda1",

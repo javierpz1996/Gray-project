@@ -191,6 +191,7 @@ export async function saveCover(formData: FormData): Promise<{ ok: true } | { ok
       bannerShadow: bannerShadows.includes(shadow as BannerShadow) ? (shadow as BannerShadow) : "hard",
       bannerFrameColor: frameColor ?? "255,255,255",
       bannerHover: bannerHovers.includes(hover as BannerHover) ? (hover as BannerHover) : "shake",
+      bannerRevision: "0",
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "";

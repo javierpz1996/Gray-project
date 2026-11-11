@@ -90,6 +90,7 @@ export type HeroCoverConfig = {
   bannerShadow: BannerShadow;
   bannerFrameColor: string;
   bannerHover: BannerHover;
+  bannerRevision: string;
 };
 
 export function parseBannerLinks(value: string): [string, string, string] {
@@ -151,6 +152,7 @@ export const defaultHeroCoverConfig = (): HeroCoverConfig => ({
   bannerShadow: "hard",
   bannerFrameColor: "255,255,255",
   bannerHover: "shake",
+  bannerRevision: "0",
 });
 
 const dividerWidths = new Set([4, 10, 18]);
@@ -170,7 +172,7 @@ async function loadHeroCoverConfig(): Promise<HeroCoverConfig> {
 
   const supabase = createSupabaseAdmin();
   const columns =
-    "hero_animation, logo_animation, cover_option, divider_width, particles, veil, halftone, banner_mode, banner_pattern, banner_color, banner_base, banner_shade, banner_positions, banner_links, banner_motion, banner_direction, banner_tile, banner_gap, banner_speed, banner_frame, banner_shadow, banner_frame_color, banner_hover";
+    "hero_animation, logo_animation, cover_option, divider_width, particles, veil, halftone, banner_mode, banner_pattern, banner_color, banner_base, banner_shade, banner_positions, banner_links, banner_motion, banner_direction, banner_tile, banner_gap, banner_speed, banner_frame, banner_shadow, banner_frame_color, banner_hover, updated_at";
   let { data, error } = await supabase
     .from(TABLE)
     .select(`${columns}, cover2_logo, cover2_stack, cover2_menu, cover2_slides, cover2_slide_motion, cover2_slide_every`)
@@ -254,6 +256,7 @@ async function loadHeroCoverConfig(): Promise<HeroCoverConfig> {
     bannerHover: bannerHovers.includes(String(data.banner_hover) as BannerHover)
       ? (String(data.banner_hover) as BannerHover)
       : fallback.bannerHover,
+    bannerRevision: String(data.updated_at ?? fallback.bannerRevision),
   };
 }
 
