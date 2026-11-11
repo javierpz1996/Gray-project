@@ -91,7 +91,7 @@
   border-radius: 0;
   background-color: var(--showcase-stage-bg);
   background-image:
-    url("/Imagenes/Varias/bg_artboard.png"),
+    url("/media/libros/fondo.png"),
     radial-gradient(
       circle,
       color-mix(in srgb, var(--ds-surface) 14%, transparent) 0.85px,

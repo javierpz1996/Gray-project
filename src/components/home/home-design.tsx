@@ -1,81 +1,63 @@
-import type { Design2HeroEyebrowVariantId } from "@/components/home/design-2/design-2-hero-eyebrow";
-import { Design2HeroEyebrowPreview } from "@/components/home/design-2/design-2-hero-eyebrow-preview";
 import { HomeDesign2Page } from "@/components/home/design-2/home-design-2-page";
-import { HomeDesign1TriPanelHero } from "@/components/home/home-design-1-tri-panel-hero";
-import { PortalSplitHero } from "@/components/home/portal-split-hero";
-import { LibrosShowcaseSection } from "@/components/home/libros-showcase/libros-showcase-section";
-import { HomeSnsSection } from "@/components/home/sns/home-sns-section";
-import { HomeSobreMi } from "@/components/home/home-sections";
-import { HomeDesign10Hero } from "@/components/home/design-10/home-design-10-hero";
-import type { HomeDesignId } from "@/lib/home-design";
+import type { StoryBands } from "@/components/home/design-2/story-section";
+import type { HomeSnsBannerProps } from "@/components/home/sns/home-sns-section";
 import type { HomeDesign1HeroAnimationId } from "@/lib/home-design-1-hero-animation";
+import type { Cover2LogoMark } from "@/lib/cover-2-logo";
+import type { Cover2MenuItem, Cover2SlideMotion } from "@/lib/cover-2-menu";
 import type { HomeDesign1LogoAnimationId } from "@/lib/home-design-1-logo-animation";
 
 type HomeDesignProps = {
-  design: HomeDesignId;
   heroAnimation?: HomeDesign1HeroAnimationId;
   logoAnimation?: HomeDesign1LogoAnimationId;
-  heroEyebrowVariant?: Design2HeroEyebrowVariantId;
-  showHeroEyebrowPreview?: boolean;
-  showLibrosVariantPicker?: boolean;
+  cover2Logo?: Cover2LogoMark;
+  cover2Stack?: boolean;
+  cover2Menu?: Cover2MenuItem[];
+  cover2Slides?: number;
+  cover2SlideMotion?: Cover2SlideMotion;
+  cover2SlideEvery?: number;
+  coverOption?: 1 | 2;
+  dividerWidth?: number;
+  particles?: boolean;
+  veil?: boolean;
+  halftone?: boolean;
+  banner?: HomeSnsBannerProps;
+  bands?: StoryBands;
 };
 
 export function HomeDesign({
-  design,
   heroAnimation = 3,
-  logoAnimation = 0,
-  heroEyebrowVariant = "b",
-  showHeroEyebrowPreview = false,
-  showLibrosVariantPicker = false,
+  logoAnimation = 3,
+  cover2Logo = "cruce",
+  cover2Stack = false,
+  cover2Menu,
+  cover2Slides = 1,
+  cover2SlideMotion = "fundido",
+  cover2SlideEvery = 0,
+  coverOption = 1,
+  dividerWidth,
+  particles = true,
+  veil = true,
+  halftone = true,
+  banner,
+  bands,
 }: HomeDesignProps) {
-  if (design === 2) {
-    return (
-      <HomeDesign2Page
-        heroAnimation={heroAnimation}
-        logoAnimation={logoAnimation}
-        showLibrosVariantPicker={showLibrosVariantPicker}
-      />
-    );
-  }
-
-  if (design === 3) {
-    return (
-      <>
-        {showHeroEyebrowPreview ? (
-          <Design2HeroEyebrowPreview activeVariant={heroEyebrowVariant} />
-        ) : null}
-        <PortalSplitHero
-          design={3}
-          layout="under-header"
-          heroEyebrowVariant={heroEyebrowVariant}
-        />
-        <HomeSnsSection />
-        <LibrosShowcaseSection showVariantPicker={showLibrosVariantPicker} />
-        <HomeSobreMi />
-      </>
-    );
-  }
-
-  if (design === 10) {
-    return (
-      <div className="home-design-10-shell">
-        <HomeDesign10Hero heroAnimation={heroAnimation} />
-        <HomeSnsSection />
-        <LibrosShowcaseSection showVariantPicker={showLibrosVariantPicker} />
-        <HomeSobreMi />
-      </div>
-    );
-  }
-
   return (
-    <>
-      <HomeDesign1TriPanelHero
-        heroAnimation={heroAnimation}
-        logoAnimation={logoAnimation}
-      />
-      <HomeSnsSection />
-      <LibrosShowcaseSection showVariantPicker={showLibrosVariantPicker} />
-      <HomeSobreMi />
-    </>
+    <HomeDesign2Page
+      heroAnimation={heroAnimation}
+      logoAnimation={logoAnimation}
+      cover2Logo={cover2Logo}
+      cover2Stack={cover2Stack}
+      cover2Menu={cover2Menu}
+      cover2Slides={cover2Slides}
+      cover2SlideMotion={cover2SlideMotion}
+      cover2SlideEvery={cover2SlideEvery}
+      coverOption={coverOption}
+      dividerWidth={dividerWidth}
+      particles={particles}
+      veil={veil}
+      halftone={halftone}
+      banner={banner}
+      bands={bands}
+    />
   );
 }

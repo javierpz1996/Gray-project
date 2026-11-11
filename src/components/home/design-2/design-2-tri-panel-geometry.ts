@@ -26,12 +26,8 @@ export function design2HeroDividerLinePx(
   };
 }
 
-/** Fotos de `public/Imagenes/heroexample`, una por casilla. */
-export const design2HeroPanelPhotos = {
-  left: "/Imagenes/heroexample/ejemplo1HD.png",
-  center: "/Imagenes/heroexample/ejemplo2HD.png",
-  right: "/Imagenes/heroexample/ejemplo3HD.png",
-} as const;
+/** Una foto por casilla. El panel admin puede reemplazar el archivo. */
+export { heroPanelPhotos as design2HeroPanelPhotos } from "@/content/hero-panels";
 
 /** Caja envolvente (px del banner) de cada casilla, a partir de sus polígonos. */
 export function design2HeroPanelBoundsPx() {

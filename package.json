@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/run-dev.mjs",
+    "build": "node scripts/prepare-next-dev.mjs && next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf .next"
+    "clean": "node scripts/clean-next.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.0",
     "embla-carousel-react": "^8.6.0",

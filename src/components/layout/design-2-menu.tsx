@@ -52,10 +52,6 @@ export function Design2Menu({
   const closeTimer = useRef(0);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    closeRef.current?.focus();
-  }, []);
-
   const requestClose = useCallback(() => {
     if (closeTimer.current) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -69,6 +65,12 @@ export function Design2Menu({
       onClose();
     }, CLOSE_MS);
   }, [onClose]);
+
+  useEffect(() => {
+    const onRequest = () => requestClose();
+    window.addEventListener("site-menu-request-close", onRequest);
+    return () => window.removeEventListener("site-menu-request-close", onRequest);
+  }, [requestClose]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {

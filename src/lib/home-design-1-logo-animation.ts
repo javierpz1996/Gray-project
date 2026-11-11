@@ -1,4 +1,6 @@
 import type { TargetAndTransition, Transition } from "motion/react";
+import type { Design2HeroPromoLayoutId } from "@/lib/design-2-hero-promo-layout";
+import type { Design2HeroScatterPresetId } from "@/lib/design-2-hero-scatter-preset";
 import type { HomeDesign1HeroAnimationId } from "@/lib/home-design-1-hero-animation";
 import {
   getHomeDesign1LogoMotion,
@@ -54,14 +56,24 @@ export function homeDesign1Href({
   design = 1,
   hero = 3,
   logo = 0,
+  cartel = "inclinado",
+  particulas = "flicker",
 }: {
   design?: 1 | 2 | 10;
   hero?: HomeDesign1HeroAnimationId;
   logo?: HomeDesign1LogoAnimationId;
+  cartel?: Design2HeroPromoLayoutId;
+  particulas?: Design2HeroScatterPresetId;
 }): string {
   const params = new URLSearchParams({ diseno: String(design) });
   if (hero !== 3) params.set("hero", String(hero));
   if (logo !== 0) params.set("logo", String(logo));
+  if (design === 2 && cartel !== "inclinado") {
+    params.set("cartel", cartel);
+  }
+  if (design === 2 && particulas !== "flicker") {
+    params.set("particulas", particulas);
+  }
   return `/?${params.toString()}`;
 }
 

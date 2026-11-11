@@ -23,7 +23,9 @@ import {
   homeDesign1PanelTransformOrigin,
   type HomeDesign1PanelSlot,
 } from "@/lib/home-design-1-hero-motion-presets";
-import { HomeDesign1HeroAnimationLab } from "@/components/home/home-design-1-hero-animation-lab";
+import { Design2HeroHalftoneSpray } from "@/components/home/design-2/design-2-hero-halftone-spray";
+import { Design2HeroScatterParticlesClient } from "@/components/home/design-2/design-2-hero-scatter-particles-client";
+import type { Design2HeroScatterPresetId } from "@/lib/design-2-hero-scatter-preset";
 import {
   DESIGN2_BANNER_HEIGHT,
   DESIGN2_BANNER_WIDTH,
@@ -67,8 +69,6 @@ const panelPhotoBoxes = Object.fromEntries(
 ) as Record<HomeDesign1PanelSlot, CSSProperties>;
 
 const panelOrder: readonly HomeDesign1PanelSlot[] = ["left", "center", "right"];
-
-const LOGO_PANEL_INDEX = 3;
 const LOGO_WIDTH = 2097;
 const LOGO_HEIGHT = 2097;
 
@@ -78,6 +78,12 @@ type HomeDesign2TriPanelHeroProps = {
   panelColors?: boolean;
   heroAnimation?: HomeDesign1HeroAnimationId;
   logoAnimation?: HomeDesign1LogoAnimationId;
+  logoSrc?: string;
+  scatterPreset?: Design2HeroScatterPresetId | null;
+  dividerWidth?: number;
+  showVeil?: boolean;
+  showHalftone?: boolean;
+  photos?: Partial<Record<"left" | "center" | "right", string>>;
 };
 
 export function HomeDesign2TriPanelHero({
@@ -85,19 +91,20 @@ export function HomeDesign2TriPanelHero({
   imageAlt = site.homeBannerAlt,
   panelColors = true,
   heroAnimation = 3,
-  logoAnimation = 0,
+  logoAnimation = 3,
+  logoSrc = "/api/hero-banner/logo",
+  scatterPreset,
+  dividerWidth = DESIGN2_HERO_BORDER_PX,
+  showVeil = true,
+  showHalftone = true,
+  photos,
 }: HomeDesign2TriPanelHeroProps = {}) {
   const viewBox = `0 0 ${DESIGN2_BANNER_WIDTH} ${DESIGN2_BANNER_HEIGHT}`;
   const animLabel = homeDesign1HeroAnimationLabel(heroAnimation);
   const animHint = homeDesign1HeroAnimationHint(heroAnimation);
   const reducedMotion = useReducedMotion() ?? false;
   const { introReady, motionKey } = useHomeDesign1HeroRun(heroAnimation);
-  const logoMotion = getHomeDesign1LogoAnimation(
-    logoAnimation,
-    heroAnimation,
-    reducedMotion,
-  );
-  const logoMotionKey = `${motionKey}-${logoAnimation}`;
+  const logoMotion = getHomeDesign1LogoAnimation(logoAnimation, heroAnimation, reducedMotion);
   const logoEnter = gateHomeDesign1HeroMotion(introReady, logoMotion.enter);
 
   return (
@@ -112,7 +119,10 @@ export function HomeDesign2TriPanelHero({
           : imageAlt
       }
     >
-      <div className="home-design-2-tri-hero__frame">
+      <div
+        className="home-design-2-tri-hero__frame"
+        data-veil={showVeil ? "on" : "off"}
+      >
         {!panelColors ? (
           <Image
             src={imageSrc}
@@ -151,7 +161,7 @@ export function HomeDesign2TriPanelHero({
                     transition={panelMotion.transition}
                     style={{
                       ...panelPhotoBoxes[id],
-                      backgroundImage: `url(${design2HeroPanelPhotos[id]})`,
+                      backgroundImage: `url(${photos?.[id] ?? design2HeroPanelPhotos[id]})`,
                       transformOrigin: homeDesign1PanelTransformOrigin(
                         heroAnimation,
                         id,
@@ -163,18 +173,13 @@ export function HomeDesign2TriPanelHero({
               })}
             </div>
             <motion.div
-              key={`logo-${logoMotionKey}`}
+              key={`logo-${motionKey}-${logoAnimation}`}
               className="home-design-2-tri-hero__panel home-design-2-tri-hero__panel--logo"
               aria-hidden
               initial={logoEnter.initial}
               animate={logoEnter.animate}
               transition={logoEnter.transition}
-              style={
-                {
-                  ["--d2-panel-index"]: LOGO_PANEL_INDEX,
-                  transformPerspective: 900,
-                } as CSSProperties
-              }
+              style={{ transformPerspective: 900 }}
             >
               <motion.span
                 className="home-design-2-tri-hero__logo-disc"
@@ -182,7 +187,7 @@ export function HomeDesign2TriPanelHero({
                 transition={introReady ? logoMotion.idle?.transition : undefined}
               >
                 <Image
-                  src={site.logoSrc}
+                  src={logoSrc}
                   alt=""
                   width={LOGO_WIDTH}
                   height={LOGO_HEIGHT}
@@ -194,6 +199,8 @@ export function HomeDesign2TriPanelHero({
                 />
               </motion.span>
             </motion.div>
+            {showHalftone ? <Design2HeroHalftoneSpray /> : null}
+            <Design2HeroScatterParticlesClient preset={scatterPreset} />
             <svg
               key={`lines-${motionKey}`}
               className="home-design-2-tri-hero__overlay home-design-2-tri-hero__overlay--lines"
@@ -233,7 +240,7 @@ export function HomeDesign2TriPanelHero({
                     x2={line.x2}
                     y2={line.y2}
                     stroke="var(--ds-ink)"
-                    strokeWidth={DESIGN2_HERO_BORDER_PX}
+                    strokeWidth={dividerWidth}
                     vectorEffect="non-scaling-stroke"
                     initial={dividerMotion.initial}
                     animate={dividerMotion.animate}
@@ -246,7 +253,6 @@ export function HomeDesign2TriPanelHero({
                 );
               })}
             </svg>
-            <HomeDesign1HeroAnimationLab design={2} />
           </>
         ) : null}
       </div>

@@ -1,5 +1,5 @@
 /**
- * Sección Libros — portadas en `public/Imagenes/Libros/`.
+ * Sección Libros — portadas en `public/media/libros/`.
  */
 
 import { site } from "@/config/site";
@@ -68,7 +68,7 @@ export const librosSection = {
   verTodosLabel: "Ver todos",
   volverLabel: "Volver a libros",
   comprarLabel: "Comprar libro",
-  detalleFondoSrc: "/Imagenes/Varias/detalleLibroFondo.png",
+  detalleFondoSrc: "/media/libros/fondo-detalle.png",
   detalleFondoAlt: "",
   /** Índice inicial del carrusel en home (0-based); 2 → contador 03 / N. */
   defaultShowcaseIndex: 2,
@@ -135,7 +135,7 @@ function fichaApuntePdf(
   };
 }
 
-/** Galería provisional: sustituir `src` por interiores en `public/Imagenes/Libros/`. */
+/** Galería provisional: sustituir `src` por interiores en `public/media/libros/`. */
 function galeriaDesdePortada(
   imagen: string,
   altPortada: string,
@@ -152,7 +152,7 @@ export const libroEdicionCompleta: Libro = {
   slug: "fundamentos-dibujo",
   titulo: "Fundamentos del dibujo",
   autor: "Grayby art",
-  imagen: "/Imagenes/Libros/LibroCompleto.jpg",
+  imagen: "/media/libros/completo.jpg",
   alt: "Portada — Edición completa Fundamentos del dibujo",
   descripcion:
     "Compilación en PDF A4 con forma, anatomía, rostro y ejercicios guiados en un solo material.",
@@ -176,7 +176,7 @@ export const libroEdicionCompleta: Libro = {
   precio: PRECIO_COMPLETO,
   comprarHref: comprarMailto("Edición completa — Fundamentos del dibujo"),
   galeria: galeriaDesdePortada(
-    "/Imagenes/Libros/LibroCompleto.jpg",
+    "/media/libros/completo.jpg",
     "Portada — Fundamentos del dibujo",
   ),
 };
@@ -186,7 +186,7 @@ export const librosTemas: readonly Libro[] = [
     slug: "formas-espacio-3d",
     titulo: "Las formas en el espacio 3D",
     autor: "Grayby art",
-    imagen: "/Imagenes/Libros/LibroTema1.jpg",
+    imagen: "/media/libros/tema-1.jpg",
     alt: "Portada — Tema I Las formas en el espacio 3D",
     descripcion:
       "Apunte en PDF A4 con volúmenes, perspectiva y luz aplicada al dibujo de personajes y escenarios.",
@@ -199,7 +199,7 @@ export const librosTemas: readonly Libro[] = [
       "Del boceto geométrico a la ilustración",
     ]),
     galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/LibroTema1.jpg",
+      "/media/libros/tema-1.jpg",
       "Portada — Las formas en el espacio 3D",
     ),
   },
@@ -207,7 +207,7 @@ export const librosTemas: readonly Libro[] = [
     slug: "anatomia-constructiva",
     titulo: "Anatomía constructiva",
     autor: "Grayby art",
-    imagen: "/Imagenes/Libros/LibroTema2.jpg",
+    imagen: "/media/libros/tema-2.jpg",
     alt: "Portada — Tema II Anatomía constructiva",
     descripcion:
       "Apunte en PDF A4 para construir el cuerpo con bloques, ejes y proporciones antes del detalle anatómico.",
@@ -220,7 +220,7 @@ export const librosTemas: readonly Libro[] = [
       "Figura en movimiento",
     ]),
     galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/LibroTema2.jpg",
+      "/media/libros/tema-2.jpg",
       "Portada — Anatomía constructiva",
     ),
   },
@@ -228,7 +228,7 @@ export const librosTemas: readonly Libro[] = [
     slug: "apunte-dibujo",
     titulo: "Apunte de dibujo",
     autor: "Grayby art",
-    imagen: "/Imagenes/Libros/LibroTema3.jpg",
+    imagen: "/media/libros/tema-3.jpg",
     alt: "Portada — Tema III Apunte de dibujo",
     descripcion:
       "Apunte en PDF A4 con ejercicios de observación, línea y ritmo para afianzar el trazo.",
@@ -241,7 +241,7 @@ export const librosTemas: readonly Libro[] = [
       "Ejercicios diarios sugeridos",
     ]),
     galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/LibroTema3.jpg",
+      "/media/libros/tema-3.jpg",
       "Portada — Apunte de dibujo",
     ),
   },
@@ -249,7 +249,7 @@ export const librosTemas: readonly Libro[] = [
     slug: "rostro-proporciones",
     titulo: "Rostro, Proporciones, Estructura",
     autor: "Grayby art",
-    imagen: "/Imagenes/Libros/LibroTema4.jpg",
+    imagen: "/media/libros/tema-4.jpg",
     alt: "Portada — Tema IV Rostro, proporciones y estructura",
     descripcion:
       "Apunte en PDF A4, 16 páginas full color, con técnicas e ilustraciones paso a paso.",
@@ -263,7 +263,7 @@ export const librosTemas: readonly Libro[] = [
     ]),
     indiceDetallado: indiceRostroProporciones,
     galeria: galeriaDesdePortada(
-      "/Imagenes/Libros/LibroTema4.jpg",
+      "/media/libros/tema-4.jpg",
       "Portada — Rostro, proporciones y estructura",
     ),
   },

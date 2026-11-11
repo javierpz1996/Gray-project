@@ -2,7 +2,7 @@ import Image from "next/image";
 import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-/** Dimensiones reales de `public/Imagenes/Varias/logoPrincipal.png`. */
+/** Dimensiones reales de `public/media/marca/logo.png`. */
 const LOGO_WIDTH = 2097;
 const LOGO_HEIGHT = 2097;
 

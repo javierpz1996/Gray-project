@@ -1,4 +1,4 @@
-/** KV principal (`public/Imagenes/Varias/banner-expansive.png`). */
+/** KV principal (`public/media/hero/banner.png`). */
 export const DESIGN1_BANNER_WIDTH = 2089;
 export const DESIGN1_BANNER_HEIGHT = 753;
 export const DESIGN1_HERO_ASPECT = DESIGN1_BANNER_WIDTH / DESIGN1_BANNER_HEIGHT;
@@ -27,12 +27,8 @@ export function design1HeroDividerLinePx(
   };
 }
 
-/** Fotos de `public/Imagenes/heroexample`, una por casilla. */
-export const design1HeroPanelPhotos = {
-  left: "/Imagenes/heroexample/ejemplo1HD.png",
-  center: "/Imagenes/heroexample/ejemplo2HD.png",
-  right: "/Imagenes/heroexample/ejemplo3HD.png",
-} as const;
+/** Una foto por casilla. El panel admin puede reemplazar el archivo. */
+export { heroPanelPhotos as design1HeroPanelPhotos } from "@/content/hero-panels";
 
 /** Caja envolvente (px del banner) de cada casilla, a partir de sus polígonos. */
 export function design1HeroPanelBoundsPx() {

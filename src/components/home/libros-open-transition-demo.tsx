@@ -86,13 +86,13 @@ const CARDS: {
   {
     id: "tema-1",
     label: "Tema I",
-    src: librosTemas[0]?.imagen ?? "/Imagenes/Libros/LibroTema1.jpg",
+    src: librosTemas[0]?.imagen ?? "/media/libros/tema-1.jpg",
     alt: librosTemas[0]?.alt ?? "Portada — Tema I",
   },
   {
     id: "tema-2",
     label: "Tema II",
-    src: librosTemas[1]?.imagen ?? "/Imagenes/Libros/LibroTema2.jpg",
+    src: librosTemas[1]?.imagen ?? "/media/libros/tema-2.jpg",
     alt: librosTemas[1]?.alt ?? "Portada — Tema II",
   },
 ];

@@ -2,6 +2,8 @@
  * Geometría del hero diseño 10, medida sobre la referencia SATO (1024×682).
  * Coordenadas en % del escenario completo (viewport del hero).
  */
+import { heroPanelPhotos } from "@/content/hero-panels";
+
 type Point = readonly [x: number, y: number];
 
 const splitTop: Point = [59.6, 0];
@@ -33,13 +35,13 @@ export const design10HeroDividers = [
   { from: cutGreenBlueLeft, to: cutGreenBlueRight },
 ] as const;
 
-/** Fotos de `public/Imagenes/heroexample`, una por panel, con el encuadre de cada recorte. */
+/** Una foto por panel. El panel admin puede reemplazar el archivo. */
 export const design10HeroPanels: readonly {
   slot: Design10HeroPanelSlot;
   imageSrc: string;
   imagePosition: string;
 }[] = [
-  { slot: "top", imageSrc: "/Imagenes/heroexample/ejemplo1HD.png", imagePosition: "50% 30%" },
-  { slot: "center", imageSrc: "/Imagenes/heroexample/ejemplo2HD.png", imagePosition: "50% 40%" },
-  { slot: "bottom", imageSrc: "/Imagenes/heroexample/ejemplo3HD.png", imagePosition: "50% 70%" },
+  { slot: "top", imageSrc: heroPanelPhotos.left, imagePosition: "50% 30%" },
+  { slot: "center", imageSrc: heroPanelPhotos.center, imagePosition: "50% 40%" },
+  { slot: "bottom", imageSrc: heroPanelPhotos.right, imagePosition: "50% 70%" },
 ];

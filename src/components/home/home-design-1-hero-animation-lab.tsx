@@ -12,18 +12,20 @@ import {
   homeDesign1LogoAnimations,
   parseHomeDesign1LogoAnimation,
 } from "@/lib/home-design-1-logo-animation";
-import { homeDesignHref, parseHomeDesign } from "@/lib/home-design";
+import {
+  design2HeroPromoLayouts,
+  parseDesign2HeroPromoLayout,
+} from "@/lib/design-2-hero-promo-layout";
+import {
+  design2HeroScatterPresets,
+  parseDesign2HeroScatterPreset,
+} from "@/lib/design-2-hero-scatter-preset";
+import { parseHomeDesign } from "@/lib/home-design";
 import { cn } from "@/lib/utils";
 
 type HeroLabDesign = 1 | 2 | 10;
 
-const OTHER_DESIGNS: Record<HeroLabDesign, readonly (1 | 2 | 3 | 10)[]> = {
-  1: [2, 3, 10],
-  2: [1, 3, 10],
-  10: [1, 2, 3],
-};
-
-/** Selector visible en el hero (diseños 1 y 10) para comparar animaciones. */
+/** Selector visible en el hero para comparar animaciones. */
 export function HomeDesign1HeroAnimationLab({
   design = 1,
 }: {
@@ -39,7 +41,12 @@ export function HomeDesign1HeroAnimationLab({
   const activeLogo = parseHomeDesign1LogoAnimation(
     searchParams.get("logo") ?? undefined,
   );
-
+  const activeCartel = parseDesign2HeroPromoLayout(
+    searchParams.get("cartel") ?? undefined,
+  );
+  const activeParticulas = parseDesign2HeroScatterPreset(
+    searchParams.get("particulas") ?? undefined,
+  );
   if (pathname !== "/" || diseno !== design) {
     return null;
   }
@@ -62,12 +69,19 @@ export function HomeDesign1HeroAnimationLab({
       </button>
       {open ? (
       <>
+      <div className="home-design-1-hero-lab__scroll">
       <p className="home-design-1-hero-lab__title">Animaciones hero</p>
       <div className="home-design-1-hero-lab__grid">
         {homeDesign1HeroAnimations.map((entry) => (
           <Link
             key={entry.id}
-            href={homeDesign1Href({ design, hero: entry.id, logo: activeLogo })}
+            href={homeDesign1Href({
+              design,
+              hero: entry.id,
+              logo: activeLogo,
+              cartel: design === 2 ? activeCartel : undefined,
+              particulas: design === 2 ? activeParticulas : undefined,
+            })}
             scroll={false}
             className={cn(
               "home-design-1-hero-lab__chip",
@@ -89,7 +103,13 @@ export function HomeDesign1HeroAnimationLab({
             {homeDesign1LogoAnimations.map((entry) => (
               <Link
                 key={entry.id}
-                href={homeDesign1Href({ design, hero: activeHero, logo: entry.id })}
+                href={homeDesign1Href({
+                  design,
+                  hero: activeHero,
+                  logo: entry.id,
+                  cartel: design === 2 ? activeCartel : undefined,
+                  particulas: design === 2 ? activeParticulas : undefined,
+                })}
                 scroll={false}
                 className={cn(
                   "home-design-1-hero-lab__chip",
@@ -104,17 +124,66 @@ export function HomeDesign1HeroAnimationLab({
           </div>
         </>
       ) : null}
-      <div className="home-design-1-hero-lab__designs">
-        <span className="home-design-1-hero-lab__designs-label">Otros diseños</span>
-        {OTHER_DESIGNS[design].map((id) => (
-          <Link
-            key={id}
-            href={homeDesignHref(id)}
-            className="home-design-1-hero-lab__design-link"
-          >
-            {id}
-          </Link>
-        ))}
+      {design === 2 ? (
+        <>
+          <p className="home-design-1-hero-lab__title home-design-1-hero-lab__title--section">
+            Carteles izquierda
+          </p>
+          <div className="home-design-1-hero-lab__grid">
+            {design2HeroPromoLayouts.map((entry) => (
+              <Link
+                key={entry.id}
+                href={homeDesign1Href({
+                  design: 2,
+                  hero: activeHero,
+                  logo: activeLogo,
+                  cartel: entry.id,
+                  particulas: activeParticulas,
+                })}
+                scroll={false}
+                className={cn(
+                  "home-design-1-hero-lab__chip",
+                  activeCartel === entry.id &&
+                    "home-design-1-hero-lab__chip--active",
+                )}
+                aria-current={activeCartel === entry.id ? "true" : undefined}
+                title={entry.hint}
+              >
+                {entry.label}
+              </Link>
+            ))}
+          </div>
+          <p className="home-design-1-hero-lab__title home-design-1-hero-lab__title--section">
+            Partículas (salpicaduras)
+          </p>
+          <div className="home-design-1-hero-lab__grid">
+            {design2HeroScatterPresets.map((entry) => (
+              <Link
+                key={entry.id}
+                href={homeDesign1Href({
+                  design: 2,
+                  hero: activeHero,
+                  logo: activeLogo,
+                  cartel: activeCartel,
+                  particulas: entry.id,
+                })}
+                scroll={false}
+                className={cn(
+                  "home-design-1-hero-lab__chip",
+                  activeParticulas === entry.id &&
+                    "home-design-1-hero-lab__chip--active",
+                )}
+                aria-current={
+                  activeParticulas === entry.id ? "true" : undefined
+                }
+                title={entry.hint}
+              >
+                {entry.label}
+              </Link>
+            ))}
+          </div>
+        </>
+      ) : null}
       </div>
       </>
       ) : null}

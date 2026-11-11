@@ -87,18 +87,18 @@ export const site = {
    */
   whatsappPhone,
 
-  /** Logo oficial: `public/Imagenes/Varias/logoPrincipal.png`. */
-  logoSrc: "/Imagenes/Varias/logoPrincipal.png",
+  /** Logo oficial: `public/media/marca/logo.png`. */
+  logoSrc: "/media/marca/logo.png",
 
-  /** Logo navbar diseño 3: `public/Imagenes/Varias/logoSecundario.png`. */
-  logoSecondarySrc: "/Imagenes/Varias/logoSecundario.png",
+  /** Logo navbar diseño 3: `public/media/marca/logo-secundario.png`. */
+  logoSecondarySrc: "/media/marca/logo-secundario.png",
 
   /** Banner principal bajo el navbar (`banner-expansive.png`, 2089×753). */
-  homeBannerSrc: "/Imagenes/Varias/banner-expansive.png",
+  homeBannerSrc: "/media/hero/banner.png",
   homeBannerAlt: "Grayby art — ilustración y libros de autoría",
 
   /** Hero del diseño 2 (`hero2.png`). */
-  homeBannerDesign2Src: "/Imagenes/Varias/hero2.png",
+  homeBannerDesign2Src: "/media/hero/collage.png",
   homeBannerDesign2Alt:
     "Collage de ilustración Grayby — personajes y estilos de autoría",
 
@@ -111,7 +111,7 @@ export const site = {
     ctaHref: "/?diseno=10#libros",
     contactLabel: "Contacto",
     contactHref: `mailto:${siteEmail}`,
-    imageSrc: "/Imagenes/Varias/hero-diseno-10-illustration.png",
+    imageSrc: "/media/hero/ilustracion-paneles.png",
     imageAlt: "Ilustración anime — composición en tres paneles de color",
   },
 
@@ -119,7 +119,7 @@ export const site = {
   homeBannerDesign2SideLabel: "GRAYBYART - GRAYBYART",
 
   /** Ilustración de fondo en heroes alternativos (placeholder). */
-  heroIllustrationSrc: "/home/hero-illustracion.svg",
+  heroIllustrationSrc: "/media/hero/ilustracion.svg",
   heroIllustrationAlt:
     "Ilustración de autoría — fondo de la pantalla inicial",
 

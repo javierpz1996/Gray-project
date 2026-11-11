@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const CAROUSEL_MEDIA_SRC = "/Imagenes/Videos/video1.mp4";
+const CAROUSEL_MEDIA_SRC = "/media/videos/muestra.mp4";
 const CAROUSEL_MEDIA_LABEL = "Video destacado Grayby art";
 
 const VIDEO_SLOT_COUNT = 4;

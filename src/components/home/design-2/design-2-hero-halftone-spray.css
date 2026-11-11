@@ -1,0 +1,107 @@
+/* Halftone blanco (referencia comic / spray) — debajo de carteles */
+.d2-hero-halftone {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.home-design-2-tri-hero[data-hero-intro="ready"] .d2-hero-halftone {
+  animation: d2-hero-halftone-fade-in 0.65s 0.5s ease-out forwards;
+}
+
+@keyframes d2-hero-halftone-fade-in {
+  to {
+    opacity: 0.72;
+  }
+}
+
+.d2-hero-halftone__grid {
+  position: absolute;
+  inset: -4%;
+  --d2-halftone-dot: color-mix(
+    in srgb,
+    var(--primary-foreground, #fff) 58%,
+    transparent
+  );
+  background-image:
+    radial-gradient(circle, var(--d2-halftone-dot) 0.85px, transparent 1px),
+    radial-gradient(circle, var(--d2-halftone-dot) 0.85px, transparent 1px);
+  background-size: 7px 7px;
+  background-position:
+    0 0,
+    3.5px 3.5px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 72% 66% at 52% 46%,
+    #000 0%,
+    rgb(0 0 0 / 0.72) 52%,
+    transparent 82%
+  );
+  mask-image: radial-gradient(
+    ellipse 72% 66% at 52% 46%,
+    #000 0%,
+    rgb(0 0 0 / 0.72) 52%,
+    transparent 82%
+  );
+  mask-mode: alpha;
+  opacity: 0.48;
+  animation: d2-hero-halftone-pulse 6.5s steps(4, end) infinite;
+}
+
+.d2-hero-halftone__grid--fine {
+  inset: -2%;
+  background-size: 4.5px 4.5px;
+  background-position:
+    0 0,
+    2.25px 2.25px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 55% 50% at 58% 42%,
+    #000 0%,
+    transparent 70%
+  );
+  mask-image: radial-gradient(
+    ellipse 55% 50% at 58% 42%,
+    #000 0%,
+    transparent 70%
+  );
+  opacity: 0.34;
+  animation-duration: 8.2s;
+  animation-delay: 0.35s;
+}
+
+@keyframes d2-hero-halftone-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.56;
+  }
+}
+
+.d2-hero-halftone__grid--fine {
+  animation-name: d2-hero-halftone-pulse-fine;
+}
+
+@keyframes d2-hero-halftone-pulse-fine {
+  0%,
+  100% {
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 0.42;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-design-2-tri-hero[data-hero-intro="ready"] .d2-hero-halftone {
+    animation: none;
+    opacity: 0.72;
+  }
+
+  .d2-hero-halftone__grid {
+    animation: none;
+  }
+}

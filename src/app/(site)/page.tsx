@@ -1,17 +1,9 @@
 import { Suspense } from "react";
-import { parseDesign2HeroEyebrowVariant } from "@/components/home/design-2/design-2-hero-eyebrow";
 import { HomeDesign } from "@/components/home/home-design";
 import { SiteLoadingIntro } from "@/components/layout/site-loading-intro";
-import { parseHomeDesign } from "@/lib/home-design";
-import { parseHomeDesign1HeroAnimation } from "@/lib/home-design-1-hero-animation";
+import { readHeroCoverConfig } from "@/lib/hero-config";
+import { readLibrosBands } from "@/lib/libros-bands";
 import { parseHomeDesign1LogoAnimation } from "@/lib/home-design-1-logo-animation";
-
-function firstParam(
-  value: string | string[] | undefined,
-): string | undefined {
-  if (Array.isArray(value)) return value[0];
-  return value;
-}
 
 async function HomePageContent({
   searchParams,
@@ -19,27 +11,64 @@ async function HomePageContent({
   searchParams: PageProps<"/">["searchParams"];
 }) {
   const params = await searchParams;
-  const design = parseHomeDesign(params.diseno);
-  const heroAnimation = parseHomeDesign1HeroAnimation(params.hero);
-  const logoAnimation = parseHomeDesign1LogoAnimation(params.logo);
-  const heroEyebrowVariant = parseDesign2HeroEyebrowVariant(
-    firstParam(params.eyebrow),
-  );
-  const showHeroEyebrowPreview =
-    design === 3 && firstParam(params.eyebrowPreview) === "1";
-  const showLibrosVariantPicker =
-    firstParam(params.librosVariantes) === "1";
+  const cover = await readHeroCoverConfig();
+  const bands = await readLibrosBands();
+  const logoAnimation = params.logo == null ? cover.logoAnimation : parseHomeDesign1LogoAnimation(params.logo);
 
   return (
     <HomeDesign
-      design={design}
-      heroAnimation={
-        design === 1 || design === 2 || design === 10 ? heroAnimation : 3
-      }
-      logoAnimation={design === 1 || design === 2 ? logoAnimation : 0}
-      heroEyebrowVariant={heroEyebrowVariant}
-      showHeroEyebrowPreview={showHeroEyebrowPreview}
-      showLibrosVariantPicker={showLibrosVariantPicker}
+      heroAnimation={cover.heroAnimation}
+      logoAnimation={logoAnimation}
+      cover2Logo={cover.cover2Logo}
+      cover2Stack={cover.cover2Stack}
+      cover2Menu={cover.cover2Menu}
+      cover2Slides={cover.cover2Slides}
+      cover2SlideMotion={cover.cover2SlideMotion}
+      cover2SlideEvery={cover.cover2SlideEvery}
+      coverOption={cover.coverOption}
+      dividerWidth={cover.dividerWidth}
+      particles={cover.particles}
+      veil={cover.veil}
+      halftone={cover.halftone}
+      banner={{
+        banners: ["/api/hero-banner/1", "/api/hero-banner/2", "/api/hero-banner/3"],
+        mode: cover.bannerMode,
+        pattern: cover.bannerPattern,
+        color: cover.bannerColor,
+        base: cover.bannerBase,
+        shade: cover.bannerShade,
+        positions: cover.bannerPositions,
+        links: cover.bannerLinks,
+        motion: cover.bannerMotion,
+        tile: cover.bannerPattern === "custom" ? "/api/hero-banner/tile" : null,
+        tileSize: cover.bannerTile,
+        tileGap: cover.bannerGap,
+        speed: cover.bannerSpeed,
+        frame: cover.bannerFrame,
+        shadow: cover.bannerShadow,
+        frameColor: cover.bannerFrameColor,
+        hover: cover.bannerHover,
+        background: cover.bannerMode === "image" ? "/api/hero-banner/bg" : null,
+      }}
+      bands={{
+        src1: "/api/hero-banner/banda1",
+        src2: "/api/hero-banner/banda2",
+        speed1: bands.speed1,
+        speed2: bands.speed2,
+        size1: bands.size1,
+        size2: bands.size2,
+        top1: bands.top1,
+        top2: bands.top2,
+        tilt1: bands.tilt1,
+        tilt2: bands.tilt2,
+        opacity1: bands.opacity1,
+        opacity2: bands.opacity2,
+        bright1: bands.bright1,
+        bright2: bands.bright2,
+        lead: bands.lead,
+        stories: bands.stories,
+        heading: bands.heading,
+      }}
     />
   );
 }

@@ -8,17 +8,11 @@ export const HOME_CHROME_HEIGHT = "5rem";
 /** Ancho de la barra lateral en diseño 3 (home). */
 export const HOME_DESIGN_3_SIDEBAR_WIDTH = "17.5rem";
 
-const homeDesignIdSet = new Set<number>(HOME_DESIGN_IDS);
-
+/** La home es el diseño 2. El query `diseno` ya no cambia de versión. */
 export function parseHomeDesign(
-  value: string | string[] | undefined,
+  _value?: string | string[] | undefined,
 ): HomeDesignId {
-  const raw = Array.isArray(value) ? value[0] : value;
-  const n = Number.parseInt(raw ?? "1", 10);
-  if (homeDesignIdSet.has(n)) {
-    return n as HomeDesignId;
-  }
-  return 1;
+  return 2;
 }
 
 export function homeDesignHref(id: HomeDesignId): string {

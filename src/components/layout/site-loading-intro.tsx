@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { notifySiteIntroComplete } from "@/lib/home-design-1-animation";
 import { cn } from "@/lib/utils";
 
-const LOADING_VIDEO_SRC = "/Imagenes/Videos/Loading.mp4";
+const LOADING_VIDEO_SRC = "/media/videos/carga.mp4";
 
 /** Solo una vez por carga completa: volver al home navegando no repite el video. */
 let introAlreadyPlayed = false;

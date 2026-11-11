@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { DsHeroBurstShowcase } from "@/components/desing-system/ds-hero-burst-showcase";
 import { DsToken } from "@/components/desing-system/ds-section";
 
 function AnimCategory({
@@ -444,6 +445,14 @@ export function DsAnimationsShowcase() {
             </div>
           </AnimPanel>
         </div>
+      </AnimCategory>
+
+      <AnimCategory
+        id="anim-cat-hero-burst"
+        title="Hero — partículas burst"
+        description="Sprites animados con steps() (referencia kinioto). Galería y presets para diseño 2."
+      >
+        <DsHeroBurstShowcase />
       </AnimCategory>
     </div>
   );

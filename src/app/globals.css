@@ -217,6 +217,11 @@
     height: 100dvh;
   }
 
+  body[data-home-design="2"] .cover-2-hero {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
   @media (min-width: 768px) {
     body[data-home-design="3"] {
       --site-header-height: 5.5rem;
@@ -510,6 +515,16 @@
 }
 
 .home-design-2-tri-hero__frame {
+  --d2-hero-border: 10px;
+  /** Carteles laterales del hero (izq. fecha / der. NOTICIAS). */
+  --d2-promo-edge-bottom: clamp(1.25rem, 6vh, 3.25rem);
+  /**
+   * Sube el cartel derecho para alinear la franja amarilla con la 1.ª línea izquierda
+   * (las dos franjas inferiores del stack negro).
+   */
+  --d2-promo-right-lift: clamp(2.75rem, 7.2vh, 4.65rem);
+  --d2-promo-edge-bottom-narrow: clamp(0.75rem, 4vh, 2rem);
+  --d2-promo-right-lift-narrow: clamp(2rem, 5.5vh, 3.35rem);
   --d2-panel-step: 520ms;
   --d2-logo-diameter-ratio: 0.36;
   --d2-logo-size: min(
@@ -524,6 +539,24 @@
   overflow: hidden;
   border: 10px solid var(--ds-ink);
   background: var(--ds-ink);
+}
+
+.home-design-2-tri-hero__frame[data-veil="off"]::after {
+  content: none;
+}
+
+.home-design-2-tri-hero__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--ds-ink) 8%, transparent) 0%,
+    color-mix(in srgb, var(--ds-ink) 50%, transparent) 48%,
+    color-mix(in srgb, var(--ds-ink) 86%, transparent) 100%
+  );
 }
 
 .home-design-2-tri-hero__image {
@@ -555,7 +588,7 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  z-index: 2;
+  z-index: 5;
   translate: -50% -50%;
   pointer-events: none;
 }
@@ -667,14 +700,20 @@
   border-color: var(--ds-ink);
 }
 
+.home-design-1-hero-lab__scroll {
+  min-height: 0;
+  overflow-y: auto;
+}
+
 .home-design-1-hero-lab__designs {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  flex-shrink: 0;
   gap: 0.35rem;
-  margin-top: 0.5rem;
-  padding-top: 0.45rem;
-  border-top: 1px solid color-mix(in srgb, var(--ds-ink) 18%, transparent);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ds-ink) 18%, transparent);
 }
 
 .home-design-1-hero-lab__designs-label {
@@ -693,6 +732,11 @@
   color: var(--ds-red);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.home-design-1-hero-lab__design-link--current {
+  color: var(--ds-ink);
+  text-decoration: none;
 }
 
 /* Home — barra de inspiración (diseños 1–3). */

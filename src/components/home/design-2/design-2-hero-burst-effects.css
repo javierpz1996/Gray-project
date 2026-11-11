@@ -1,0 +1,327 @@
+/* Burst / partículas (referencia: kinioto-anime.com .c-effect) */
+.d2-hero-burst {
+  --d2-burst-k: 0.62;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.d2-hero-burst[data-burst-preset="soft"] {
+  --d2-burst-k: 0.42;
+}
+
+.d2-hero-burst[data-burst-preset="dense"] {
+  --d2-burst-k: 0.48;
+}
+
+.d2-hero-burst[data-burst-preset="lite"] {
+  --d2-burst-k: 0.55;
+}
+
+.d2-hero-burst[data-burst-preset="lite"] .d2-hero-burst__cont--1,
+.d2-hero-burst[data-burst-preset="lite"] .d2-hero-burst__cont--3,
+.d2-hero-burst[data-burst-preset="lite"] .d2-hero-burst__cont--4,
+.d2-hero-burst[data-burst-preset="lite"] .d2-hero-burst__cont--7 {
+  display: none;
+}
+
+.d2-hero-burst[data-burst-preset="corner"] .d2-hero-burst__cont--2,
+.d2-hero-burst[data-burst-preset="corner"] .d2-hero-burst__cont--3,
+.d2-hero-burst[data-burst-preset="corner"] .d2-hero-burst__cont--5 {
+  display: none;
+}
+
+.home-design-2-tri-hero[data-hero-intro="ready"] .d2-hero-burst {
+  animation: d2-hero-burst-fade-in 0.5s 0.5s ease-out forwards;
+}
+
+@keyframes d2-hero-burst-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes d2-hero-burst-play-1 {
+  to {
+    background-position: -1035px 0;
+  }
+}
+
+@keyframes d2-hero-burst-play-2 {
+  to {
+    background-position: -1035px 0;
+  }
+}
+
+@keyframes d2-hero-burst-play-3 {
+  to {
+    background-position: -3000px 0;
+  }
+}
+
+@keyframes d2-hero-burst-play-4 {
+  to {
+    background-position: -2280px 0;
+  }
+}
+
+@keyframes d2-hero-burst-play-5 {
+  to {
+    background-position: -1500px 0;
+  }
+}
+
+@keyframes d2-hero-burst-play-6 {
+  to {
+    background-position: -325px 0;
+  }
+}
+
+.d2-hero-burst__cont {
+  position: absolute;
+  transform: translateX(-50%);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+
+.d2-hero-burst__cont--e1 {
+  animation: d2-hero-burst-play-1 0.79s steps(5) infinite;
+}
+
+.d2-hero-burst__cont--e2 {
+  animation: d2-hero-burst-play-2 0.79s steps(5) infinite;
+}
+
+.d2-hero-burst__cont--e3 {
+  animation: d2-hero-burst-play-3 0.79s steps(10) infinite;
+}
+
+.d2-hero-burst__cont--e4 {
+  animation: d2-hero-burst-play-4 0.79s steps(10) infinite;
+}
+
+.d2-hero-burst__cont--e5 {
+  animation: d2-hero-burst-play-5 0.79s steps(10) infinite;
+}
+
+.d2-hero-burst__cont--e6 {
+  animation: d2-hero-burst-play-6 0.79s steps(5) infinite;
+}
+
+/* Posiciones top (home) — desktop ancho, misma matriz que .top en la referencia */
+.d2-hero-burst__cont--1 {
+  top: -1%;
+  left: 40%;
+  transform: translateX(-50%) scale(calc(0.35 * var(--d2-burst-k)));
+  width: 26.5vw;
+  height: 39.7vw;
+  background-image: url("/media/hero/efectos/efecto-01.png");
+  background-size: 132.6vw 39.7vw;
+  animation-duration: 1.3s !important;
+}
+
+.d2-hero-burst__cont--2 {
+  top: 80%;
+  left: 27%;
+  transform: scale(calc(0.5 * var(--d2-burst-k)));
+  width: 26.5vw;
+  height: 19.4vw;
+  background-image: url("/media/hero/efectos/efecto-02.png");
+  background-size: 132.6vw 19.4vw;
+  animation-duration: 1.4s !important;
+}
+
+.d2-hero-burst__cont--3 {
+  top: 80%;
+  left: 11%;
+  transform: translateX(-50%) scale(calc(0.3 * var(--d2-burst-k)));
+  width: 38.4vw;
+  height: 24.2vw;
+  background-image: url("/media/hero/efectos/efecto-03.png");
+  background-size: 3000px 189px;
+  animation-duration: 1.5s !important;
+}
+
+.d2-hero-burst__cont--4 {
+  top: 43%;
+  left: 91%;
+  transform: translateX(-50%) scale(calc(0.4 * var(--d2-burst-k)));
+  width: 29.2vw;
+  height: 23vw;
+  background-image: url("/media/hero/efectos/efecto-04.png");
+  background-size: 292.3vw 23vw;
+  animation-duration: 1.8s !important;
+}
+
+.d2-hero-burst__cont--5 {
+  top: 22%;
+  left: 12%;
+  transform: translateX(-50%) scale(calc(0.75 * var(--d2-burst-k)));
+  width: 19.2vw;
+  height: 19.2vw;
+  background-image: url("/media/hero/efectos/efecto-05.png");
+  background-size: 192.3vw 19.2vw;
+  animation-duration: 2.5s !important;
+}
+
+.d2-hero-burst__cont--6 {
+  top: 60%;
+  left: 94%;
+  transform: translateX(-50%) rotate(13deg) scale(calc(0.6 * var(--d2-burst-k)));
+  width: 8.3vw;
+  height: 5.5vw;
+  background-image: url("/media/hero/efectos/efecto-06.png");
+  background-size: 41.6vw 5.5vw;
+  animation-duration: 1.2s !important;
+}
+
+.d2-hero-burst__cont--7 {
+  top: 95%;
+  left: 82%;
+  transform: translateX(-50%) rotate(13deg) scale(calc(0.5 * var(--d2-burst-k)));
+  width: 8.3vw;
+  height: 5.5vw;
+  background-image: url("/media/hero/efectos/efecto-06.png");
+  background-size: 325px 43px;
+  animation: d2-hero-burst-play-6 0.8s steps(5) infinite;
+}
+
+@media (max-width: 780px) {
+  .d2-hero-burst {
+    --d2-burst-k: 0.58;
+  }
+  @keyframes d2-hero-burst-play-1-nrw {
+    to {
+      background-position: -132.7vw 0;
+    }
+  }
+
+  @keyframes d2-hero-burst-play-2-nrw {
+    to {
+      background-position: -132.7vw 0;
+    }
+  }
+
+  @keyframes d2-hero-burst-play-3-nrw {
+    to {
+      background-position: -384.7vw 0;
+    }
+  }
+
+  @keyframes d2-hero-burst-play-4-nrw {
+    to {
+      background-position: -292.4vw 0;
+    }
+  }
+
+  @keyframes d2-hero-burst-play-5-nrw {
+    to {
+      background-position: -192.4vw 0;
+    }
+  }
+
+  @keyframes d2-hero-burst-play-6-nrw {
+    to {
+      background-position: -41.7vw 0;
+    }
+  }
+
+  .d2-hero-burst__cont--e1 {
+    animation-name: d2-hero-burst-play-1-nrw;
+  }
+
+  .d2-hero-burst__cont--e2 {
+    animation-name: d2-hero-burst-play-2-nrw;
+  }
+
+  .d2-hero-burst__cont--e3 {
+    animation-name: d2-hero-burst-play-3-nrw;
+  }
+
+  .d2-hero-burst__cont--e4 {
+    animation-name: d2-hero-burst-play-4-nrw;
+  }
+
+  .d2-hero-burst__cont--e5 {
+    animation-name: d2-hero-burst-play-5-nrw;
+  }
+
+  .d2-hero-burst__cont--e6 {
+    animation-name: d2-hero-burst-play-6-nrw;
+  }
+
+  .d2-hero-burst__cont--1 {
+    top: 54%;
+    left: 88%;
+    width: 207px;
+    height: 310px;
+    transform: translateX(-50%) scale(calc(0.24 * var(--d2-burst-k)));
+    background-size: 1035px 310px;
+  }
+
+  .d2-hero-burst__cont--2 {
+    top: 54%;
+    left: 25%;
+    width: 207px;
+    height: 152px;
+    transform: scale(calc(0.4 * var(--d2-burst-k)));
+    background-size: 1035px 152px;
+  }
+
+  .d2-hero-burst__cont--3 {
+    width: 300px;
+    height: 189px;
+    transform: translateX(-50%) scale(calc(0.24 * var(--d2-burst-k)));
+  }
+
+  .d2-hero-burst__cont--4 {
+    top: 16%;
+    left: 75%;
+    width: 228px;
+    height: 180px;
+    transform: translateX(-50%) scale(calc(0.32 * var(--d2-burst-k)));
+    background-size: 2280px 180px;
+  }
+
+  .d2-hero-burst__cont--5 {
+    top: 24%;
+    left: 9%;
+    width: 150px;
+    height: 150px;
+    transform: translateX(-50%) scale(calc(0.7 * var(--d2-burst-k)));
+    background-size: 1500px 150px;
+  }
+
+  .d2-hero-burst__cont--6 {
+    top: 14%;
+    left: 82%;
+    width: 65px;
+    height: 43px;
+    transform: translateX(-50%) rotate(13deg) scale(calc(0.32 * var(--d2-burst-k)));
+    background-size: 325px 43px;
+  }
+
+  .d2-hero-burst__cont--7 {
+    width: 65px;
+    height: 43px;
+    transform: translateX(-50%) rotate(13deg) scale(calc(0.4 * var(--d2-burst-k)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-design-2-tri-hero[data-hero-intro="ready"] .d2-hero-burst {
+    animation: none;
+    opacity: 1;
+  }
+
+  .d2-hero-burst__cont {
+    animation: none !important;
+    background-position: 0 0 !important;
+  }
+}

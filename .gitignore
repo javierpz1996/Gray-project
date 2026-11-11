@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -43,3 +44,7 @@ next-env.d.ts
 # macOS AppleDouble (external volumes)
 ._*
 __MACOSX
+
+# imágenes del hero subidas desde el panel
+/data/hero-uploads/
+/data/hero-panels.json

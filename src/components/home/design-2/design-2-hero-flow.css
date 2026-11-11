@@ -1,0 +1,203 @@
+/* Wordmark recortado sobre el hero, con la fecha debajo. */
+.d2-flow {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  padding-bottom: 0;
+  background: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+
+.d2-flow__word {
+  margin: 0 -1.5vw;
+  width: calc(100% + 3vw);
+  padding-block: 0.02em 0.08em;
+  font-family: var(--font-display);
+  font-size: min(22vw, 32vh);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.7;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: skewX(-8deg);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-color: var(--ds-bg);
+  background-image: var(--d2-flow-fill);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 42%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter:
+    drop-shadow(0.002em 0.002em 0 var(--ds-ink))
+    drop-shadow(-0.002em 0.002em 0 var(--ds-ink))
+    drop-shadow(0.002em -0.002em 0 var(--ds-ink))
+    drop-shadow(-0.002em -0.002em 0 var(--ds-ink))
+    drop-shadow(0.01em 0.022em 0 var(--ds-ink));
+}
+
+@media (max-width: 640px) {
+  .d2-flow__word {
+    font-size: min(28vw, 17vh);
+    letter-spacing: -0.06em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d2-flow__word {
+    transform: none;
+  }
+}
+
+/* Fecha tipo referencia, debajo del wordmark en el hero. */
+.d2-date {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.6vw;
+  padding: 0.15em 1.4em 0.45em;
+  background: transparent;
+  user-select: none;
+}
+
+.d2-date__lockup {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-family: var(--font-display);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.d2-date__num {
+  position: relative;
+  padding-top: 0.36em;
+  font-size: min(6.4vw, 3.6rem);
+  font-weight: 800;
+  padding-right: 0.18em;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  color: var(--ds-coral);
+  filter:
+    drop-shadow(0.018em 0.018em 0 var(--ds-surface))
+    drop-shadow(-0.018em 0.018em 0 var(--ds-surface))
+    drop-shadow(0.018em -0.018em 0 var(--ds-surface))
+    drop-shadow(-0.018em -0.018em 0 var(--ds-surface));
+}
+
+.d2-date__label {
+  position: absolute;
+  top: 0;
+  left: 0.02em;
+  font-size: 0.2em;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ds-ink);
+  filter: none;
+}
+
+@media (max-width: 640px) {
+  .d2-date__num {
+    font-size: min(7.2vw, 2.1rem);
+  }
+}
+
+/* Copy tipo on-air de la referencia, bajo el lockup de experiencia. */
+.d2-onair {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.4vw 0 0;
+  padding: 0 1.2em;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.d2-onair__main {
+  font-size: clamp(1.35rem, 3.6vw, 2.15rem);
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--ds-coral) 55%, var(--ds-surface));
+  -webkit-text-stroke: 0.055em var(--ds-ink);
+  paint-order: stroke fill;
+}
+
+.d2-onair__note {
+  margin-top: 0.35em;
+  max-width: 22em;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.6vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  color: var(--ds-yellow);
+  -webkit-text-stroke: 0.05em var(--ds-ink);
+  paint-order: stroke fill;
+}
+
+/* Cajas oficiales tipo referencia, bajo el lockup. */
+.d2-official {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.8vw 4.5vw;
+  margin: 2.4vw 0 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: auto;
+}
+
+.d2-official__link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  color: var(--ds-ink);
+  text-decoration: none;
+}
+
+.d2-official__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28em;
+  font-family: var(--font-display);
+  font-size: clamp(0.72rem, 1.5vw, 1rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ds-surface);
+}
+
+.d2-official__icon {
+  width: 1em;
+  height: 1em;
+}
+
+.d2-official__handle {
+  display: block;
+  padding: 0.32em 0.7em 0.36em;
+  border: 2px solid var(--ds-ink);
+  background: var(--ds-cream);
+  font-family: var(--font-display);
+  font-size: clamp(0.82rem, 2.2vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: lowercase;
+  color: var(--ds-ink);
+}
+
+.d2-official__link:hover .d2-official__handle,
+.d2-official__link:focus-visible .d2-official__handle {
+  background: var(--ds-yellow);
+}

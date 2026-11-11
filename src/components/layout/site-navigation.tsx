@@ -1,49 +1,64 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Design2Menu } from "@/components/layout/design-2-menu";
 import type { MenuTransitionId } from "@/components/layout/design-2-menu-tiles";
 import { SiteFullscreenMenu } from "@/components/layout/site-fullscreen-menu";
-import { parseHomeDesign } from "@/lib/home-design";
+import { SiteMenuTriggerArt } from "@/components/layout/site-menu-trigger-art";
 import "./site-fullscreen-menu.css";
-
-const MENU_FRAMES = [1, 2, 3, 4, 5, 6] as const;
 
 export function SiteNavigation() {
   const [open, setOpen] = useState(false);
+  const [morphed, setMorphed] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const close = useCallback(() => setOpen(false), []);
+
+  useEffect(() => setMounted(true), []);
   const [transition, setTransition] =
     useState<MenuTransitionId>("triangulos");
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const isDesign2 =
-    pathname === "/" &&
-    parseHomeDesign(searchParams.get("diseno") ?? undefined) === 2;
+  const isDesign2 = pathname === "/";
 
-  return (
-    <>
+  const trigger = (
+    <div className="site-menu-trigger-slot">
+      <svg
+        className="site-menu-trigger__cloud"
+        viewBox="0 0 520 280"
+        aria-hidden
+      >
+        <path
+          d="M242 36
+             H426
+             A62 62 0 0 1 426 160
+             H298
+             L260 188
+             L246 160
+             H242
+             A32 32 0 0 1 210 128
+             V68
+             A32 32 0 0 1 242 36
+             Z"
+          fill="#fff"
+        />
+      </svg>
       <button
         type="button"
         className="site-menu-trigger"
-        aria-expanded={open}
+        aria-expanded={morphed}
         aria-controls="site-menu"
-        onClick={() => setOpen(true)}
+        onClick={() => setMorphed((value) => !value)}
       >
-        <span className="site-menu-trigger__frames" aria-hidden>
-          {MENU_FRAMES.map((frame) => (
-            <img
-              key={frame}
-              src={`/Imagenes/Varias/menu/frame-${frame}.png`}
-              alt=""
-              width={520}
-              height={498}
-              className={`site-menu-trigger__img site-menu-trigger__frame site-menu-trigger__frame--${frame}`}
-            />
-          ))}
-        </span>
-        <span className="sr-only">Abrir menú</span>
+        <SiteMenuTriggerArt />
+        <span className="sr-only">{morphed ? "Cerrar menú" : "Abrir menú"}</span>
       </button>
+    </div>
+  );
+
+  return (
+    <>
+      {mounted ? createPortal(trigger, document.body) : trigger}
       {isDesign2 ? (
         open ? (
           <Design2Menu

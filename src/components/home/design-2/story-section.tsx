@@ -1,18 +1,92 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { site } from "@/config/site";
+import { MarkedLead } from "./marked-lead";
 import "./story-section.css";
+import "./story-wash.css";
 
-const BANDA_SRC = "/Imagenes/Varias/banda-loop.png";
-const CUBE_SRC = "/Imagenes/Varias/cubo.png";
+const BANDA_SRC = "/media/decoracion/banda.png";
+
+export type StoryBands = {
+  src1?: string;
+  src2?: string;
+  speed1?: number;
+  speed2?: number;
+  size1?: number;
+  size2?: number;
+  top1?: number;
+  top2?: number;
+  tilt1?: number;
+  tilt2?: number;
+  opacity1?: number;
+  opacity2?: number;
+  bright1?: number;
+  bright2?: number;
+  lead?: string;
+  stories?: readonly { title: string; text: string }[];
+  heading?: {
+    title: string;
+    rhythm: string;
+    titleStyle: { font: string; bold: boolean; color: string; bg: string };
+    leadStyle: { font: string; bold: boolean; color: string; bg: string };
+    rhythmStyle: { font: string; bold: boolean; color: string; bg: string };
+    ver: string;
+    rule?: string;
+    nameLine?: string;
+    nameColor?: string;
+    storyText?: string;
+    verMotion?: string;
+    stickerMotion?: string;
+    stickerBorder?: string;
+    stickerEdge?: string;
+    stickerKind?: "sticker" | "image" | "video";
+    imageMotion?: string;
+    imageBorder?: string;
+    imageEdge?: string;
+    imageCrop?: boolean;
+    imageSize?: number;
+    videoMotion?: string;
+    videoBorder?: string;
+    videoEdge?: string;
+    stickerHover?: string;
+    imageHover?: string;
+    videoHover?: string;
+    bgMode?: "none" | "pattern" | "image";
+    bgPattern?: string;
+    bgMotion?: string;
+    bgSpeed?: number;
+    bgTile?: number;
+    bgColor?: string;
+    bgBase?: string;
+    bgShade?: number;
+  };
+};
+
+const STORY_FONTS: Record<string, string> = {
+  sans: "var(--font-sans)",
+  display: "var(--font-display)",
+  oswald: "var(--font-oswald), sans-serif",
+  outfit: "var(--font-outfit), sans-serif",
+};
+
+function storyLineStyle(style: { font: string; bold: boolean; color: string; bg: string } | undefined, fallbackFont: string): CSSProperties {
+  if (!style) return {};
+  return {
+    fontFamily: STORY_FONTS[style.font] ?? fallbackFont,
+    fontWeight: style.bold ? 800 : 500,
+    color: `rgb(${style.color})`,
+    backgroundColor: style.bg ? `rgb(${style.bg})` : "transparent",
+  };
+}
+const CUBE_SRC = "/media/decoracion/cubo.png";
 const SCOOTER_FRAMES = [1, 2, 3, 4, 5, 6, 7, 8].map(
-  (n) => `/Imagenes/Varias/scooter/frame-${n}.png?v=3`,
+  (n) => `/media/decoracion/scooter/fotograma-0${n}.png`,
 );
 const TRAIL_TEXT = "30% OFF solo hasta el 04/11";
 
-const STORY_SOCIAL = [
+export const STORY_SOCIAL = [
   { id: "x", label: "X", href: site.links.x },
   { id: "youtube", label: "YouTube", href: site.links.youtube },
   { id: "facebook", label: "Facebook", href: site.links.facebook },
@@ -20,7 +94,7 @@ const STORY_SOCIAL = [
   { id: "tiktok", label: "TikTok", href: site.links.tiktok },
 ] as const;
 
-function StorySocialIcon({ id }: { id: (typeof STORY_SOCIAL)[number]["id"] }) {
+export function StorySocialIcon({ id }: { id: (typeof STORY_SOCIAL)[number]["id"] }) {
   if (id === "x") {
     return (
       <svg viewBox="0 0 24 24" aria-hidden>
@@ -130,12 +204,20 @@ type StoryItem = {
   points: readonly StoryPoint[];
 };
 
+const STORY_IMAGES = [
+  "/api/hero-banner/tema1",
+  "/api/hero-banner/tema2",
+  "/api/hero-banner/tema3",
+  "/api/hero-banner/tema4",
+  "/api/hero-banner/tema5",
+] as const;
+
 const STORIES: readonly StoryItem[] = [
   {
     id: "001",
-    title: "Fundamentos del dibujo",
-    text: "Aprendé las bases del dibujo, desde las primeras líneas hasta la construcción de formas y volúmenes.",
-    image: "/Imagenes/heroexample/ejemplo1HD.png",
+    title: "fundamentos del dibujo",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+    image: STORY_IMAGES[0] ?? "/api/hero-banner/tema1",
     points: [
       { range: "01–04", label: "Introducción al dibujo y materiales" },
       { range: "05–08", label: "Líneas, trazos y control del lápiz" },
@@ -143,9 +225,9 @@ const STORIES: readonly StoryItem[] = [
   },
   {
     id: "002",
-    title: "Técnicas y ejercicios",
-    text: "Explorá técnicas y ejercicios para mejorar tu trazo y desarrollar tu estilo.",
-    image: "/Imagenes/heroexample/ejemplo2HD.png",
+    title: "Perspectiva anatómica",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+    image: STORY_IMAGES[1] ?? "/api/hero-banner/tema2",
     points: [
       { range: "09–12", label: "Bocetos y dibujo gestual" },
       { range: "13–16", label: "Técnicas de sombreado" },
@@ -153,9 +235,9 @@ const STORIES: readonly StoryItem[] = [
   },
   {
     id: "003",
-    title: "Personajes e ilustración",
-    text: "Descubrí cómo crear personajes, construir poses y dar vida a tus ilustraciones.",
-    image: "/Imagenes/heroexample/ejemplo3HD.png",
+    title: "Halloween diseño de personajes",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    image: STORY_IMAGES[2] ?? "/api/hero-banner/tema3",
     points: [
       { range: "17–20", label: "Anatomía del cuerpo humano" },
       { range: "21–24", label: "Poses, movimiento y gestualidad" },
@@ -163,23 +245,129 @@ const STORIES: readonly StoryItem[] = [
   },
   {
     id: "004",
-    title: "Anatomía y proporciones",
-    text: "Estudiá las estructuras del cuerpo y los detalles que permiten construir personajes expresivos.",
-    image: "/Imagenes/Varias/hero2.png",
+    title: "Perspectiva fundamentos iniciales",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    image: STORY_IMAGES[3] ?? "/api/hero-banner/tema4",
     points: [
       { range: "25–28", label: "Anatomía de la cabeza y el cráneo" },
       { range: "29–32", label: "Rostro, facciones y expresiones" },
     ],
   },
+  {
+    id: "005",
+    title: "Morfología anatomía muscular",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    image: STORY_IMAGES[4] ?? "/api/hero-banner/tema5",
+    points: [
+      { range: "33–36", label: "Músculos del torso" },
+      { range: "37–40", label: "Brazos, piernas y volumen" },
+    ],
+  },
 ];
 
-export function StorySection() {
-  const [active, setActive] = useState(0);
+function StoryTitle({
+  id,
+  title,
+  active,
+  lineColor,
+  titleColor,
+}: {
+  id: string;
+  title: string;
+  active: boolean;
+  lineColor: string;
+  titleColor: string;
+}) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [line, setLine] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    const node = ref.current;
+    if (!node) return;
+
+    const measure = () => {
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      const rects = range.getClientRects();
+      const lines = new Map<number, { left: number; right: number }>();
+      for (const rect of rects) {
+        const key = Math.round(rect.top);
+        const current = lines.get(key);
+        if (!current) {
+          lines.set(key, { left: rect.left, right: rect.right });
+          continue;
+        }
+        current.left = Math.min(current.left, rect.left);
+        current.right = Math.max(current.right, rect.right);
+      }
+      const origin = node.getBoundingClientRect().left;
+      let longest = 0;
+      for (const line of lines.values()) {
+        longest = Math.max(longest, line.right - origin);
+      }
+      setLine(longest);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [active, id, title]);
+
+  return (
+    <p
+      ref={ref}
+      className="story-section__name"
+      style={
+        {
+          color: `rgb(${titleColor})`,
+          ["--name-line" as string]: `rgb(${lineColor})`,
+          ...(active && line > 0 ? { ["--story-line" as string]: `${line}px` } : {}),
+        } as CSSProperties
+      }
+    >
+      <span className="story-section__number">{id}</span>
+      {" - "}
+      {title}
+    </p>
+  );
+}
+
+export function StorySection({
+  bands,
+}: {
+  bands?: StoryBands;
+} = {}) {
+  const src1 = bands?.src1 ?? BANDA_SRC;
+  const src2 = bands?.src2 ?? BANDA_SRC;
+  const speed1 = `${bands?.speed1 ?? 16}s`;
+  const speed2 = `${bands?.speed2 ?? 16}s`;
+  const size1 = (bands?.size1 ?? 100) / 100;
+  const size2 = (bands?.size2 ?? 100) / 100;
+  const top1 = bands?.top1 ?? 4.5;
+  const top2 = bands?.top2 ?? 11;
+  const tilt1 = bands?.tilt1 ?? -28;
+  const tilt2 = bands?.tilt2 ?? -28;
+  const opacity1 = (bands?.opacity1 ?? 92) / 100;
+  const opacity2 = (bands?.opacity2 ?? 92) / 100;
+  const bright1 = (bands?.bright1 ?? 100) / 100;
+  const bright2 = (bands?.bright2 ?? 100) / 100;
+  const lead = bands?.lead?.trim() || "Conseguí la edición completa o elegí los temas que más te interesen.";
+  const stories = STORIES.map((story, index) => {
+    const custom = bands?.stories?.[index];
+    return {
+      ...story,
+      title: custom?.title?.trim() || story.title,
+      text: custom?.text?.trim() || story.text,
+    };
+  });
+  const [active, setActive] = useState(1);
   const [openId, setOpenId] = useState<string | null>(null);
   const [slide, setSlide] = useState(0);
   const [cubeTick, setCubeTick] = useState(0);
 
-  const openStory = STORIES.find((story) => story.id === openId) ?? null;
+  const openStory = stories.find((story) => story.id === openId) ?? null;
   const openSlides =
     openStory?.points.map((point) => ({
       kicker: `[ ${point.range} ]`,
@@ -210,45 +398,73 @@ export function StorySection() {
 
   return (
     <section className="story-section" id="story" aria-labelledby="story-heading">
+      {bands?.heading?.bgMode && bands.heading.bgMode !== "none" ? (
+        <div
+          className="story-wash"
+          aria-hidden
+          data-mode={bands.heading.bgMode}
+          data-pattern={bands.heading.bgPattern ?? "dots"}
+          data-motion={bands.heading.bgMotion ?? "off"}
+          style={{
+            ["--wash-ink" as string]: bands.heading.bgColor ?? "230,233,233",
+            ["--wash-base" as string]: bands.heading.bgBase ?? "0,0,0",
+            ["--wash-speed" as string]: `${bands.heading.bgSpeed ?? 16}s`,
+            ["--wash-tile-size" as string]: `${bands.heading.bgTile ?? 48}px`,
+            ["--wash-shade" as string]: (bands.heading.bgShade ?? 0) / 100,
+            ["--wash-photo" as string]: "url(/api/hero-banner/librosbg)",
+            ["--wash-tile" as string]: "url(/api/hero-banner/librostile)",
+          }}
+        />
+      ) : null}
       <div className="story-section__bands" aria-hidden>
-        <div className="story-section__banda">
+        <div
+          className="story-section__banda"
+          style={{
+            ["--banda-speed" as string]: speed1,
+            ["--banda-size" as string]: size1,
+            ["--banda-top" as string]: top1,
+            ["--banda-tilt" as string]: `${tilt1}deg`,
+            ["--banda-opacity" as string]: opacity1,
+            ["--banda-bright" as string]: bright1,
+          }}
+        >
           <div className="story-section__banda-track">
-            <Image
-              src={BANDA_SRC}
-              alt=""
-              width={1760}
-              height={724}
-              unoptimized
-              className="story-section__banda-img"
-            />
-            <Image
-              src={BANDA_SRC}
-              alt=""
-              width={1760}
-              height={724}
-              unoptimized
-              className="story-section__banda-img"
-            />
+            {Array.from({ length: 200 }, (_, index) => (
+              <Image
+                key={index}
+                src={src1}
+                alt=""
+                width={960}
+                height={540}
+                unoptimized
+                className="story-section__banda-img"
+              />
+            ))}
           </div>
         </div>
-        <div className="story-section__banda story-section__banda--top-left">
+        <div
+          className="story-section__banda story-section__banda--top-left"
+          style={{
+            ["--banda-speed" as string]: speed2,
+            ["--banda-size" as string]: size2,
+            ["--banda-top" as string]: top2,
+            ["--banda-tilt" as string]: `${tilt2}deg`,
+            ["--banda-opacity" as string]: opacity2,
+            ["--banda-bright" as string]: bright2,
+          }}
+        >
           <div className="story-section__banda-track">
-            <Image
-              src={BANDA_SRC}
-              alt=""
-              width={1760}
-              height={724}
-              unoptimized
-              className="story-section__banda-img"
-            />
-            <Image
-              src={BANDA_SRC}
-              alt=""
-              width={1760}
-              height={724}
-              unoptimized
-              className="story-section__banda-img"
-            />
+            {Array.from({ length: 200 }, (_, index) => (
+              <Image
+                key={index}
+                src={src2}
+                alt=""
+                width={960}
+                height={540}
+                unoptimized
+                className="story-section__banda-img"
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -289,14 +505,31 @@ export function StorySection() {
       </div>
       <header className="story-section__heading">
         <div className="story-section__heading-copy">
-        <h2 className="story-section__title" id="story-heading">
-          Fundamentos del dibujo
+        <h2
+          className="story-section__title"
+          id="story-heading"
+          style={storyLineStyle(bands?.heading?.titleStyle, "var(--font-sans)")}
+        >
+          {bands?.heading?.title?.trim() || "Fundamentos del dibujo"}
           <span className="story-section__title-wipe" aria-hidden />
         </h2>
-        <p className="story-section__lead">
-          Conseguí la edición completa o elegí los temas que más te interesen.
+        <p
+          className="story-section__lead"
+          style={{ ...storyLineStyle(bands?.heading?.leadStyle, "var(--font-sans)"), backgroundColor: "transparent" }}
+        >
+          <MarkedLead text={lead} background={bands?.heading?.leadStyle.bg ?? ""} />
         </p>
-        <p className="story-section__rhythm">Aprendé a tu propio ritmo</p>
+        <p
+          className="story-section__rhythm"
+          style={{
+            ...storyLineStyle(bands?.heading?.rhythmStyle, "var(--font-display)"),
+            color: bands?.heading?.rhythmStyle.bg ? `rgb(${bands.heading.rhythmStyle.color})` : "transparent",
+            WebkitTextFillColor: bands?.heading?.rhythmStyle.bg ? `rgb(${bands.heading.rhythmStyle.color})` : "transparent",
+            WebkitTextStroke: `max(1px, 0.045em) rgb(${bands?.heading?.rhythmStyle.color ?? "247,227,53"})`,
+          }}
+        >
+          {bands?.heading?.rhythm?.trim() || "Aprendé a tu propio ritmo"}
+        </p>
         <div className="story-section__paths">
           <button
             type="button"
@@ -334,20 +567,69 @@ export function StorySection() {
           </button>
         </div>
         </div>
-        <div className="story-section__lesson" aria-hidden="true">
-          <Image
-            src="/Imagenes/Varias/profesor.png"
-            alt=""
-            fill
-            sizes="(max-width: 800px) 11rem, 16rem"
-            className="story-section__lesson-image"
-          />
+        <div
+          className="story-section__lesson"
+          data-kind={bands?.heading?.stickerKind ?? "sticker"}
+          data-crop={bands?.heading?.stickerKind === "image" && bands.heading.imageCrop ? "true" : "false"}
+          style={{ ["--image-size" as string]: (bands?.heading?.imageSize ?? 100) / 100 }}
+          data-motion={
+            bands?.heading?.stickerKind === "video"
+              ? (bands.heading.videoMotion ?? "drift")
+              : bands?.heading?.stickerKind === "image"
+                ? (bands.heading.imageMotion ?? "kenburns")
+                : (bands?.heading?.stickerMotion ?? "cabeceo")
+          }
+          data-hover={
+            bands?.heading?.stickerKind === "video"
+              ? (bands.heading.videoHover ?? "none")
+              : bands?.heading?.stickerKind === "image"
+                ? (bands.heading.imageHover ?? "none")
+                : (bands?.heading?.stickerHover ?? "none")
+          }
+          aria-hidden="true"
+        >
+          {bands?.heading?.stickerKind === "video" ? (
+            <video
+              className="story-section__lesson-image"
+              src="/api/hero-banner/profesor?media=video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              data-border={bands.heading.videoBorder ?? "cine"}
+              style={{ ["--sticker-edge" as string]: bands.heading.videoEdge ? `rgb(${bands.heading.videoEdge})` : "var(--ds-surface)" }}
+            />
+          ) : (
+            <Image
+              src="/api/hero-banner/profesor"
+              alt=""
+              fill
+              unoptimized
+              sizes="(max-width: 800px) 11rem, 16rem"
+              className="story-section__lesson-image"
+              data-border={
+                bands?.heading?.stickerKind === "image"
+                  ? (bands.heading.imageBorder ?? "marco")
+                  : (bands?.heading?.stickerBorder ?? "contorno")
+              }
+              style={{
+                ["--sticker-edge" as string]:
+                  bands?.heading?.stickerKind === "image"
+                    ? bands.heading.imageEdge
+                      ? `rgb(${bands.heading.imageEdge})`
+                      : "var(--ds-surface)"
+                    : bands?.heading?.stickerEdge
+                      ? `rgb(${bands.heading.stickerEdge})`
+                      : "var(--ds-surface)",
+              }}
+            />
+          )}
         </div>
       </header>
       <div className="story-section__main">
         <div className="story-section__media">
         <div className="story-section__images">
-          {STORIES.map((story, index) => (
+          {stories.map((story, index) => (
             <button
               key={story.id}
               type="button"
@@ -370,7 +652,7 @@ export function StorySection() {
           ))}
         </div>
         <div className="story-section__cubes" role="tablist" aria-label="Temas">
-          {STORIES.map((story, index) => {
+          {stories.map((story, index) => {
             const selected = index === active;
             return (
               <button
@@ -411,44 +693,53 @@ export function StorySection() {
         </div>
         <div className="story-section__aside">
         <ul className="story-section__list">
-          {STORIES.map((story, index) => (
+          {stories.map((story, index) => (
             <li
               key={story.id}
               className={
                 index === active
                   ? "story-section__item is-active"
-                  : "story-section__item"
+                  : index === active - 1
+                    ? "story-section__item is-before"
+                    : "story-section__item"
               }
               onClick={() => setActive(index)}
             >
               <div className="story-section__copy">
-                <p className="story-section__name">
-                  <span className="story-section__number">{story.id}</span>
-                  {" — "}
-                  {story.title}
-                </p>
-                <p className="story-section__blurb">
-                  <span className="story-section__blurb-text">{story.text}</span>
-                  <button
-                    type="button"
-                    className="story-section__more"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setActive(index);
-                      setSlide(0);
-                      setOpenId(story.id);
-                    }}
-                  >
-                    MORE+
-                  </button>
-                </p>
-                <ul className="story-section__points">
-                  {story.points.map((point) => (
-                    <li key={point.range} className="story-section__point">
-                      {point.range} {point.label}
-                    </li>
-                  ))}
-                </ul>
+                <StoryTitle id={story.id} title={story.title} active={index === active} lineColor={bands?.heading?.nameLine ?? "0,0,0"} titleColor={bands?.heading?.nameColor ?? "0,0,0"} />
+                {index === active ? (
+                  <>
+                    <p className="story-section__blurb">
+                      <span className="story-section__blurb-text" style={{ color: `rgb(${bands?.heading?.storyText ?? "0,0,0"})` }}>{story.text}</span>
+                      <button
+                        type="button"
+                        className="story-section__more"
+                        data-motion={bands?.heading?.verMotion ?? "tilt"}
+                        style={{ backgroundColor: `rgb(${bands?.heading?.ver ?? "247,227,53"})` }}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setActive(index);
+                          setSlide(0);
+                          setOpenId(story.id);
+                        }}
+                      >
+                        VER
+                      </button>
+                    </p>
+                    <span className="story-section__rule" aria-hidden="true" style={{ color: `rgb(${bands?.heading?.rule ?? "0,0,0"})` }}>
+                      <svg viewBox="0 0 82 48" className="story-section__rule-end">
+                        <path
+                          d="M0 9 H8 L41 44 L81 6.5"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3.4"
+                          strokeLinejoin="miter"
+                          strokeLinecap="butt"
+                        />
+                      </svg>
+                    </span>
+                  </>
+                ) : null}
               </div>
             </li>
           ))}

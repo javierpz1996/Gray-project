@@ -6,23 +6,23 @@
 /** Portadas del carrusel vertical del hero (izquierda). */
 export const design2PortalHeroGallery = [
   {
-    src: "/Imagenes/Libros/LibroCompleto.jpg",
+    src: "/media/libros/completo.jpg",
     alt: "Edición completa — Fundamentos del dibujo",
   },
   {
-    src: "/Imagenes/Libros/LibroTema1.jpg",
+    src: "/media/libros/tema-1.jpg",
     alt: "Tema I — Las formas en el espacio 3D",
   },
   {
-    src: "/Imagenes/Libros/LibroTema2.jpg",
+    src: "/media/libros/tema-2.jpg",
     alt: "Tema II — Anatomía constructiva",
   },
   {
-    src: "/Imagenes/Libros/LibroTema3.jpg",
+    src: "/media/libros/tema-3.jpg",
     alt: "Tema III — Apunte de dibujo",
   },
   {
-    src: "/Imagenes/Libros/LibroTema4.jpg",
+    src: "/media/libros/tema-4.jpg",
     alt: "Tema IV — Rostro, proporciones y estructura",
   },
 ] as const;
@@ -42,19 +42,19 @@ export const design2PortalHero = {
 
 /**
  * Carrusel de vídeos del hero (flechas).
- * Sustituir `src` por video2.mp4 / video3.mp4 en public/Imagenes/Videos/ cuando existan.
+ * Sustituir `src` por otros videos en public/media/videos/ cuando existan.
  */
 export const design2PortalHeroVideos = [
   {
-    src: "/Imagenes/Videos/video1.mp4",
+    src: "/media/videos/muestra.mp4",
     caption: "Video oficial",
   },
   {
-    src: "/Imagenes/Videos/video1.mp4",
+    src: "/media/videos/muestra.mp4",
     caption: "Modelado de formas",
   },
   {
-    src: "/Imagenes/Videos/video1.mp4",
+    src: "/media/videos/muestra.mp4",
     caption: "Bocetos dinámicos",
   },
 ] as const;

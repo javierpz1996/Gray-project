@@ -1,0 +1,137 @@
+.story-wash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--ds-ink-deep);
+  opacity: var(--wash-shade, 0);
+  pointer-events: none;
+}
+
+.story-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: rgb(var(--wash-base, 0, 0, 0));
+  background-image: radial-gradient(circle, color-mix(in srgb, rgb(var(--wash-ink, 230, 233, 233)) 70%, transparent) 1.35px, transparent 1.55px);
+  background-size: 16px 16px;
+}
+
+.story-wash[data-pattern="stripes"] {
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 8px, color-mix(in srgb, rgb(var(--wash-ink)) 55%, transparent) 8px, color-mix(in srgb, rgb(var(--wash-ink)) 55%, transparent) 12px);
+  background-size: auto;
+}
+
+.story-wash[data-pattern="grid"] {
+  background-image:
+    linear-gradient(color-mix(in srgb, rgb(var(--wash-ink)) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, rgb(var(--wash-ink)) 55%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.story-wash[data-pattern="lines"] {
+  background-image: repeating-linear-gradient(color-mix(in srgb, rgb(var(--wash-ink)) 55%, transparent) 0 2px, transparent 2px 14px);
+  background-size: auto;
+}
+
+.story-wash[data-pattern="checker"] {
+  background-image:
+    linear-gradient(45deg, color-mix(in srgb, rgb(var(--wash-ink)) 45%, transparent) 25%, transparent 25%),
+    linear-gradient(-45deg, color-mix(in srgb, rgb(var(--wash-ink)) 45%, transparent) 25%, transparent 25%);
+  background-size: 22px 22px;
+}
+
+.story-wash[data-pattern="rings"] {
+  background-image: radial-gradient(circle, transparent 6px, color-mix(in srgb, rgb(var(--wash-ink)) 55%, transparent) 7px, transparent 8px);
+  background-size: 22px 22px;
+}
+
+.story-wash[data-pattern="custom"] {
+  background-image: var(--wash-tile);
+  background-repeat: repeat;
+  background-size: var(--wash-tile-size, 48px) var(--wash-tile-size, 48px);
+}
+
+.story-wash[data-mode="image"] {
+  background-image: var(--wash-photo);
+  background-position: center;
+  background-size: cover;
+}
+
+.story-wash[data-motion="left"][data-mode="pattern"] { animation: story-wash-left var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-motion="right"][data-mode="pattern"] { animation: story-wash-right var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-motion="up"][data-mode="pattern"] { animation: story-wash-up var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-motion="down"][data-mode="pattern"] { animation: story-wash-down var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-motion="diagonal"][data-mode="pattern"] { animation: story-wash-diagonal var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-motion="diagonalAlt"][data-mode="pattern"] { animation: story-wash-diagonal-alt var(--wash-speed, 16s) linear infinite; }
+
+.story-wash[data-mode="image"][data-motion="left"],
+.story-wash[data-mode="image"][data-motion="right"],
+.story-wash[data-mode="image"][data-motion="up"],
+.story-wash[data-mode="image"][data-motion="down"],
+.story-wash[data-mode="image"][data-motion="diagonal"],
+.story-wash[data-mode="image"][data-motion="diagonalAlt"] {
+  background-image: none;
+}
+
+.story-wash[data-mode="image"][data-motion="left"]::before,
+.story-wash[data-mode="image"][data-motion="right"]::before,
+.story-wash[data-mode="image"][data-motion="up"]::before,
+.story-wash[data-mode="image"][data-motion="down"]::before,
+.story-wash[data-mode="image"][data-motion="diagonal"]::before,
+.story-wash[data-mode="image"][data-motion="diagonalAlt"]::before {
+  content: "";
+  position: absolute;
+  background-image: var(--wash-photo);
+}
+
+.story-wash[data-mode="image"][data-motion="left"]::before,
+.story-wash[data-mode="image"][data-motion="right"]::before {
+  inset: 0 auto 0 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+}
+
+.story-wash[data-mode="image"][data-motion="left"]::before { animation: story-wash-photo-left var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-mode="image"][data-motion="right"]::before { animation: story-wash-photo-right var(--wash-speed, 16s) linear infinite; }
+
+.story-wash[data-mode="image"][data-motion="up"]::before,
+.story-wash[data-mode="image"][data-motion="down"]::before {
+  inset: 0 0 auto 0;
+  width: 100%;
+  height: 200%;
+  background-repeat: repeat-y;
+  background-size: 100% 50%;
+}
+
+.story-wash[data-mode="image"][data-motion="up"]::before { animation: story-wash-photo-up var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-mode="image"][data-motion="down"]::before { animation: story-wash-photo-down var(--wash-speed, 16s) linear infinite; }
+
+.story-wash[data-mode="image"][data-motion="diagonal"]::before,
+.story-wash[data-mode="image"][data-motion="diagonalAlt"]::before {
+  inset: 0 auto auto 0;
+  width: 200%;
+  height: 200%;
+  background-repeat: repeat;
+  background-size: 50% 50%;
+}
+
+.story-wash[data-mode="image"][data-motion="diagonal"]::before { animation: story-wash-photo-diagonal var(--wash-speed, 16s) linear infinite; }
+.story-wash[data-mode="image"][data-motion="diagonalAlt"]::before { animation: story-wash-photo-diagonal-alt var(--wash-speed, 16s) linear infinite; }
+
+@keyframes story-wash-left { to { background-position: -240px 0; } }
+@keyframes story-wash-right { to { background-position: 240px 0; } }
+@keyframes story-wash-up { to { background-position: 0 -240px; } }
+@keyframes story-wash-down { to { background-position: 0 240px; } }
+@keyframes story-wash-diagonal { to { background-position: -240px -240px; } }
+@keyframes story-wash-diagonal-alt { to { background-position: 240px -240px; } }
+@keyframes story-wash-photo-left { to { transform: translateX(-50%); } }
+@keyframes story-wash-photo-right { from { transform: translateX(-50%); } }
+@keyframes story-wash-photo-up { to { transform: translateY(-50%); } }
+@keyframes story-wash-photo-down { from { transform: translateY(-50%); } }
+@keyframes story-wash-photo-diagonal { to { transform: translate(-50%, -50%); } }
+@keyframes story-wash-photo-diagonal-alt { from { transform: translate(-50%, -50%); } }

@@ -1,0 +1,133 @@
+/* Demos de burst hero (sprites kinioto) — solo en /desing-system */
+.ds .ds-burst-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+}
+
+.ds .ds-burst-swatch {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ds-line-strong);
+  border-radius: var(--ds-radius-md);
+  background: color-mix(in srgb, var(--ds-ink-deep) 92%, var(--ds-muted) 8%);
+  min-height: 7.5rem;
+}
+
+.ds .ds-burst-swatch__label {
+  position: absolute;
+  z-index: 2;
+  inset: auto auto 0.35rem 0.4rem;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ds-surface);
+}
+
+.ds .ds-burst-swatch__stage {
+  position: absolute;
+  inset: 0;
+  --d2-burst-k: 0.22;
+}
+
+.ds .ds-burst-swatch__sprite {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  transform: translate(-50%, -50%);
+}
+
+.ds .ds-burst-swatch__sprite--1 {
+  width: 207px;
+  height: 310px;
+  background-image: url("/media/hero/efectos/efecto-01.png");
+  background-size: 1035px 310px;
+  transform: translate(-50%, -50%) scale(calc(0.35 * var(--d2-burst-k)));
+  animation: d2-hero-burst-play-1 1.3s steps(5) infinite;
+}
+
+.ds .ds-burst-swatch__sprite--2 {
+  width: 207px;
+  height: 152px;
+  background-image: url("/media/hero/efectos/efecto-02.png");
+  background-size: 1035px 152px;
+  transform: translate(-50%, -50%) scale(calc(0.45 * var(--d2-burst-k)));
+  animation: d2-hero-burst-play-2 1.4s steps(5) infinite;
+}
+
+.ds .ds-burst-swatch__sprite--3 {
+  width: 300px;
+  height: 189px;
+  background-image: url("/media/hero/efectos/efecto-03.png");
+  background-size: 3000px 189px;
+  transform: translate(-50%, -50%) scale(calc(0.28 * var(--d2-burst-k)));
+  animation: d2-hero-burst-play-3 1.5s steps(10) infinite;
+}
+
+.ds .ds-burst-swatch__sprite--4 {
+  width: 228px;
+  height: 180px;
+  background-image: url("/media/hero/efectos/efecto-04.png");
+  background-size: 2280px 180px;
+  transform: translate(-50%, -50%) scale(calc(0.38 * var(--d2-burst-k)));
+  animation: d2-hero-burst-play-4 1.8s steps(10) infinite;
+}
+
+.ds .ds-burst-swatch__sprite--5 {
+  width: 150px;
+  height: 150px;
+  background-image: url("/media/hero/efectos/efecto-05.png");
+  background-size: 1500px 150px;
+  transform: translate(-50%, -50%) scale(calc(0.55 * var(--d2-burst-k)));
+  animation: d2-hero-burst-play-5 2.5s steps(10) infinite;
+}
+
+.ds .ds-burst-swatch__sprite--6 {
+  width: 65px;
+  height: 43px;
+  background-image: url("/media/hero/efectos/efecto-06.png");
+  background-size: 325px 43px;
+  transform: translate(-50%, -50%) scale(calc(0.9 * var(--d2-burst-k)));
+  animation: d2-hero-burst-play-6 0.8s steps(5) infinite;
+}
+
+.ds .ds-burst-compose {
+  position: relative;
+  overflow: hidden;
+  min-height: 11rem;
+  border: 1px solid var(--ds-line-strong);
+  border-radius: var(--ds-radius-md);
+  background: color-mix(in srgb, var(--ds-ink-deep) 88%, var(--ds-orange) 12%);
+}
+
+.ds .ds-burst-compose .d2-hero-burst {
+  opacity: 1;
+  animation: none;
+}
+
+.ds .ds-burst-compose__caption {
+  position: absolute;
+  z-index: 6;
+  inset: auto 0.5rem 0.45rem auto;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--ds-surface);
+}
+
+.ds .ds-burst-presets {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .ds .ds-burst-presets {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -24,12 +24,12 @@ import {
 import { cn } from "@/lib/utils";
 import "./libros-showcase.css";
 
-const frascoSrc = "/Imagenes/Varias/cubo.png";
-const frascoBlancoSrc = "/Imagenes/Varias/cubo.png";
-const bandaSrc = "/Imagenes/Varias/banda-loop.png";
-const stickerSrc = "/Imagenes/Varias/sticker3.png";
+const frascoSrc = "/media/decoracion/cubo.png";
+const frascoBlancoSrc = "/media/decoracion/cubo.png";
+const bandaSrc = "/media/decoracion/banda.png";
+const stickerSrc = "/media/libros/sticker.png";
 const scooterFrames = [1, 2, 3, 4, 5, 6, 7, 8].map(
-  (n) => `/Imagenes/Varias/scooter/frame-${n}.png?v=3`,
+  (n) => `/media/decoracion/scooter/fotograma-0${n}.png`,
 );
 
 const STICKER_EFFECTS = [

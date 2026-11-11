@@ -2,7 +2,7 @@ export const sobreMiSection = {
   eyebrow: "05 · Estilo editorial",
   titleLead: "Sobre",
   titleAccent: "Grayby",
-  imageSrc: "/Imagenes/Varias/Persona2.png",
+  imageSrc: "/media/sobre-mi/retrato.png",
   imageAlt: "Emmanuel Ybarrola — Grayby art",
   roles: ["Artista", "Ilustrador", "Docente"] as const,
   paragraphs: [

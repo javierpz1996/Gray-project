@@ -1,0 +1,132 @@
+/* Carteles negros tipo referencia Thunder / póster anime — izquierda del hero. */
+.d2-promo-left {
+  position: absolute;
+  left: clamp(0.35rem, 1.8vw, 1.25rem);
+  bottom: var(--d2-promo-edge-bottom, clamp(1.25rem, 6vh, 3.25rem));
+  z-index: 4;
+  max-width: min(18rem, 42vw);
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-5deg);
+}
+
+.d2-promo-left__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.42em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.d2-promo-left__item {
+  margin-left: var(--d2-promo-shift, 0);
+}
+
+.d2-promo-left__bar {
+  margin: 0;
+  padding: 0.38em 0.72em 0.44em;
+  background: var(--ds-ink-deep);
+  color: var(--ds-surface);
+  transform: skewX(-14deg);
+  box-shadow: 0.12em 0.12em 0 color-mix(in srgb, var(--ds-ink) 35%, transparent);
+}
+
+.d2-promo-left__text {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(0.62rem, 1.55vw, 0.95rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  transform: skewX(14deg);
+}
+
+.d2-promo-left--derecho {
+  transform: none;
+}
+
+.d2-promo-left--derecho .d2-promo-left__item {
+  margin-left: 0;
+}
+
+.d2-promo-left--derecho .d2-promo-left__bar {
+  transform: none;
+}
+
+.d2-promo-left--derecho .d2-promo-left__text {
+  transform: none;
+}
+
+/* Panel izquierdo: misma altura que «Derecho», ancho al texto, pegado al borde. */
+.d2-promo-left--panel {
+  top: auto;
+  right: auto;
+  left: calc(-1 * var(--d2-hero-border, 10px));
+  bottom: var(--d2-promo-edge-bottom, clamp(1.25rem, 6vh, 3.25rem));
+  width: max-content;
+  max-width: min(92vw, calc(28% + var(--d2-hero-border, 10px)));
+  height: auto;
+  padding: 0;
+  transform: none;
+  box-sizing: border-box;
+}
+
+.d2-promo-left--panel .d2-promo-left__list {
+  width: max-content;
+  max-width: 100%;
+  align-items: flex-start;
+  gap: 0.4em;
+}
+
+.d2-promo-left--panel .d2-promo-left__item {
+  margin: 0;
+  width: max-content;
+  max-width: 100%;
+}
+
+.d2-promo-left--panel .d2-promo-left__bar {
+  display: inline-block;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  transform: none;
+  padding: 0.68em 1em 0.72em 0.9em;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--ds-ink-deep);
+}
+
+.d2-promo-left--panel .d2-promo-left__text {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  transform: none;
+  font-size: clamp(0.92rem, 2.55vw, 1.38rem);
+  line-height: 1.15;
+  text-align: left;
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .d2-promo-left {
+    max-width: min(11.5rem, 38vw);
+    bottom: var(--d2-promo-edge-bottom-narrow, clamp(0.75rem, 4vh, 2rem));
+  }
+
+  .d2-promo-left--panel .d2-promo-left__text {
+    font-size: clamp(0.74rem, 3.75vw, 0.98rem);
+    white-space: normal;
+  }
+
+  .d2-promo-left__text {
+    font-size: clamp(0.52rem, 2.8vw, 0.72rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d2-promo-left:not(.d2-promo-left--panel):not(.d2-promo-left--derecho) {
+    transform: none;
+  }
+}

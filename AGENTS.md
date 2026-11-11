@@ -105,6 +105,15 @@ src/
 7. **`DESIGN.md` monocromo:** legado; no usarlo para justificar UI nueva. El
    trabajo nuevo sigue Gray hasta migración explícita del sitio principal.
 
+## Guías bajo demanda
+
+Leer el `SKILL.md` solo cuando la tarea coincida. El detalle vive en `rules/` o `references/` de esa carpeta.
+
+- Performance React/Next: `.agents/skills/vercel-react-best-practices/SKILL.md`
+- View transitions: `.agents/skills/vercel-react-view-transitions/SKILL.md`
+- Composición de componentes: `.agents/skills/vercel-composition-patterns/SKILL.md`
+- Auditoría de coste en Vercel: `.agents/skills/vercel-optimize/SKILL.md`
+
 ## Convenciones de código
 
 - **Server Components por defecto.** `"use client"` solo donde haga falta
