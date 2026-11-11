@@ -311,11 +311,6 @@
   letter-spacing: 0.16em;
 }
 
-.cover-2-hero:not([data-ready="true"]) .cover-2-hero__lockup,
-.cover-2-hero:not([data-ready="true"]) .cover-2-hero__word img {
-  animation-play-state: paused;
-}
-
 .cover-2-hero[data-mark="sello"] .cover-2-hero__lockup,
 .cover-2-hero[data-mark="cambio"] .cover-2-hero__lockup,
 .cover-2-hero[data-mark="amarillo"] .cover-2-hero__lockup,
@@ -488,6 +483,14 @@
 @keyframes cover-2-corte-lock {
   0% { clip-path: inset(46% 0 46% 0); transform: scale(1.12); }
   100% { clip-path: inset(0 0 0 0); transform: scale(1); }
+}
+
+/* El atajo `animation` pisa play-state. Hasta que termina o se salta el video,
+   el logo no existe en pantalla: al pasar a ready se remonta y la animación arranca. */
+.cover-2-hero:not([data-ready="true"]) .cover-2-hero__lockup,
+.cover-2-hero:not([data-ready="true"]) .cover-2-hero__word img {
+  animation: none;
+  visibility: hidden;
 }
 
 .cover-2-hero__rail {

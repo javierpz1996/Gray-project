@@ -23,7 +23,7 @@ export function SiteLoadingIntro() {
   }, []);
 
   useEffect(() => {
-    if (phase === "leaving" || phase === "done") notifySiteIntroComplete();
+    if (phase === "done") notifySiteIntroComplete();
   }, [phase]);
 
   useEffect(() => {

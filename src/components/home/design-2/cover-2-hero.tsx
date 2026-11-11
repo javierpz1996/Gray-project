@@ -49,7 +49,7 @@ export function Cover2Hero({
   const frames = slides && slides.length > 0 ? slides : [src];
   const [frame, setFrame] = useState(0);
   const [dir, setDir] = useState<"next" | "prev">("next");
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(() => !waitForIntro || isSiteIntroComplete());
   const current = frames[frame] ?? frames[0] ?? src;
 
   useEffect(() => {
@@ -124,7 +124,7 @@ export function Cover2Hero({
       ) : null}
       <div className="cover-2-hero__mark">
         <div className="cover-2-hero__center">
-        <div className="cover-2-hero__lockup" aria-hidden>
+        <div key={ready ? "play" : "hold"} className="cover-2-hero__lockup" aria-hidden>
           {topSrc ? (
             <Image
               src={topSrc}

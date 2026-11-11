@@ -8,8 +8,6 @@ import {
   House,
   Image as ImageIcon,
   Menu,
-  Palette,
-  Settings,
 } from "lucide-react";
 import { leavePanelAdmin } from "./actions";
 
@@ -129,16 +127,6 @@ export function PanelSide({
         >
           <Menu aria-hidden="true" />
           <span>Menú</span>
-        </button>
-        <button type="button" className="panel-nav-row">
-          <Palette aria-hidden="true" />
-          <span>Estilos</span>
-          <ChevronRight aria-hidden="true" />
-        </button>
-        <button type="button" className="panel-nav-row">
-          <Settings aria-hidden="true" />
-          <span>Otros</span>
-          <ChevronRight aria-hidden="true" />
         </button>
       </nav>
       <form action={leavePanelAdmin}>
