@@ -1,0 +1,20 @@
+/* Solo Diseño 2. El hero conserva la lavanda que le pasa la página. */
+.design-2-stock .home-sns,
+.design-2-stock .home-sns[data-pattern],
+.design-2-stock .home-sns[data-mode="image"],
+.design-2-stock .story-section,
+.design-2-stock #sobre-mi {
+  background-color: transparent;
+  background-image: url("/media/base-texture/lustrous-paper.jpg");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: auto;
+}
+
+.design-2-stock .home-sns[data-motion][data-mode] {
+  animation: none;
+}
+
+.design-2-stock .story-wash {
+  display: none;
+}

@@ -7,6 +7,7 @@ import type { HomeDesign1HeroAnimationId } from "@/lib/home-design-1-hero-animat
 import type { Cover2LogoMark } from "@/lib/cover-2-logo";
 import { cover2SlideSlots, type Cover2MenuItem, type Cover2SlideMotion } from "@/lib/cover-2-menu";
 import type { HomeDesign1LogoAnimationId } from "@/lib/home-design-1-logo-animation";
+import "./design-2-stock.css";
 
 type HomeDesign2PageProps = {
   heroAnimation?: HomeDesign1HeroAnimationId;
@@ -27,6 +28,8 @@ type HomeDesign2PageProps = {
   mediaStamp?: string;
   banner?: HomeSnsBannerProps;
   bands?: StoryBands;
+  /** Sin las imágenes subidas a la base: usa los archivos de `public/media`. */
+  stockMedia?: boolean;
 };
 
 /** Copia de la home de diseño 1. Las variantes de esta versión se editan acá. */
@@ -49,33 +52,79 @@ export function HomeDesign2Page({
   mediaStamp = "0",
   banner,
   bands,
+  stockMedia = false,
 }: HomeDesign2PageProps) {
-  return (
+  const stockPhotos = {
+    left: "/media/hero/panel-izquierda.png",
+    center: "/media/hero/panel-centro.png",
+    right: "/media/hero/panel-derecha.png",
+  };
+  const stockSlides = [
+    "/media/hero/banner.png",
+    "/media/hero/collage.png",
+    "/media/hero/ilustracion-paneles.png",
+    "/media/redes/banner.jpg",
+    "/media/libros/completo.jpg",
+    "/media/libros/fondo.png",
+  ];
+  const stockOmsSlides = [
+    "/media/colors/verde_salvia_C7D2C0.png",
+    "/media/colors/durazno_F2D2BD.png",
+  ];
+  const sns = stockMedia
+    ? {
+        ...banner,
+        banners: [
+          "/media/colors/verde_salvia_C7D2C0.png",
+          "/media/colors/durazno_F2D2BD.png",
+          "/media/colors/azul_cielo_C8DCE8.png",
+        ] as [string, string, string],
+        mode: "pattern" as const,
+        frame: "none" as const,
+        shadow: "none" as const,
+        motion: "off" as const,
+        tile: null,
+        background: null,
+      }
+    : banner;
+  const storyBands = stockMedia
+    ? { ...bands, src1: "/media/decoracion/banda.png", src2: "/media/decoracion/banda.png" }
+    : bands;
+
+  const page = (
     <>
       {coverOption === 2 ? (
         <Cover2Hero
           mark={cover2Logo}
-          topSrc={cover2Stack ? `/api/hero-banner/logotop?v=${mediaStamp}` : null}
+          topSrc={cover2Stack ? (stockMedia ? "/media/marca/logo-secundario.png" : `/api/hero-banner/logotop?v=${mediaStamp}`) : null}
           menu={cover2Menu}
-          slides={cover2SlideSlots.slice(0, cover2Slides).map((slot) => `/api/hero-banner/${slot}?v=${mediaStamp}`)}
+          slides={
+            stockMedia
+              ? stockOmsSlides
+              : cover2SlideSlots.slice(0, cover2Slides).map((slot) => `/api/hero-banner/${slot}?v=${mediaStamp}`)
+          }
           slideMotion={cover2SlideMotion}
-          slideEvery={cover2SlideEvery}
+          slideEvery={stockMedia ? 5 : cover2SlideEvery}
+          backdrop={null}
+          slantRail={stockMedia}
         />
       ) : (
         <HomeDesign2TriPanelHero
           heroAnimation={heroAnimation}
           logoAnimation={logoAnimation}
-          logoSrc={heroLogo}
+          logoSrc={stockMedia ? "/media/marca/logo.png" : heroLogo}
           dividerWidth={dividerWidth}
           scatterPreset={particles ? "flicker" : null}
           showVeil={veil}
           showHalftone={halftone}
-          photos={heroPhotos}
+          photos={stockMedia ? stockPhotos : heroPhotos}
         />
       )}
-      <HomeSnsSection {...banner} />
-      <StorySection bands={bands} />
+      <HomeSnsSection {...sns} />
+      <StorySection bands={storyBands} stockMedia={stockMedia} />
       <HomeSobreMi />
     </>
   );
+
+  return stockMedia ? <div className="design-2-stock">{page}</div> : page;
 }

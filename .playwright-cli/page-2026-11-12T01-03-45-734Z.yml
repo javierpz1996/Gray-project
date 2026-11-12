@@ -1,0 +1,18 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - heading "Vila do Instagram fazenda do insta" [level=1] [ref=e5]:
+        - text: Vila do Instagram
+        - generic [ref=e6]: fazenda do insta
+      - generic [ref=e7]: – moradores
+    - search [ref=e12]:
+      - searchbox "Procurar morador" [ref=e13]
+      - button "Procurar" [ref=e14] [cursor=pointer]: ir
+  - generic [ref=e15]:
+    - generic [ref=e17]:
+      - generic [ref=e19]: "--:--"
+      - button "Liga o som" [ref=e20] [cursor=pointer]
+    - generic "Clique para ir até lá" [ref=e33]
+  - generic [ref=e35]:
+    - button "+" [ref=e36] [cursor=pointer]
+    - button "−" [ref=e37] [cursor=pointer]

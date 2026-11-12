@@ -1,5 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Inter, Oswald, Outfit } from "next/font/google";
+import {
+  Barlow_Condensed,
+  Inter,
+  Noto_Sans_JP,
+  Oswald,
+  Outfit,
+} from "next/font/google";
 import { site } from "@/config/site";
 import "./globals.css";
 
@@ -18,11 +24,20 @@ const barlowCondensed = Barlow_Condensed({
   variable: "--font-barlow-condensed",
 });
 
+/** greatpretender.jp — Oswald 700 (menú / títulos en inglés). */
 const oswald = Oswald({
   subsets: ["latin", "latin-ext"],
-  weight: ["500"],
+  weight: ["500", "700"],
   display: "swap",
   variable: "--font-oswald",
+});
+
+/** greatpretender.jp — Noto Sans JP 400/900 (cuerpo). */
+const notoSansJp = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "900"],
+  display: "swap",
+  variable: "--font-noto-sans-jp",
 });
 
 const outfit = Outfit({
@@ -75,7 +90,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="es"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${barlowCondensed.variable} ${oswald.variable} ${outfit.variable} h-full antialiased`}
+      className={`${inter.variable} ${barlowCondensed.variable} ${oswald.variable} ${notoSansJp.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">{children}</body>
     </html>

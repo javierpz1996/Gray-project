@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { site } from "@/config/site";
 import { STORY_SOCIAL, StorySocialIcon } from "@/components/home/design-2/story-section";
 import type { Cover2LogoMark } from "@/lib/cover-2-logo";
 import {
@@ -11,9 +13,19 @@ import {
   type Cover2SlideMotion,
 } from "@/lib/cover-2-menu";
 import { HOME_SITE_INTRO_COMPLETE_EVENT, isSiteIntroComplete } from "@/lib/home-design-1-animation";
+import { Cover2OmsKv } from "@/components/home/design-2/cover-2-oms-kv";
 import "./cover-2-hero.css";
 
 const SOCIAL = [...STORY_SOCIAL].reverse();
+
+const SLANT_LINKS = [
+  { href: "#libros", label: "Libros", external: false },
+  { href: "/#portafolio", label: "Obra", external: false },
+  { href: "/documentos", label: "Documentos", external: false },
+  { href: `mailto:${site.email}`, label: "Contacto", external: false },
+  { href: site.links.x, label: "X", external: true },
+  { href: site.links.instagram, label: "Instagram", external: true },
+] as const;
 
 function PagerTriangle() {
   return (
@@ -32,6 +44,8 @@ export function Cover2Hero({
   waitForIntro = true,
   topSrc = null,
   menu,
+  backdrop = null,
+  slantRail = false,
 }: {
   src?: string;
   slides?: string[];
@@ -44,6 +58,10 @@ export function Cover2Hero({
   /** Logo circular arriba del wordmark. Sin valor, se muestra solo el wordmark. */
   topSrc?: string | null;
   menu?: Cover2MenuItem[];
+  /** Color de fondo en lugar de la foto. Ruta de `public/media/colors`. */
+  backdrop?: string | null;
+  /** Panel izquierdo en diagonal, solo Diseño 2. */
+  slantRail?: boolean;
 }) {
   const items = menu && menu.length > 0 ? menu : defaultCover2Menu();
   const frames = slides && slides.length > 0 ? slides : [src];
@@ -83,20 +101,51 @@ export function Cover2Hero({
       data-ready={ready ? "true" : "false"}
       data-slide={slideMotion}
       data-dir={dir}
+      data-slant={slantRail ? "true" : "false"}
+      style={
+        backdrop && !slantRail
+          ? { background: `url(${backdrop}) center / cover no-repeat` }
+          : undefined
+      }
       aria-label="Portada"
     >
-      <Image
-        key={current}
-        src={current}
-        alt=""
-        fill
-        unoptimized
-        loading="eager"
-        fetchPriority="high"
-        sizes="100vw"
-        className="cover-2-hero__image"
-      />
-      {frames.length > 1 ? (
+      {slantRail ? (
+        <aside className="cover-2-hero__slant" aria-label="Secciones">
+          <div className="cover-2-hero__slant-lockup">
+            <p className="cover-2-hero__slant-title">GRAYBY</p>
+            <p className="cover-2-hero__slant-subtitle">ART</p>
+          </div>
+          <nav className="cover-2-hero__slant-nav">
+            {SLANT_LINKS.map((item) =>
+              item.external ? (
+                <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer">
+                  <span className="cover-2-hero__slant-nav-link">{item.label}</span>
+                </a>
+              ) : (
+                <Link key={item.label} href={item.href}>
+                  <span className="cover-2-hero__slant-nav-link">{item.label}</span>
+                </Link>
+              ),
+            )}
+          </nav>
+        </aside>
+      ) : null}
+      {slantRail ? (
+        <Cover2OmsKv slides={frames} slideEvery={slideEvery} />
+      ) : backdrop ? null : (
+        <Image
+          key={current}
+          src={current}
+          alt=""
+          fill
+          unoptimized
+          loading="eager"
+          fetchPriority="high"
+          sizes="100vw"
+          className="cover-2-hero__image"
+        />
+      )}
+      {!slantRail && !backdrop && frames.length > 1 ? (
         <div className="cover-2-hero__pager">
           <button
             type="button"

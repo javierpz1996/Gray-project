@@ -205,6 +205,9 @@ importers:
       shadcn:
         specifier: ^4.22.1
         version: 4.22.1(supports-color@7.2.0)
+      swiper:
+        specifier: ^14.4.0
+        version: 14.4.0
       three:
         specifier: 0.185.1
         version: 0.185.1
@@ -3937,6 +3940,10 @@ packages:
   supports-preserve-symlinks-flag@1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+
+  swiper@14.4.0:
+    resolution: {integrity: sha512-6axnAuBsttFJe0gwsM5tT203/Bts0vcI+FwIX6dqFE4pUFVW6qrdRprNFQVxOYMW7V0S6A/KIqJ6JaPpNN2MCw==}
+    engines: {node: '>= 4.7.0'}
 
   systeminformation@5.33.16:
     resolution: {integrity: sha512-R+Lh69IJXfJj6bfyH1In5cIR9FTr4hBS39YvlZHZjsK1p9cuELPq7hplZZIb56ZESMMb+DzdKqqE6Iomi01Mvg==}
@@ -8171,6 +8178,8 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  swiper@14.4.0: {}
 
   systeminformation@5.33.16: {}
 

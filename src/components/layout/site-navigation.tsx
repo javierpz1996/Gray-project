@@ -11,6 +11,7 @@ import "./kill-blue-menu.css";
 
 const LINKS = [
   { href: "/#inicio", label: "INICIO", sub: "Portada" },
+  { href: "/diseno-2", label: "DISEÑO 2", sub: "Copia" },
   { href: "/#portafolio", label: "OBRA", sub: "Piezas" },
   { href: "/#libros", label: "LIBROS", sub: "Catálogo" },
   {

@@ -218,6 +218,14 @@ const STORY_IMAGES = [
   "/api/hero-banner/tema5",
 ] as const;
 
+const STOCK_STORY_IMAGES = [
+  "/media/libros/tema-1.jpg",
+  "/media/libros/tema-2.jpg",
+  "/media/libros/tema-3.jpg",
+  "/media/libros/tema-4.jpg",
+  "/media/libros/completo.jpg",
+] as const;
+
 const STORIES: readonly StoryItem[] = [
   {
     id: "001",
@@ -342,8 +350,11 @@ function StoryTitle({
 
 export function StorySection({
   bands,
+  stockMedia = false,
 }: {
   bands?: StoryBands;
+  /** Archivos de `public/media` en lugar de las imágenes de la base. */
+  stockMedia?: boolean;
 } = {}) {
   const src1 = bands?.src1 ?? BANDA_SRC;
   const src2 = bands?.src2 ?? BANDA_SRC;
@@ -362,10 +373,12 @@ export function StorySection({
   const lead = bands?.lead?.trim() || "Conseguí la edición completa o elegí los temas que más te interesen.";
   const stories = STORIES.map((story, index) => {
     const custom = bands?.stories?.[index];
+    const image = stockMedia ? (STOCK_STORY_IMAGES[index] ?? STOCK_STORY_IMAGES[0]) : story.image;
     return {
       ...story,
       title: custom?.title?.trim() || story.title,
       text: custom?.text?.trim() || story.text,
+      image,
     };
   });
   const [active, setActive] = useState(1);
@@ -417,11 +430,12 @@ export function StorySection({
             ["--wash-speed" as string]: `${bands.heading.bgSpeed ?? 16}s`,
             ["--wash-tile-size" as string]: `${bands.heading.bgTile ?? 48}px`,
             ["--wash-shade" as string]: (bands.heading.bgShade ?? 0) / 100,
-            ["--wash-photo" as string]: "url(/api/hero-banner/librosbg)",
-            ["--wash-tile" as string]: "url(/api/hero-banner/librostile)",
+            ["--wash-photo" as string]: stockMedia ? "url(/media/libros/fondo.png)" : "url(/api/hero-banner/librosbg)",
+            ["--wash-tile" as string]: stockMedia ? "url(/media/libros/fondo-detalle.png)" : "url(/api/hero-banner/librostile)",
           }}
         />
       ) : null}
+      {stockMedia ? null : (
       <div className="story-section__bands" aria-hidden>
         <div
           className="story-section__banda"
@@ -474,6 +488,7 @@ export function StorySection({
           </div>
         </div>
       </div>
+      )}
       <div className="story-section__rail">
         <nav className="story-section__social" aria-label="Redes">
           {STORY_SOCIAL.map((red) => (
@@ -594,7 +609,7 @@ export function StorySection({
           }
           aria-hidden="true"
         >
-          {bands?.heading?.stickerKind === "video" ? (
+          {bands?.heading?.stickerKind === "video" && !stockMedia ? (
             <video
               className="story-section__lesson-image"
               src="/api/hero-banner/profesor?media=video"
@@ -607,7 +622,7 @@ export function StorySection({
             />
           ) : (
             <Image
-              src="/api/hero-banner/profesor"
+              src={stockMedia ? "/media/historia/profesor.png" : "/api/hero-banner/profesor"}
               alt=""
               fill
               unoptimized
@@ -684,7 +699,7 @@ export function StorySection({
                   }
                 >
                   <Image
-                    src={CUBE_SRC[index] ?? "/media/decoracion/cubo.png"}
+                    src={stockMedia ? "/media/decoracion/cubo.png" : (CUBE_SRC[index] ?? "/media/decoracion/cubo.png")}
                     alt=""
                     width={80}
                     height={80}

@@ -25,6 +25,7 @@ type HomeDesignProps = {
   mediaStamp?: string;
   banner?: HomeSnsBannerProps;
   bands?: StoryBands;
+  stockMedia?: boolean;
 };
 
 export function HomeDesign({
@@ -46,6 +47,7 @@ export function HomeDesign({
   mediaStamp = "0",
   banner,
   bands,
+  stockMedia = false,
 }: HomeDesignProps) {
   return (
     <HomeDesign2Page
@@ -67,6 +69,7 @@ export function HomeDesign({
       mediaStamp={mediaStamp}
       banner={banner}
       bands={bands}
+      stockMedia={stockMedia}
     />
   );
 }
