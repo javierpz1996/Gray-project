@@ -30,7 +30,10 @@
   --ds-blue: #5799c6;
   --ds-red: #bb0702;
   --ds-orange: #ff7800;
-  --ds-yellow: #f7e335;
+  --ds-yellow: #fcf6bd;
+  /** Campo y lunar del patrón de imprenta del hero diseño 2. */
+  --ds-slant-field: #f0f050;
+  --ds-slant-dot: #f8f86a;
   --ds-green: #3ecf8e;
   --ds-sky: #8ecae6;
   --ds-cream: #f5f2eb;

@@ -7,6 +7,7 @@ import { PanelBannerSection } from "./panel-banner-section";
 import { PanelCoverSection } from "./panel-cover-section";
 import { PanelCover2Section } from "./panel-cover-2-section";
 import { PanelLibrosSection } from "./panel-libros-section";
+import { PanelEfectosSection } from "./panel-efectos-section";
 import { PanelMenuSection } from "./panel-menu-section";
 import { PanelSide } from "./panel-side";
 
@@ -21,7 +22,7 @@ export function PanelWorkspace({
   libros: LibrosBandsConfig;
   menuApplied: boolean;
 }) {
-  const [section, setSection] = useState<"portada" | "banners" | "libros" | "menu">("portada");
+  const [section, setSection] = useState<"portada" | "banners" | "libros" | "menu" | "efectos">("portada");
   const [cover, setCover] = useState<1 | 2>(1);
   const [librosPart, setLibrosPart] = useState<"bandas" | "texto" | "imagenes" | "sticker" | "fondo">("bandas");
 
@@ -44,6 +45,8 @@ export function PanelWorkspace({
       <section className="panel-main">
         {section === "menu" ? (
           <PanelMenuSection applied={menuApplied} />
+        ) : section === "efectos" ? (
+          <PanelEfectosSection />
         ) : section === "banners" ? (
           <PanelBannerSection key={`banners-${revision}`} revision={revision} initial={initial} />
         ) : section === "libros" ? (

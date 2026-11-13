@@ -5,13 +5,14 @@ import { SiteLoadingIntro } from "@/components/layout/site-loading-intro";
 import { readHeroCoverConfig } from "@/lib/hero-config";
 import { heroPanelRevision } from "@/lib/hero-panel-store";
 import { readLibrosBands } from "@/lib/libros-bands";
+import { parseCover2SlantHalftone } from "@/lib/cover-2-slant-halftone";
 import { parseHomeDesign1LogoAnimation } from "@/lib/home-design-1-logo-animation";
 
 async function HomePageContent({
   searchParams,
   stockMedia = false,
 }: {
-  searchParams: Promise<{ logo?: string | string[] }>;
+  searchParams: Promise<{ logo?: string | string[]; halftone?: string | string[] }>;
   stockMedia?: boolean;
 }) {
   await connection();
@@ -22,6 +23,7 @@ async function HomePageContent({
   const bands = await readLibrosBands();
   const logoParam = Array.isArray(params.logo) ? params.logo[0] : params.logo;
   const logoAnimation = logoParam == null ? cover.logoAnimation : parseHomeDesign1LogoAnimation(logoParam);
+  const slantHalftone = stockMedia ? parseCover2SlantHalftone(params.halftone) : undefined;
 
   return (
     <HomeDesign
@@ -70,6 +72,7 @@ async function HomePageContent({
         background: cover.bannerMode === "image" ? `/api/hero-banner/bg?v=${bannerStamp}` : null,
       }}
       stockMedia={stockMedia}
+      slantHalftone={slantHalftone}
       bands={{
         src1: "/api/hero-banner/banda1",
         src2: "/api/hero-banner/banda2",
@@ -107,7 +110,7 @@ export function HomePageView({
   searchParams,
   stockMedia = false,
 }: {
-  searchParams: Promise<{ logo?: string | string[] }>;
+  searchParams: Promise<{ logo?: string | string[]; halftone?: string | string[] }>;
   /** Diseño 2: no usa las imágenes guardadas en la base. */
   stockMedia?: boolean;
 }) {

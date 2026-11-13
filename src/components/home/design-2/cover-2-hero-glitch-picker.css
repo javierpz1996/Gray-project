@@ -1,0 +1,113 @@
+.cover-2-glitch-lab {
+  position: fixed;
+  z-index: 80;
+  left: 50%;
+  bottom: clamp(0.65rem, 2vh, 1.15rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: min(42rem, calc(100vw - 1.5rem));
+  padding: 0.55rem 0.7rem 0.65rem;
+  transform: translateX(-50%);
+  color: var(--ds-ink-deep);
+  background: var(--ds-yellow);
+  border: 1px solid var(--ds-ink-deep);
+  box-shadow: var(--ds-ink-deep) 0 4px 0 0;
+}
+
+.cover-2-glitch-lab--panel {
+  position: static;
+  z-index: auto;
+  left: auto;
+  bottom: auto;
+  width: 100%;
+  max-width: 42rem;
+  transform: none;
+}
+
+.cover-2-glitch-lab__title {
+  margin: 0;
+  font-family: var(--font-oswald), var(--font-noto-sans-jp), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cover-2-glitch-lab__amp {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.3rem;
+}
+
+.cover-2-glitch-lab__row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+
+.cover-2-glitch-lab__option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.05rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0.35rem 0.4rem 0.4rem;
+  border: 1px solid var(--ds-ink-deep);
+  background: var(--ds-surface);
+  color: var(--ds-ink-deep);
+  cursor: pointer;
+}
+
+.cover-2-glitch-lab__option:hover,
+.cover-2-glitch-lab__option:focus-visible {
+  background: var(--ds-yellow);
+}
+
+.cover-2-glitch-lab__option:focus-visible {
+  outline: 2px solid var(--ds-ink-deep);
+  outline-offset: 2px;
+}
+
+.cover-2-glitch-lab__option[data-active="true"] {
+  background: var(--ds-ink-deep);
+  color: var(--ds-yellow);
+}
+
+.cover-2-glitch-lab__option--amp,
+.cover-2-glitch-lab__option--off {
+  font-family: var(--font-oswald), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover-2-glitch-lab__option--off {
+  min-width: 3.5rem;
+  padding-inline: 0.7rem;
+}
+
+.cover-2-glitch-lab__num {
+  font-family: var(--font-oswald), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.cover-2-glitch-lab__short {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+@media (max-width: 520px) {
+  .cover-2-glitch-lab__short {
+    display: none;
+  }
+}

@@ -4,7 +4,7 @@
   width: 100px;
   height: 100px;
   margin: 0;
-  background: #fcff0e;
+  background: var(--ds-yellow);
   border: 1px solid #000;
   border-radius: 50%;
   box-shadow: #000 0 4px 0 0;

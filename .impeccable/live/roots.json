@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "appRoot": "/Volumes/Disco exter/GRAY-PROYECT",
+  "repoRoot": "/Volumes/Disco exter/GRAY-PROYECT",
+  "contextRoot": "/Volumes/Disco exter/GRAY-PROYECT",
+  "sessionRoot": "/Volumes/Disco exter/GRAY-PROYECT/.impeccable/live",
+  "productPath": null,
+  "designPath": "/Volumes/Disco exter/GRAY-PROYECT/DESIGN.md",
+  "resolvedFrom": "target:src/components/home/design-2/design-2-x-separator.tsx"
+}

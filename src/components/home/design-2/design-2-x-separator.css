@@ -1,0 +1,43 @@
+.cover-2-kb-strip__x-gap .design-2-x-separator {
+  overflow: visible;
+  background: transparent;
+}
+
+.design-2-x-separator {
+  overflow: hidden;
+  color: var(--ds-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1;
+  padding-block: 0.45rem;
+}
+
+.design-2-x-separator__track {
+  display: flex;
+  gap: 0.55rem;
+  width: max-content;
+}
+
+.design-2-x-separator__track span {
+  display: block;
+  animation: design-2-x-temblor 0.9s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.11s);
+}
+
+@keyframes design-2-x-temblor {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0.6px, -0.6px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-2-x-separator__track span {
+    animation: none;
+  }
+}

@@ -5,6 +5,7 @@ import type { HomeDesign1HeroAnimationId } from "@/lib/home-design-1-hero-animat
 import type { Cover2LogoMark } from "@/lib/cover-2-logo";
 import type { Cover2MenuItem, Cover2SlideMotion } from "@/lib/cover-2-menu";
 import type { HomeDesign1LogoAnimationId } from "@/lib/home-design-1-logo-animation";
+import type { Cover2SlantHalftoneId } from "@/lib/cover-2-slant-halftone";
 
 type HomeDesignProps = {
   heroAnimation?: HomeDesign1HeroAnimationId;
@@ -26,6 +27,7 @@ type HomeDesignProps = {
   banner?: HomeSnsBannerProps;
   bands?: StoryBands;
   stockMedia?: boolean;
+  slantHalftone?: Cover2SlantHalftoneId;
 };
 
 export function HomeDesign({
@@ -48,6 +50,7 @@ export function HomeDesign({
   banner,
   bands,
   stockMedia = false,
+  slantHalftone = 3,
 }: HomeDesignProps) {
   return (
     <HomeDesign2Page
@@ -70,6 +73,7 @@ export function HomeDesign({
       banner={banner}
       bands={bands}
       stockMedia={stockMedia}
+      slantHalftone={slantHalftone}
     />
   );
 }

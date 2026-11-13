@@ -1,14 +1,373 @@
+/* Columna kill-blue fija: el resto de la página no queda debajo del menú. */
+.design-2-stock--kb-rail {
+  /* vw: mismo valor en padding del rail y en ancho del menú. */
+  --kb-rail-w: max(33vw, 350px);
+  --kb-edge-w: 35px;
+  --kb-edge-inset: calc(var(--kb-edge-w) + 0.65rem);
+  --kb-tear-h: 64px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Rail solo en hero + banners; abajo el contenido usa ancho completo. */
+.design-2-stock--kb-rail .cover-2-kb-rail-zone {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  padding-left: var(--kb-rail-w);
+  padding-right: var(--kb-edge-inset);
+  overflow: visible;
+}
+
+/* El rasgado queda dentro del menú y de Novedades, sin pasar a la sección de abajo. */
+.design-2-stock--kb-rail .cover-2-kb-tear {
+  position: absolute;
+  z-index: 6;
+  left: var(--kb-edge-w);
+  right: var(--kb-edge-w);
+  bottom: 0;
+  height: 64px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.design-2-stock--kb-rail .cover-2-kb-tear__under {
+  position: absolute;
+  inset: 0;
+  background-image: url("/media/base-texture/lustrous-paper.jpg");
+  background-repeat: repeat;
+  background-position: center;
+  -webkit-mask-image: url("/media/diseno2/borde-paper-mask.png");
+  mask-image: url("/media/diseno2/borde-paper-mask.png");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.design-2-stock--kb-rail .cover-2-kb-tear__lip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+/* Franja blanca derecha (hero + banners), como la izquierda del menú. */
+.design-2-stock--kb-rail .cover-2-kb-rail-zone::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: var(--kb-edge-w);
+  background: #fff;
+  pointer-events: none;
+}
+
+/* Mismo fondo que el hero: tapa la franja entre menú y contenido. */
+.design-2-stock--kb-rail .cover-2-kb-rail-zone::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-color: #f2f50b;
+  background-image: url("/media/diseno2/fondo-amarillo.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.design-2-stock--kb-rail .cover-2-kb-rail-zone > .cover-2-hero,
+.design-2-stock--kb-rail .cover-2-kb-rail-zone > .home-sns {
+  position: relative;
+  z-index: 1;
+}
+
+.design-2-stock--kb-rail .cover-2-kb-rail-zone > .cover-2-hero[data-kb-strip="true"] {
+  z-index: 4;
+  overflow: visible;
+  width: calc(100% + var(--kb-edge-inset) + var(--kb-edge-w));
+  margin-right: calc(-1 * (var(--kb-edge-inset) + var(--kb-edge-w)));
+  height: calc(100dvh + 5.5rem);
+  min-height: calc(100dvh + 5.5rem);
+}
+
+.design-2-stock--kb-rail .cover-2-hero[data-kb-strip="true"] .cover-2-hero__kb-kv {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  right: 0;
+}
+
+.design-2-stock--kb-rail .cover-2-hero[data-kb-strip="true"] .cover-2-hero__kb-kv-image {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.design-2-stock--kb-rail .cover-2-kb-rail-zone .cover-2-kb-strip {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: var(--kb-rail-w);
+  min-width: var(--kb-rail-w);
+  max-width: var(--kb-rail-w);
+  height: 100%;
+  box-sizing: border-box;
+  /* sticky del menú requiere que no recorte el wrap */
+  overflow: visible;
+}
+
+/* El menú se fija por JS; scroll interno si no entra en viewport. */
+.design-2-stock--kb-rail .cover-2-kb-strip .top-CNT-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  box-sizing: border-box;
+  padding-left: var(--kb-edge-inset);
+  padding-top: 0.35rem;
+  max-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Al final del rail: menú completo encima del borde papel, no fijo al viewport. */
+.design-2-stock--kb-rail .cover-2-kb-strip .top-CNT-wrap[data-kb-stick="bottom"] {
+  overflow-y: hidden;
+}
+
+@media (max-width: 850px) {
+  .design-2-stock--kb-rail .cover-2-kb-rail-zone {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .design-2-stock--kb-rail .cover-2-kb-rail-zone::after {
+    display: none;
+  }
+
+  .design-2-stock--kb-rail .cover-2-kb-tear {
+    left: 0;
+    right: 0;
+  }
+}
+
 /* Solo Diseño 2. El hero conserva la lavanda que le pasa la página. */
-.design-2-stock .home-sns,
-.design-2-stock .home-sns[data-pattern],
-.design-2-stock .home-sns[data-mode="image"],
+.design-2-stock--kb-rail .cover-2-kb-strip .design-2-x-separator {
+  background-color: transparent;
+  background-image: none;
+}
+
 .design-2-stock .story-section,
+.design-2-stock .design-2-x-separator:not(:where(.cover-2-kb-strip *)),
 .design-2-stock #sobre-mi {
   background-color: transparent;
   background-image: url("/media/base-texture/lustrous-paper.jpg");
   background-repeat: repeat;
   background-position: center;
   background-size: auto;
+}
+
+.design-2-stock .home-sns,
+.design-2-stock .home-sns[data-pattern],
+.design-2-stock .home-sns[data-mode="image"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 6 / 1;
+  background-color: transparent;
+  background-image: url("/media/base-texture/lustrous-paper.jpg");
+  background-repeat: repeat;
+  background-position: center;
+  background-size: auto;
+}
+
+.design-2-stock--kb-rail .home-sns,
+.design-2-stock--kb-rail .home-sns[data-pattern],
+.design-2-stock--kb-rail .home-sns[data-mode="image"] {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  aspect-ratio: auto;
+  min-height: 24rem;
+  margin-top: -5.5rem;
+  padding-top: 5.5rem;
+  box-sizing: border-box;
+  border: 2px solid #fff;
+  border-right-width: 0;
+  background-color: #f2f50b;
+  background-image: url("/media/diseno2/fondo-amarillo.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.design-2-stock--kb-rail .home-sns__head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 3vw, 1.5rem);
+  box-sizing: border-box;
+  width: min(94%, 54rem);
+  margin-inline: auto;
+  padding: clamp(2rem, 5.5vw, 2.65rem) clamp(0.75rem, 2.5vw, 1.15rem) 0;
+}
+
+.design-2-stock--kb-rail .home-sns__banner-nav {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: clamp(0.35rem, 1.1vw, 0.5rem);
+  padding-top: clamp(1.25rem, 3.4vw, 1.55rem);
+}
+
+.design-2-stock--kb-rail .home-sns__banner-nav-btn {
+  display: grid;
+  place-items: center;
+  width: clamp(2.05rem, 5.8vw, 2.6rem);
+  height: clamp(2.05rem, 5.8vw, 2.6rem);
+  margin: 0;
+  padding: 0;
+  border: 2px solid #000;
+  border-radius: 0.32rem;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: opacity 150ms ease-out;
+}
+
+.design-2-stock--kb-rail .home-sns__banner-nav-btn:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+.design-2-stock--kb-rail .home-sns__banner-nav-btn:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.design-2-stock--kb-rail .home-sns__banner-nav-btn:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.design-2-stock--kb-rail .home-sns__banner-nav-btn svg {
+  width: 58%;
+  height: 58%;
+}
+
+.design-2-stock--kb-rail .home-sns > .home-sns__kicker {
+  padding: clamp(1.85rem, 5.2vw, 2.45rem) clamp(0.85rem, 2.8vw, 1.35rem) 0.35rem;
+}
+
+.design-2-stock--kb-rail .home-sns__kicker {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  margin: 0;
+  padding: 0 0 0.35rem;
+  font-family: aptly-rust, var(--font-oswald), impact, sans-serif;
+  font-size: clamp(1.7rem, 5.1vw, 2.65rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.design-2-stock--kb-rail .home-sns__kicker-ghost {
+  position: absolute;
+  top: -0.28em;
+  left: 0.42em;
+  z-index: 0;
+  color: #fff;
+  transform: rotate(-4.5deg) scale(1.07);
+  transform-origin: left center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.design-2-stock--kb-rail .home-sns__kicker-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  width: fit-content;
+  color: #000;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 0.035em #000;
+  text-shadow:
+    0.035em 0.035em 0 #fff,
+    0.065em 0.065em 0 #fff;
+}
+
+.design-2-stock--kb-rail .home-sns__kicker-label::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0.28em;
+  margin-top: 0.08em;
+  background-image: radial-gradient(circle, #000 0.06em, transparent 0.065em);
+  background-size: 0.28em 100%;
+  background-repeat: repeat-x;
+  background-position: left center;
+}
+
+.design-2-stock--kb-rail .home-sns__banners {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  width: min(94%, 54rem);
+  margin-inline: auto;
+  gap: clamp(0.65rem, 2.4vw, 1.2rem);
+  padding: clamp(1.2rem, 3.2vw, 1.6rem) clamp(0.75rem, 2.5vw, 1.15rem);
+  overflow: visible;
+}
+
+.design-2-stock--kb-rail .home-sns__banner-link,
+.design-2-stock--kb-rail .home-sns__banners > div {
+  flex: none;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 1;
+}
+
+.design-2-stock--kb-rail .home-sns__banner {
+  box-sizing: border-box;
+  border: 2px solid #e6007e;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .design-2-stock--kb-rail .home-sns__banner-nav-btn {
+    transition: none;
+  }
+}
+
+.design-2-stock .home-sns::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: url("/media/diseno2/banner-test3.png") center / cover no-repeat;
+  filter: brightness(0);
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.design-2-stock--kb-rail .home-sns::before {
+  display: none;
 }
 
 .design-2-stock .home-sns[data-motion][data-mode] {

@@ -1,4 +1,6 @@
 import { Cover2Hero } from "@/components/home/design-2/cover-2-hero";
+import { Cover2KillBlueStrip } from "@/components/home/design-2/cover-2-kill-blue-strip";
+import { Design2XSeparator } from "@/components/home/design-2/design-2-x-separator";
 import { HomeDesign2TriPanelHero } from "@/components/home/design-2/home-design-2-tri-panel-hero";
 import { StorySection, type StoryBands } from "@/components/home/design-2/story-section";
 import { HomeSobreMi } from "@/components/home/home-sections";
@@ -7,6 +9,7 @@ import type { HomeDesign1HeroAnimationId } from "@/lib/home-design-1-hero-animat
 import type { Cover2LogoMark } from "@/lib/cover-2-logo";
 import { cover2SlideSlots, type Cover2MenuItem, type Cover2SlideMotion } from "@/lib/cover-2-menu";
 import type { HomeDesign1LogoAnimationId } from "@/lib/home-design-1-logo-animation";
+import type { Cover2SlantHalftoneId } from "@/lib/cover-2-slant-halftone";
 import "./design-2-stock.css";
 
 type HomeDesign2PageProps = {
@@ -30,6 +33,7 @@ type HomeDesign2PageProps = {
   bands?: StoryBands;
   /** Sin las imágenes subidas a la base: usa los archivos de `public/media`. */
   stockMedia?: boolean;
+  slantHalftone?: Cover2SlantHalftoneId;
 };
 
 /** Copia de la home de diseño 1. Las variantes de esta versión se editan acá. */
@@ -53,6 +57,7 @@ export function HomeDesign2Page({
   banner,
   bands,
   stockMedia = false,
+  slantHalftone = 3,
 }: HomeDesign2PageProps) {
   const stockPhotos = {
     left: "/media/hero/panel-izquierda.png",
@@ -67,47 +72,77 @@ export function HomeDesign2Page({
     "/media/libros/completo.jpg",
     "/media/libros/fondo.png",
   ];
-  const stockOmsSlides = [
-    "/media/colors/verde_salvia_C7D2C0.png",
-    "/media/colors/durazno_F2D2BD.png",
-  ];
+  const stockKbHero = "/media/diseno2/heroimage-test.png";
   const sns = stockMedia
     ? {
         ...banner,
         banners: [
-          "/media/colors/verde_salvia_C7D2C0.png",
-          "/media/colors/durazno_F2D2BD.png",
-          "/media/colors/azul_cielo_C8DCE8.png",
-        ] as [string, string, string],
+          "/media/diseno2/bannerexample.jpg",
+          "/media/diseno2/bannerexample.jpg",
+          "/media/diseno2/banner-test3.png",
+          "/media/diseno2/bannerexample.jpg",
+        ],
         mode: "pattern" as const,
         frame: "none" as const,
         shadow: "none" as const,
         motion: "off" as const,
         tile: null,
         background: null,
+        kicker: "NOVEDADES",
+        kbBannerNav: true,
       }
     : banner;
   const storyBands = stockMedia
     ? { ...bands, src1: "/media/decoracion/banda.png", src2: "/media/decoracion/banda.png" }
     : bands;
 
+  const cover2Hero = (
+    <Cover2Hero
+      mark={cover2Logo}
+      topSrc={cover2Stack ? (stockMedia ? "/media/marca/logo-secundario.png" : `/api/hero-banner/logotop?v=${mediaStamp}`) : null}
+      menu={cover2Menu}
+      slides={
+        stockMedia
+          ? [stockKbHero]
+          : cover2SlideSlots.slice(0, cover2Slides).map((slot) => `/api/hero-banner/${slot}?v=${mediaStamp}`)
+      }
+      kbHeroSrc={stockMedia ? stockKbHero : undefined}
+      kbAside={
+        stockMedia
+          ? {
+              videoSrc: "/media/videos/muestra.mp4",
+              itemsSrc: "/media/diseno2/heroitems.jpg",
+              videoLabel: "FUNDAMENTOS ANATOMIA",
+            }
+          : null
+      }
+      slideMotion={cover2SlideMotion}
+      slideEvery={cover2SlideEvery}
+      backdrop={null}
+      slantRail={stockMedia}
+      slantKillBlue={stockMedia}
+      embedKillBlueStrip={!(coverOption === 2 && stockMedia)}
+      slantHalftone={slantHalftone}
+      slantHalftonePicker={false}
+    />
+  );
+
   const page = (
     <>
       {coverOption === 2 ? (
-        <Cover2Hero
-          mark={cover2Logo}
-          topSrc={cover2Stack ? (stockMedia ? "/media/marca/logo-secundario.png" : `/api/hero-banner/logotop?v=${mediaStamp}`) : null}
-          menu={cover2Menu}
-          slides={
-            stockMedia
-              ? stockOmsSlides
-              : cover2SlideSlots.slice(0, cover2Slides).map((slot) => `/api/hero-banner/${slot}?v=${mediaStamp}`)
-          }
-          slideMotion={cover2SlideMotion}
-          slideEvery={stockMedia ? 5 : cover2SlideEvery}
-          backdrop={null}
-          slantRail={stockMedia}
-        />
+        stockMedia ? (
+          <div className="cover-2-kb-rail-zone">
+            <Cover2KillBlueStrip />
+            {cover2Hero}
+            <HomeSnsSection {...sns} />
+            <div className="cover-2-kb-tear" aria-hidden="true">
+              <div className="cover-2-kb-tear__under" />
+              <img className="cover-2-kb-tear__lip" src="/media/diseno2/borde-paper-lip.png" alt="" />
+            </div>
+          </div>
+        ) : (
+          cover2Hero
+        )
       ) : (
         <HomeDesign2TriPanelHero
           heroAnimation={heroAnimation}
@@ -120,11 +155,15 @@ export function HomeDesign2Page({
           photos={stockMedia ? stockPhotos : heroPhotos}
         />
       )}
-      <HomeSnsSection {...sns} />
+      {!(coverOption === 2 && stockMedia) ? <HomeSnsSection {...sns} /> : null}
+      <Design2XSeparator />
       <StorySection bands={storyBands} stockMedia={stockMedia} />
       <HomeSobreMi />
     </>
   );
 
-  return stockMedia ? <div className="design-2-stock">{page}</div> : page;
+  const stockWrap =
+    coverOption === 2 && stockMedia ? "design-2-stock design-2-stock--kb-rail" : "design-2-stock";
+
+  return stockMedia ? <div className={stockWrap}>{page}</div> : page;
 }

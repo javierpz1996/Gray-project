@@ -1,0 +1,331 @@
+- generic [active] [ref=f2e1]:
+  - banner
+  - main [ref=f2e2]:
+    - status "Cargando" [ref=f2e3]:
+      - button "Saltar" [ref=f2e5]
+    - generic [ref=f2e6]:
+      - generic [ref=f2e7]:
+        - region "Secciones":
+          - generic [ref=f2e8]:
+            - generic [ref=f2e9]:
+              - generic [ref=f2e11]:
+                - text: 
+                - paragraph [ref=f2e12]: JAPANESE
+              - link [ref=f2e14] [cursor=pointer]:
+                - /url: https://kill-blue.us/
+                - paragraph [ref=f2e16]: ENGLISH
+            - paragraph [ref=f2e17]: GRAYBY
+            - generic [ref=f2e20]:
+              - generic [ref=f2e21]: X
+              - generic [ref=f2e22]: X
+              - generic [ref=f2e23]: X
+              - generic [ref=f2e24]: X
+              - generic [ref=f2e25]: X
+              - generic [ref=f2e26]: X
+              - generic [ref=f2e27]: X
+              - generic [ref=f2e28]: X
+              - generic [ref=f2e29]: X
+              - generic [ref=f2e30]: X
+              - generic [ref=f2e31]: X
+              - generic [ref=f2e32]: X
+              - generic [ref=f2e33]: X
+              - generic [ref=f2e34]: X
+              - generic [ref=f2e35]: X
+              - generic [ref=f2e36]: X
+              - generic [ref=f2e37]: X
+              - generic [ref=f2e38]: X
+              - generic [ref=f2e39]: X
+              - generic [ref=f2e40]: X
+              - generic [ref=f2e41]: X
+              - generic [ref=f2e42]: X
+              - generic [ref=f2e43]: X
+              - generic [ref=f2e44]: X
+            - navigation "Contenidos" [ref=f2e45]:
+              - link [ref=f2e47] [cursor=pointer]:
+                - /url: "#news"
+                - paragraph [ref=f2e49]: NEWS
+              - link [ref=f2e51] [cursor=pointer]:
+                - /url: "#movie"
+                - paragraph [ref=f2e53]: MOVIE
+              - link [ref=f2e55] [cursor=pointer]:
+                - /url: "#story"
+                - paragraph [ref=f2e57]: STORY
+              - link [ref=f2e59] [cursor=pointer]:
+                - /url: "#episode"
+                - paragraph [ref=f2e61]: EPISODE
+              - link [ref=f2e63] [cursor=pointer]:
+                - /url: /#portafolio
+                - paragraph [ref=f2e65]: CHARACTER
+              - link [ref=f2e67] [cursor=pointer]:
+                - /url: "#staff"
+                - paragraph [ref=f2e69]: STAFF&CAST
+              - link [ref=f2e71] [cursor=pointer]:
+                - /url: "#music"
+                - paragraph [ref=f2e73]: MUSIC
+              - link [ref=f2e75] [cursor=pointer]:
+                - /url: "#onair"
+                - paragraph [ref=f2e77]: ON AIR
+              - link [ref=f2e79] [cursor=pointer]:
+                - /url: "#comic"
+                - paragraph [ref=f2e81]: COMIC
+              - link [ref=f2e83] [cursor=pointer]:
+                - /url: "#bluray"
+                - paragraph [ref=f2e85]: BLU-RAY
+            - generic [ref=f2e86]:
+              - paragraph [ref=f2e87]: OFFICIAL SNS
+              - generic [ref=f2e88]:
+                - link "X" [ref=f2e90] [cursor=pointer]:
+                  - /url: https://x.com/KILLBLUE_PR
+                - link "Instagram" [ref=f2e94] [cursor=pointer]:
+                  - /url: https://instagram.com/
+                - link "TikTok" [ref=f2e98] [cursor=pointer]:
+                  - /url: https://www.tiktok.com/@killblue_official
+        - region "Portada" [ref=f2e101]:
+          - figure
+          - complementary "Destacados" [ref=f2e102]:
+            - group "Video muestra" [ref=f2e103]:
+              - generic [ref=f2e104]:
+                - paragraph [ref=f2e105]: FUNDAMENTOS ANATOMIA
+                - button "Abrir video de muestra" [ref=f2e108] [cursor=pointer]
+            - generic [ref=f2e111]:
+              - figure [ref=f2e112]
+              - figure [ref=f2e113]
+        - region "Redes" [ref=f2e114]:
+          - generic [ref=f2e115]:
+            - paragraph [ref=f2e116]:
+              - generic [aria-hidden]: NOVEDADES
+              - generic [ref=f2e117]: NOVEDADES
+            - group "Recorrer novedades" [ref=f2e118]:
+              - button "Novedad anterior" [ref=f2e119] [cursor=pointer]
+              - button "Novedad siguiente" [ref=f2e122] [cursor=pointer]
+          - generic [ref=f2e125]:
+            - link [ref=f2e126] [cursor=pointer]:
+              - /url: https://youtu.be/fKEGjZX7luA?si=BCU8I1WNCtbxUZpn
+              - img "Grayby art" [ref=f2e127]
+            - link [ref=f2e128] [cursor=pointer]:
+              - /url: https://youtu.be/oEQsGe0Yw3s?si=8KOslW9zZR0haM0U
+      - generic [ref=f2e130]:
+        - generic [ref=f2e131]: X
+        - generic [ref=f2e132]: X
+        - generic [ref=f2e133]: X
+        - generic [ref=f2e134]: X
+        - generic [ref=f2e135]: X
+        - generic [ref=f2e136]: X
+        - generic [ref=f2e137]: X
+        - generic [ref=f2e138]: X
+        - generic [ref=f2e139]: X
+        - generic [ref=f2e140]: X
+        - generic [ref=f2e141]: X
+        - generic [ref=f2e142]: X
+        - generic [ref=f2e143]: X
+        - generic [ref=f2e144]: X
+        - generic [ref=f2e145]: X
+        - generic [ref=f2e146]: X
+        - generic [ref=f2e147]: X
+        - generic [ref=f2e148]: X
+        - generic [ref=f2e149]: X
+        - generic [ref=f2e150]: X
+        - generic [ref=f2e151]: X
+        - generic [ref=f2e152]: X
+        - generic [ref=f2e153]: X
+        - generic [ref=f2e154]: X
+        - generic [ref=f2e155]: X
+        - generic [ref=f2e156]: X
+        - generic [ref=f2e157]: X
+        - generic [ref=f2e158]: X
+        - generic [ref=f2e159]: X
+        - generic [ref=f2e160]: X
+        - generic [ref=f2e161]: X
+        - generic [ref=f2e162]: X
+        - generic [ref=f2e163]: X
+        - generic [ref=f2e164]: X
+        - generic [ref=f2e165]: X
+        - generic [ref=f2e166]: X
+        - generic [ref=f2e167]: X
+        - generic [ref=f2e168]: X
+        - generic [ref=f2e169]: X
+        - generic [ref=f2e170]: X
+        - generic [ref=f2e171]: X
+        - generic [ref=f2e172]: X
+        - generic [ref=f2e173]: X
+        - generic [ref=f2e174]: X
+        - generic [ref=f2e175]: X
+        - generic [ref=f2e176]: X
+        - generic [ref=f2e177]: X
+        - generic [ref=f2e178]: X
+        - generic [ref=f2e179]: X
+        - generic [ref=f2e180]: X
+        - generic [ref=f2e181]: X
+        - generic [ref=f2e182]: X
+        - generic [ref=f2e183]: X
+        - generic [ref=f2e184]: X
+        - generic [ref=f2e185]: X
+        - generic [ref=f2e186]: X
+        - generic [ref=f2e187]: X
+        - generic [ref=f2e188]: X
+        - generic [ref=f2e189]: X
+        - generic [ref=f2e190]: X
+        - generic [ref=f2e191]: X
+        - generic [ref=f2e192]: X
+        - generic [ref=f2e193]: X
+        - generic [ref=f2e194]: X
+        - generic [ref=f2e195]: X
+        - generic [ref=f2e196]: X
+        - generic [ref=f2e197]: X
+        - generic [ref=f2e198]: X
+        - generic [ref=f2e199]: X
+        - generic [ref=f2e200]: X
+        - generic [ref=f2e201]: X
+        - generic [ref=f2e202]: X
+        - generic [ref=f2e203]: X
+        - generic [ref=f2e204]: X
+        - generic [ref=f2e205]: X
+        - generic [ref=f2e206]: X
+        - generic [ref=f2e207]: X
+        - generic [ref=f2e208]: X
+        - generic [ref=f2e209]: X
+        - generic [ref=f2e210]: X
+        - generic [ref=f2e211]: X
+        - generic [ref=f2e212]: X
+        - generic [ref=f2e213]: X
+        - generic [ref=f2e214]: X
+        - generic [ref=f2e215]: X
+        - generic [ref=f2e216]: X
+        - generic [ref=f2e217]: X
+        - generic [ref=f2e218]: X
+        - generic [ref=f2e219]: X
+        - generic [ref=f2e220]: X
+        - generic [ref=f2e221]: X
+        - generic [ref=f2e222]: X
+        - generic [ref=f2e223]: X
+        - generic [ref=f2e224]: X
+        - generic [ref=f2e225]: X
+        - generic [ref=f2e226]: X
+        - generic [ref=f2e227]: X
+        - generic [ref=f2e228]: X
+        - generic [ref=f2e229]: X
+        - generic [ref=f2e230]: X
+        - generic [ref=f2e231]: X
+        - generic [ref=f2e232]: X
+        - generic [ref=f2e233]: X
+        - generic [ref=f2e234]: X
+        - generic [ref=f2e235]: X
+        - generic [ref=f2e236]: X
+        - generic [ref=f2e237]: X
+        - generic [ref=f2e238]: X
+        - generic [ref=f2e239]: X
+        - generic [ref=f2e240]: X
+        - generic [ref=f2e241]: X
+        - generic [ref=f2e242]: X
+        - generic [ref=f2e243]: X
+        - generic [ref=f2e244]: X
+        - generic [ref=f2e245]: X
+        - generic [ref=f2e246]: X
+        - generic [ref=f2e247]: X
+        - generic [ref=f2e248]: X
+        - generic [ref=f2e249]: X
+        - generic [ref=f2e250]: X
+      - region "Libros de dibujo test" [ref=f2e251]:
+        - generic [ref=f2e252]:
+          - navigation "Redes" [ref=f2e253]:
+            - link "X" [ref=f2e254] [cursor=pointer]:
+              - /url: https://x.com/
+            - link "YouTube" [ref=f2e257] [cursor=pointer]:
+              - /url: https://www.youtube.com/
+            - link "Facebook" [ref=f2e261] [cursor=pointer]:
+              - /url: https://www.facebook.com/
+            - link "Instagram" [ref=f2e265] [cursor=pointer]:
+              - /url: https://instagram.com/
+            - link "TikTok" [ref=f2e270] [cursor=pointer]:
+              - /url: https://www.tiktok.com/
+          - paragraph [aria-hidden]:
+            - generic: Scroll
+        - generic [ref=f2e274]:
+          - heading "Libros de dibujo test" [level=2] [ref=f2e275]
+          - paragraph [ref=f2e276]: Retoma tu pasión por el dibujo, o comienza desde cero test de texto
+          - paragraph [ref=f2e277]: Aprendé a tu propio ritmo
+          - generic [ref=f2e278]:
+            - button "Libro completo" [ref=f2e279] [cursor=pointer]
+            - button "Temas" [ref=f2e282] [cursor=pointer]
+        - generic [ref=f2e286]:
+          - generic [ref=f2e287]:
+            - generic [ref=f2e288]:
+              - button "Fundamentos del dibujo" [ref=f2e289] [cursor=pointer]:
+                - generic [ref=f2e290]: "001"
+              - button "Perspectiva anatómica" [pressed] [ref=f2e291] [cursor=pointer]:
+                - generic [ref=f2e292]: "002"
+              - button "Halloween diseño de personajes" [ref=f2e293] [cursor=pointer]:
+                - generic [ref=f2e294]: "003"
+              - button "Perspectiva fundamentos iniciales" [ref=f2e295] [cursor=pointer]:
+                - generic [ref=f2e296]: "004"
+              - button "Morfología anatomía muscular" [ref=f2e297] [cursor=pointer]:
+                - generic [ref=f2e298]: "005"
+            - tablist "Temas" [ref=f2e299]:
+              - tab "001. Fundamentos del dibujo" [ref=f2e300] [cursor=pointer]
+              - tab "002. Perspectiva anatómica" [selected] [ref=f2e302] [cursor=pointer]
+              - tab "003. Halloween diseño de personajes" [ref=f2e304] [cursor=pointer]
+              - tab "004. Perspectiva fundamentos iniciales" [ref=f2e306] [cursor=pointer]
+              - tab "005. Morfología anatomía muscular" [ref=f2e308] [cursor=pointer]
+          - generic [ref=f2e310]:
+            - list [ref=f2e311]:
+              - listitem [ref=f2e312] [cursor=pointer]:
+                - paragraph [ref=f2e314]: 001 - Fundamentos del dibujo
+              - listitem [ref=f2e315] [cursor=pointer]:
+                - generic [ref=f2e316]:
+                  - paragraph [ref=f2e317]: 002 - Perspectiva anatómica
+                  - paragraph [ref=f2e318]:
+                    - generic [ref=f2e319]: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+                    - button "VER" [ref=f2e320]
+              - listitem [ref=f2e324] [cursor=pointer]:
+                - paragraph [ref=f2e326]: 003 - Halloween diseño de personajes
+              - listitem [ref=f2e327] [cursor=pointer]:
+                - paragraph [ref=f2e329]: 004 - Perspectiva fundamentos iniciales
+              - listitem [ref=f2e330] [cursor=pointer]:
+                - paragraph [ref=f2e332]: 005 - Morfología anatomía muscular
+            - generic [aria-hidden]:
+              - generic: 30% OFF solo hasta el 04/11
+      - region "Sobre Grayby" [ref=f2e333]:
+        - generic [ref=f2e335]:
+          - paragraph [ref=f2e336]: 05 · Estilo editorial
+          - generic [ref=f2e337]:
+            - generic [ref=f2e338]:
+              - heading "Sobre Grayby" [level=2] [ref=f2e339]
+              - generic [ref=f2e340]:
+                - paragraph [ref=f2e341]: Soy Emmanuel Ybarrola, conocido también como Grayby, artista e ilustrador especializado en cómics, anatomía y arte digital.
+                - paragraph [ref=f2e342]: Arquitecto de formación, desarrollé proyectos de novela gráfica y experiencias de intercambio en Chile y México.
+                - paragraph [ref=f2e343]: Hoy me dedico a la docencia, con obras como «GENUS» y «TRANSLÚCIDO», apostando al impacto visual a través de la imagen.
+            - generic [ref=f2e345]:
+              - img "Emmanuel Ybarrola — Grayby art" [ref=f2e347]
+              - list "Roles" [ref=f2e348]:
+                - listitem [ref=f2e349]: Artista
+                - listitem [ref=f2e350]: Ilustrador
+                - listitem [ref=f2e351]: Docente
+  - contentinfo [ref=f2e352]:
+    - generic [ref=f2e353]:
+      - paragraph [ref=f2e354]: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+      - navigation [ref=f2e355]:
+        - link "instagram" [ref=f2e356] [cursor=pointer]:
+          - /url: https://instagram.com/
+        - link "x" [ref=f2e357] [cursor=pointer]:
+          - /url: https://x.com/
+        - link "facebook" [ref=f2e358] [cursor=pointer]:
+          - /url: https://www.facebook.com/
+        - link "tiktok" [ref=f2e359] [cursor=pointer]:
+          - /url: https://www.tiktok.com/
+        - link "youtube" [ref=f2e360] [cursor=pointer]:
+          - /url: https://www.youtube.com/
+        - link "deviantart" [ref=f2e361] [cursor=pointer]:
+          - /url: https://www.deviantart.com/
+        - link "Documentos" [ref=f2e362] [cursor=pointer]:
+          - /url: /documentos
+  - button "Open Next.js Dev Tools" [ref=f2e368] [cursor=pointer]:
+    - generic [ref=f2e371]:
+      - text: Compiling
+      - generic [ref=f2e372]:
+        - generic [ref=f2e373]: .
+        - generic [ref=f2e374]: .
+        - generic [ref=f2e375]: .
+  - alert [ref=f2e376]
+  - button "Menú" [ref=f2e377] [cursor=pointer]:
+    - img [aria-hidden] [ref=f2e378]:
+      - generic [ref=f2e379]: MENU · MENU · MENU · MENU · MENU ·

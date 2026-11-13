@@ -546,7 +546,7 @@ export function StorySection({
             ...storyLineStyle(bands?.heading?.rhythmStyle, "var(--font-display)"),
             color: bands?.heading?.rhythmStyle.bg ? `rgb(${bands.heading.rhythmStyle.color})` : "transparent",
             WebkitTextFillColor: bands?.heading?.rhythmStyle.bg ? `rgb(${bands.heading.rhythmStyle.color})` : "transparent",
-            WebkitTextStroke: `max(1px, 0.045em) rgb(${bands?.heading?.rhythmStyle.color ?? "247,227,53"})`,
+            WebkitTextStroke: `max(1px, 0.045em) rgb(${bands?.heading?.rhythmStyle.color ?? "252,246,189"})`,
           }}
         >
           {bands?.heading?.rhythm?.trim() || "Aprendé a tu propio ritmo"}
@@ -736,7 +736,7 @@ export function StorySection({
                         type="button"
                         className="story-section__more"
                         data-motion={bands?.heading?.verMotion ?? "tilt"}
-                        style={{ backgroundColor: `rgb(${bands?.heading?.ver ?? "247,227,53"})` }}
+                        style={{ backgroundColor: `rgb(${bands?.heading?.ver ?? "252,246,189"})` }}
                         onClick={(event) => {
                           event.stopPropagation();
                           setActive(index);

@@ -1,0 +1,331 @@
+- generic [active] [ref=e1]:
+  - banner
+  - main [ref=e2]:
+    - status "Cargando" [ref=e3]:
+      - button "Saltar" [ref=e5]
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - region "Secciones":
+          - generic [ref=e8]:
+            - generic [ref=e9]:
+              - generic [ref=e11]:
+                - text: 
+                - paragraph [ref=e12]: JAPANESE
+              - link [ref=e14] [cursor=pointer]:
+                - /url: https://kill-blue.us/
+                - paragraph [ref=e16]: ENGLISH
+            - paragraph [ref=e17]: GRAYBY
+            - generic [ref=e20]:
+              - generic [ref=e21]: X
+              - generic [ref=e22]: X
+              - generic [ref=e23]: X
+              - generic [ref=e24]: X
+              - generic [ref=e25]: X
+              - generic [ref=e26]: X
+              - generic [ref=e27]: X
+              - generic [ref=e28]: X
+              - generic [ref=e29]: X
+              - generic [ref=e30]: X
+              - generic [ref=e31]: X
+              - generic [ref=e32]: X
+              - generic [ref=e33]: X
+              - generic [ref=e34]: X
+              - generic [ref=e35]: X
+              - generic [ref=e36]: X
+              - generic [ref=e37]: X
+              - generic [ref=e38]: X
+              - generic [ref=e39]: X
+              - generic [ref=e40]: X
+              - generic [ref=e41]: X
+              - generic [ref=e42]: X
+              - generic [ref=e43]: X
+              - generic [ref=e44]: X
+            - navigation "Contenidos" [ref=e45]:
+              - link [ref=e47] [cursor=pointer]:
+                - /url: "#news"
+                - paragraph [ref=e49]: NEWS
+              - link [ref=e51] [cursor=pointer]:
+                - /url: "#movie"
+                - paragraph [ref=e53]: MOVIE
+              - link [ref=e55] [cursor=pointer]:
+                - /url: "#story"
+                - paragraph [ref=e57]: STORY
+              - link [ref=e59] [cursor=pointer]:
+                - /url: "#episode"
+                - paragraph [ref=e61]: EPISODE
+              - link [ref=e63] [cursor=pointer]:
+                - /url: /#portafolio
+                - paragraph [ref=e65]: CHARACTER
+              - link [ref=e67] [cursor=pointer]:
+                - /url: "#staff"
+                - paragraph [ref=e69]: STAFF&CAST
+              - link [ref=e71] [cursor=pointer]:
+                - /url: "#music"
+                - paragraph [ref=e73]: MUSIC
+              - link [ref=e75] [cursor=pointer]:
+                - /url: "#onair"
+                - paragraph [ref=e77]: ON AIR
+              - link [ref=e79] [cursor=pointer]:
+                - /url: "#comic"
+                - paragraph [ref=e81]: COMIC
+              - link [ref=e83] [cursor=pointer]:
+                - /url: "#bluray"
+                - paragraph [ref=e85]: BLU-RAY
+            - generic [ref=e86]:
+              - paragraph [ref=e87]: OFFICIAL SNS
+              - generic [ref=e88]:
+                - link "X" [ref=e90] [cursor=pointer]:
+                  - /url: https://x.com/KILLBLUE_PR
+                - link "Instagram" [ref=e94] [cursor=pointer]:
+                  - /url: https://instagram.com/
+                - link "TikTok" [ref=e98] [cursor=pointer]:
+                  - /url: https://www.tiktok.com/@killblue_official
+        - region "Portada" [ref=e101]:
+          - figure
+          - complementary "Destacados" [ref=e102]:
+            - group "Video muestra" [ref=e103]:
+              - generic [ref=e104]:
+                - paragraph [ref=e105]: FUNDAMENTOS ANATOMIA
+                - button "Abrir video de muestra" [ref=e108] [cursor=pointer]
+            - generic [ref=e111]:
+              - figure [ref=e112]
+              - figure [ref=e113]
+        - region "Redes" [ref=e114]:
+          - generic [ref=e115]:
+            - paragraph [ref=e116]:
+              - generic [aria-hidden]: NOVEDADES
+              - generic [ref=e117]: NOVEDADES
+            - group "Recorrer novedades" [ref=e118]:
+              - button "Novedad anterior" [ref=e119] [cursor=pointer]
+              - button "Novedad siguiente" [ref=e122] [cursor=pointer]
+          - generic [ref=e125]:
+            - link [ref=e126] [cursor=pointer]:
+              - /url: https://youtu.be/fKEGjZX7luA?si=BCU8I1WNCtbxUZpn
+              - img "Grayby art" [ref=e127]
+            - link [ref=e128] [cursor=pointer]:
+              - /url: https://youtu.be/oEQsGe0Yw3s?si=8KOslW9zZR0haM0U
+      - generic [ref=e130]:
+        - generic [ref=e131]: X
+        - generic [ref=e132]: X
+        - generic [ref=e133]: X
+        - generic [ref=e134]: X
+        - generic [ref=e135]: X
+        - generic [ref=e136]: X
+        - generic [ref=e137]: X
+        - generic [ref=e138]: X
+        - generic [ref=e139]: X
+        - generic [ref=e140]: X
+        - generic [ref=e141]: X
+        - generic [ref=e142]: X
+        - generic [ref=e143]: X
+        - generic [ref=e144]: X
+        - generic [ref=e145]: X
+        - generic [ref=e146]: X
+        - generic [ref=e147]: X
+        - generic [ref=e148]: X
+        - generic [ref=e149]: X
+        - generic [ref=e150]: X
+        - generic [ref=e151]: X
+        - generic [ref=e152]: X
+        - generic [ref=e153]: X
+        - generic [ref=e154]: X
+        - generic [ref=e155]: X
+        - generic [ref=e156]: X
+        - generic [ref=e157]: X
+        - generic [ref=e158]: X
+        - generic [ref=e159]: X
+        - generic [ref=e160]: X
+        - generic [ref=e161]: X
+        - generic [ref=e162]: X
+        - generic [ref=e163]: X
+        - generic [ref=e164]: X
+        - generic [ref=e165]: X
+        - generic [ref=e166]: X
+        - generic [ref=e167]: X
+        - generic [ref=e168]: X
+        - generic [ref=e169]: X
+        - generic [ref=e170]: X
+        - generic [ref=e171]: X
+        - generic [ref=e172]: X
+        - generic [ref=e173]: X
+        - generic [ref=e174]: X
+        - generic [ref=e175]: X
+        - generic [ref=e176]: X
+        - generic [ref=e177]: X
+        - generic [ref=e178]: X
+        - generic [ref=e179]: X
+        - generic [ref=e180]: X
+        - generic [ref=e181]: X
+        - generic [ref=e182]: X
+        - generic [ref=e183]: X
+        - generic [ref=e184]: X
+        - generic [ref=e185]: X
+        - generic [ref=e186]: X
+        - generic [ref=e187]: X
+        - generic [ref=e188]: X
+        - generic [ref=e189]: X
+        - generic [ref=e190]: X
+        - generic [ref=e191]: X
+        - generic [ref=e192]: X
+        - generic [ref=e193]: X
+        - generic [ref=e194]: X
+        - generic [ref=e195]: X
+        - generic [ref=e196]: X
+        - generic [ref=e197]: X
+        - generic [ref=e198]: X
+        - generic [ref=e199]: X
+        - generic [ref=e200]: X
+        - generic [ref=e201]: X
+        - generic [ref=e202]: X
+        - generic [ref=e203]: X
+        - generic [ref=e204]: X
+        - generic [ref=e205]: X
+        - generic [ref=e206]: X
+        - generic [ref=e207]: X
+        - generic [ref=e208]: X
+        - generic [ref=e209]: X
+        - generic [ref=e210]: X
+        - generic [ref=e211]: X
+        - generic [ref=e212]: X
+        - generic [ref=e213]: X
+        - generic [ref=e214]: X
+        - generic [ref=e215]: X
+        - generic [ref=e216]: X
+        - generic [ref=e217]: X
+        - generic [ref=e218]: X
+        - generic [ref=e219]: X
+        - generic [ref=e220]: X
+        - generic [ref=e221]: X
+        - generic [ref=e222]: X
+        - generic [ref=e223]: X
+        - generic [ref=e224]: X
+        - generic [ref=e225]: X
+        - generic [ref=e226]: X
+        - generic [ref=e227]: X
+        - generic [ref=e228]: X
+        - generic [ref=e229]: X
+        - generic [ref=e230]: X
+        - generic [ref=e231]: X
+        - generic [ref=e232]: X
+        - generic [ref=e233]: X
+        - generic [ref=e234]: X
+        - generic [ref=e235]: X
+        - generic [ref=e236]: X
+        - generic [ref=e237]: X
+        - generic [ref=e238]: X
+        - generic [ref=e239]: X
+        - generic [ref=e240]: X
+        - generic [ref=e241]: X
+        - generic [ref=e242]: X
+        - generic [ref=e243]: X
+        - generic [ref=e244]: X
+        - generic [ref=e245]: X
+        - generic [ref=e246]: X
+        - generic [ref=e247]: X
+        - generic [ref=e248]: X
+        - generic [ref=e249]: X
+        - generic [ref=e250]: X
+      - region "Libros de dibujo test" [ref=e251]:
+        - generic [ref=e252]:
+          - navigation "Redes" [ref=e253]:
+            - link "X" [ref=e254] [cursor=pointer]:
+              - /url: https://x.com/
+            - link "YouTube" [ref=e257] [cursor=pointer]:
+              - /url: https://www.youtube.com/
+            - link "Facebook" [ref=e261] [cursor=pointer]:
+              - /url: https://www.facebook.com/
+            - link "Instagram" [ref=e265] [cursor=pointer]:
+              - /url: https://instagram.com/
+            - link "TikTok" [ref=e270] [cursor=pointer]:
+              - /url: https://www.tiktok.com/
+          - paragraph [aria-hidden]:
+            - generic: Scroll
+        - generic [ref=e274]:
+          - heading "Libros de dibujo test" [level=2] [ref=e275]
+          - paragraph [ref=e276]: Retoma tu pasión por el dibujo, o comienza desde cero test de texto
+          - paragraph [ref=e277]: Aprendé a tu propio ritmo
+          - generic [ref=e278]:
+            - button "Libro completo" [ref=e279] [cursor=pointer]
+            - button "Temas" [ref=e282] [cursor=pointer]
+        - generic [ref=e286]:
+          - generic [ref=e287]:
+            - generic [ref=e288]:
+              - button "Fundamentos del dibujo" [ref=e289] [cursor=pointer]:
+                - generic [ref=e290]: "001"
+              - button "Perspectiva anatómica" [pressed] [ref=e291] [cursor=pointer]:
+                - generic [ref=e292]: "002"
+              - button "Halloween diseño de personajes" [ref=e293] [cursor=pointer]:
+                - generic [ref=e294]: "003"
+              - button "Perspectiva fundamentos iniciales" [ref=e295] [cursor=pointer]:
+                - generic [ref=e296]: "004"
+              - button "Morfología anatomía muscular" [ref=e297] [cursor=pointer]:
+                - generic [ref=e298]: "005"
+            - tablist "Temas" [ref=e299]:
+              - tab "001. Fundamentos del dibujo" [ref=e300] [cursor=pointer]
+              - tab "002. Perspectiva anatómica" [selected] [ref=e302] [cursor=pointer]
+              - tab "003. Halloween diseño de personajes" [ref=e304] [cursor=pointer]
+              - tab "004. Perspectiva fundamentos iniciales" [ref=e306] [cursor=pointer]
+              - tab "005. Morfología anatomía muscular" [ref=e308] [cursor=pointer]
+          - generic [ref=e310]:
+            - list [ref=e311]:
+              - listitem [ref=e312] [cursor=pointer]:
+                - paragraph [ref=e314]: 001 - Fundamentos del dibujo
+              - listitem [ref=e315] [cursor=pointer]:
+                - generic [ref=e316]:
+                  - paragraph [ref=e317]: 002 - Perspectiva anatómica
+                  - paragraph [ref=e318]:
+                    - generic [ref=e319]: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+                    - button "VER" [ref=e320]
+              - listitem [ref=e324] [cursor=pointer]:
+                - paragraph [ref=e326]: 003 - Halloween diseño de personajes
+              - listitem [ref=e327] [cursor=pointer]:
+                - paragraph [ref=e329]: 004 - Perspectiva fundamentos iniciales
+              - listitem [ref=e330] [cursor=pointer]:
+                - paragraph [ref=e332]: 005 - Morfología anatomía muscular
+            - generic [aria-hidden]:
+              - generic: 30% OFF solo hasta el 04/11
+      - region "Sobre Grayby" [ref=e333]:
+        - generic [ref=e335]:
+          - paragraph [ref=e336]: 05 · Estilo editorial
+          - generic [ref=e337]:
+            - generic [ref=e338]:
+              - heading "Sobre Grayby" [level=2] [ref=e339]
+              - generic [ref=e340]:
+                - paragraph [ref=e341]: Soy Emmanuel Ybarrola, conocido también como Grayby, artista e ilustrador especializado en cómics, anatomía y arte digital.
+                - paragraph [ref=e342]: Arquitecto de formación, desarrollé proyectos de novela gráfica y experiencias de intercambio en Chile y México.
+                - paragraph [ref=e343]: Hoy me dedico a la docencia, con obras como «GENUS» y «TRANSLÚCIDO», apostando al impacto visual a través de la imagen.
+            - generic [ref=e345]:
+              - img "Emmanuel Ybarrola — Grayby art" [ref=e347]
+              - list "Roles" [ref=e348]:
+                - listitem [ref=e349]: Artista
+                - listitem [ref=e350]: Ilustrador
+                - listitem [ref=e351]: Docente
+  - contentinfo [ref=e352]:
+    - generic [ref=e353]:
+      - paragraph [ref=e354]: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+      - navigation [ref=e355]:
+        - link "instagram" [ref=e356] [cursor=pointer]:
+          - /url: https://instagram.com/
+        - link "x" [ref=e357] [cursor=pointer]:
+          - /url: https://x.com/
+        - link "facebook" [ref=e358] [cursor=pointer]:
+          - /url: https://www.facebook.com/
+        - link "tiktok" [ref=e359] [cursor=pointer]:
+          - /url: https://www.tiktok.com/
+        - link "youtube" [ref=e360] [cursor=pointer]:
+          - /url: https://www.youtube.com/
+        - link "deviantart" [ref=e361] [cursor=pointer]:
+          - /url: https://www.deviantart.com/
+        - link "Documentos" [ref=e362] [cursor=pointer]:
+          - /url: /documentos
+  - button "Open Next.js Dev Tools" [ref=e368] [cursor=pointer]:
+    - generic [ref=e371]:
+      - text: Compiling
+      - generic [ref=e372]:
+        - generic [ref=e373]: .
+        - generic [ref=e374]: .
+        - generic [ref=e375]: .
+  - alert [ref=e376]
+  - button "Menú" [ref=e377] [cursor=pointer]:
+    - img [aria-hidden] [ref=e378]:
+      - generic [ref=e379]: MENU · MENU · MENU · MENU · MENU ·

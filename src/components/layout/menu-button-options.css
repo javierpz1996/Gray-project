@@ -26,7 +26,7 @@
   position: relative;
   border-radius: 50%;
   border: 1px solid #000;
-  background: #fcff0e;
+  background: var(--ds-yellow);
   box-shadow: #000 0 4px 0 0;
   color: #000;
   display: grid;

@@ -13,7 +13,21 @@ import {
   type Cover2SlideMotion,
 } from "@/lib/cover-2-menu";
 import { HOME_SITE_INTRO_COMPLETE_EVENT, isSiteIntroComplete } from "@/lib/home-design-1-animation";
+import { Cover2HeroSampleVideo } from "@/components/home/design-2/cover-2-hero-sample-video";
 import { Cover2OmsKv } from "@/components/home/design-2/cover-2-oms-kv";
+import { Cover2KillBlueStrip } from "@/components/home/design-2/cover-2-kill-blue-strip";
+import { Cover2SlantHalftonePicker } from "@/components/home/design-2/cover-2-slant-halftone-picker";
+import {
+  COVER2_HERO_GLITCH_AMP_LIVE,
+  COVER2_HERO_GLITCH_LIVE,
+  type Cover2HeroGlitchAmp,
+  type Cover2HeroGlitchId,
+} from "@/lib/cover-2-hero-glitch";
+import {
+  COVER2_SLANT_HALFTONE_STORAGE_KEY,
+  parseCover2SlantHalftone,
+  type Cover2SlantHalftoneId,
+} from "@/lib/cover-2-slant-halftone";
 import "./cover-2-hero.css";
 
 const SOCIAL = [...STORY_SOCIAL].reverse();
@@ -35,6 +49,42 @@ function PagerTriangle() {
   );
 }
 
+type Cover2KbHeroAsideProps = {
+  videoSrc: string;
+  itemsSrc: string;
+  videoLabel?: string;
+};
+
+function Cover2KbHeroAside({ videoSrc, itemsSrc, videoLabel = "Video destacado" }: Cover2KbHeroAsideProps) {
+  return (
+    <aside className="cover-2-hero__kb-aside" aria-label="Destacados">
+      <Cover2HeroSampleVideo src={videoSrc} barText={videoLabel} />
+      <div className="cover-2-hero__kb-aside-items">
+        <figure className="cover-2-hero__kb-aside-item">
+          <Image
+            src={itemsSrc}
+            alt=""
+            fill
+            unoptimized
+            sizes="6vw"
+            className="cover-2-hero__kb-aside-img cover-2-hero__kb-aside-img--a"
+          />
+        </figure>
+        <figure className="cover-2-hero__kb-aside-item">
+          <Image
+            src={itemsSrc}
+            alt=""
+            fill
+            unoptimized
+            sizes="6vw"
+            className="cover-2-hero__kb-aside-img cover-2-hero__kb-aside-img--b"
+          />
+        </figure>
+      </div>
+    </aside>
+  );
+}
+
 export function Cover2Hero({
   src = "/api/hero-banner/portada2",
   slides,
@@ -46,6 +96,18 @@ export function Cover2Hero({
   menu,
   backdrop = null,
   slantRail = false,
+  slantHalftone = 3,
+  slantHalftonePicker = false,
+  /** Columna izquierda idéntica a kill-blue.jp (`top-CNT`). */
+  slantKillBlue = false,
+  /** Si false, el strip va en `cover-2-kb-rail-zone` (hero + banners). */
+  embedKillBlueStrip = true,
+  /** Imagen fija en hero kill-blue (sin carrusel OMS). */
+  kbHeroSrc = "/media/diseno2/heroimage-test.png",
+  /** Columna derecha: video + dos imágenes (espacio libre del KV). */
+  kbAside = null,
+  glitch = COVER2_HERO_GLITCH_LIVE,
+  glitchAmp = COVER2_HERO_GLITCH_AMP_LIVE,
 }: {
   src?: string;
   slides?: string[];
@@ -62,13 +124,50 @@ export function Cover2Hero({
   backdrop?: string | null;
   /** Panel izquierdo en diagonal, solo Diseño 2. */
   slantRail?: boolean;
+  /** Halftone de esquina (1–5). Ver `/diseno-2?halftone=n`. */
+  slantHalftone?: Cover2SlantHalftoneId;
+  /** Barra para elegir entre las 5 variantes (diseño 2 / stock). */
+  slantHalftonePicker?: boolean;
+  slantKillBlue?: boolean;
+  embedKillBlueStrip?: boolean;
+  kbHeroSrc?: string;
+  kbAside?: { videoSrc: string; itemsSrc: string; videoLabel?: string } | null;
+  glitch?: Cover2HeroGlitchId | 0;
+  glitchAmp?: Cover2HeroGlitchAmp;
 }) {
+  const killBlueStrip = slantRail && slantKillBlue;
+  const showKillBlueStrip = killBlueStrip && embedKillBlueStrip;
   const items = menu && menu.length > 0 ? menu : defaultCover2Menu();
   const frames = slides && slides.length > 0 ? slides : [src];
   const [frame, setFrame] = useState(0);
   const [dir, setDir] = useState<"next" | "prev">("next");
   const [ready, setReady] = useState(() => !waitForIntro || isSiteIntroComplete());
+  const [halftone, setHalftone] = useState(slantHalftone);
   const current = frames[frame] ?? frames[0] ?? src;
+
+  useEffect(() => {
+    setHalftone(slantHalftone);
+    if (!slantHalftonePicker) return;
+    const fromQuery = parseCover2SlantHalftone(
+      new URLSearchParams(window.location.search).get("halftone") ?? undefined,
+    );
+    const fromStorage = parseCover2SlantHalftone(
+      localStorage.getItem(COVER2_SLANT_HALFTONE_STORAGE_KEY) ?? undefined,
+    );
+    const fromUrl = new URLSearchParams(window.location.search).has("halftone")
+      ? fromQuery
+      : fromStorage;
+    setHalftone(fromUrl);
+  }, [slantHalftone, slantHalftonePicker]);
+
+  const pickHalftone = (id: Cover2SlantHalftoneId) => {
+    setHalftone(id);
+    localStorage.setItem(COVER2_SLANT_HALFTONE_STORAGE_KEY, String(id));
+    window.dispatchEvent(new Event("cover2-slant-halftone-change"));
+    const url = new URL(window.location.href);
+    url.searchParams.set("halftone", String(id));
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+  };
 
   useEffect(() => {
     if (!waitForIntro || isSiteIntroComplete()) {
@@ -102,6 +201,7 @@ export function Cover2Hero({
       data-slide={slideMotion}
       data-dir={dir}
       data-slant={slantRail ? "true" : "false"}
+      data-kb-strip={killBlueStrip ? "true" : "false"}
       style={
         backdrop && !slantRail
           ? { background: `url(${backdrop}) center / cover no-repeat` }
@@ -109,8 +209,17 @@ export function Cover2Hero({
       }
       aria-label="Portada"
     >
-      {slantRail ? (
-        <aside className="cover-2-hero__slant" aria-label="Secciones">
+      {showKillBlueStrip ? <Cover2KillBlueStrip /> : null}
+      {killBlueStrip ? (
+        <div className="cover-2-hero__kb-below-kv" aria-hidden />
+      ) : null}
+      {slantRail && !slantKillBlue ? (
+        <aside
+          className="cover-2-hero__slant"
+          data-halftone={String(halftone)}
+          aria-label="Secciones"
+        >
+          {halftone === 3 ? <div className="cover-2-hero__slant-pattern" aria-hidden /> : null}
           <div className="cover-2-hero__slant-lockup">
             <p className="cover-2-hero__slant-title">GRAYBY</p>
             <p className="cover-2-hero__slant-subtitle">ART</p>
@@ -130,9 +239,29 @@ export function Cover2Hero({
           </nav>
         </aside>
       ) : null}
-      {slantRail ? (
+      {slantRail && killBlueStrip ? (
+        <figure
+          className="cover-2-hero__kb-kv"
+          data-glitch={glitch ? String(glitch) : "0"}
+          data-glitch-amp={glitchAmp}
+          style={{ ["--kb-kv-src" as string]: `url("${kbHeroSrc}")` }}
+        >
+          <Image
+            src={kbHeroSrc}
+            alt=""
+            fill
+            unoptimized
+            loading="eager"
+            fetchPriority="high"
+            sizes="(max-width: 850px) 72vw, min(52vw, 28rem)"
+            className="cover-2-hero__kb-kv-image"
+          />
+        </figure>
+      ) : null}
+      {slantRail && killBlueStrip && kbAside ? <Cover2KbHeroAside {...kbAside} /> : null}
+      {slantRail && !killBlueStrip ? (
         <Cover2OmsKv slides={frames} slideEvery={slideEvery} />
-      ) : backdrop ? null : (
+      ) : slantRail && killBlueStrip ? null : backdrop ? null : (
         <Image
           key={current}
           src={current}
@@ -243,6 +372,9 @@ export function Cover2Hero({
           </span>
         </p>
       </div>
+      {slantRail && slantHalftonePicker && !slantKillBlue ? (
+        <Cover2SlantHalftonePicker value={halftone} onChange={pickHalftone} />
+      ) : null}
     </section>
   );
 }

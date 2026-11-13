@@ -1,4 +1,5 @@
 import type { BannerColor, BannerFocus, BannerFrame, BannerHover, BannerMotion, BannerPattern, BannerShadow } from "@/lib/hero-config";
+import { HomeSnsKbBannerStack } from "@/components/home/sns/home-sns-kb-banner-stack";
 import "./home-sns.css";
 
 const DEFAULT_BANNER = "/media/redes/banner.jpg";
@@ -12,15 +13,15 @@ const patternColors: Record<BannerColor, string> = {
 };
 
 export type HomeSnsBannerProps = {
-  banners?: [string, string, string];
+  banners?: readonly string[];
   mode?: "pattern" | "image";
   pattern?: BannerPattern;
   color?: BannerColor | string;
   base?: string;
   shade?: number;
   background?: string | null;
-  positions?: [BannerFocus, BannerFocus, BannerFocus];
-  links?: [string, string, string];
+  positions?: readonly BannerFocus[];
+  links?: readonly string[];
   motion?: BannerMotion;
   tile?: string | null;
   tileSize?: number;
@@ -30,6 +31,10 @@ export type HomeSnsBannerProps = {
   shadow?: BannerShadow;
   frameColor?: string;
   hover?: BannerHover;
+  /** Etiqueta opcional arriba del bloque de banners (p. ej. Diseño 2 kill-blue). */
+  kicker?: string;
+  /** Cabecera kill-blue: kicker + flechas y carrusel por pares. */
+  kbBannerNav?: boolean;
 };
 
 export function HomeSnsSection({
@@ -51,6 +56,8 @@ export function HomeSnsSection({
   shadow = "hard",
   frameColor = "255,255,255",
   hover = "shake",
+  kicker,
+  kbBannerNav = false,
 }: HomeSnsBannerProps) {
   const usePhoto = mode === "image" && Boolean(background);
 
@@ -96,42 +103,66 @@ export function HomeSnsSection({
       {usePhoto ? (
         <div className="home-sns__shade" style={{ opacity: shade / 100 }} aria-hidden="true" />
       ) : null}
-      <div className="home-sns__banners">
-        {banners.map((src, index) => {
-          const image = (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={src}
-              alt={index === 0 ? "Grayby art" : ""}
-              className="home-sns__banner"
-              style={{ objectPosition: positions[index] === "center" ? "center" : `center ${positions[index]}` }}
-            />
-          );
-          const href = (() => {
-            const raw = links[index]?.trim() ?? "";
-            if (!raw) return "";
-            try {
-              const url = new URL(raw);
-              if (url.protocol !== "http:" && url.protocol !== "https:") return "";
-              return url.toString();
-            } catch {
-              return "";
-            }
-          })();
-          if (!href) return <div key={`${src}-${index}`}>{image}</div>;
-          return (
-            <a
-              key={`${src}-${index}`}
-              className="home-sns__banner-link"
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {image}
-            </a>
-          );
-        })}
-      </div>
+      {kicker && kbBannerNav ? (
+        <HomeSnsKbBannerStack
+          banners={banners}
+          links={links}
+          positions={positions}
+          kicker={kicker}
+        />
+      ) : (
+        <>
+          {kicker ? (
+            <p className="home-sns__kicker">
+              <span className="home-sns__kicker-ghost" aria-hidden>
+                {kicker}
+              </span>
+              <span className="home-sns__kicker-label">{kicker}</span>
+            </p>
+          ) : null}
+          <div className="home-sns__banners">
+            {banners.map((src, index) => {
+              const image = (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={src}
+                  alt={index === 0 ? "Grayby art" : ""}
+                  className="home-sns__banner"
+                  style={{
+                    objectPosition:
+                      (positions[index] ?? "center") === "center"
+                        ? "center"
+                        : `center ${positions[index]}`,
+                  }}
+                />
+              );
+              const href = (() => {
+                const raw = links[index]?.trim() ?? "";
+                if (!raw) return "";
+                try {
+                  const url = new URL(raw);
+                  if (url.protocol !== "http:" && url.protocol !== "https:") return "";
+                  return url.toString();
+                } catch {
+                  return "";
+                }
+              })();
+              if (!href) return <div key={`${src}-${index}`}>{image}</div>;
+              return (
+                <a
+                  key={`${src}-${index}`}
+                  className="home-sns__banner-link"
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {image}
+                </a>
+              );
+            })}
+          </div>
+        </>
+      )}
     </section>
   );
 }

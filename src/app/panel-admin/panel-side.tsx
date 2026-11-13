@@ -8,6 +8,7 @@ import {
   House,
   Image as ImageIcon,
   Menu,
+  Sparkles,
 } from "lucide-react";
 import { leavePanelAdmin } from "./actions";
 
@@ -29,10 +30,10 @@ export function PanelSide({
   onCover,
   onLibros,
 }: {
-  section: "portada" | "banners" | "libros" | "menu";
+  section: "portada" | "banners" | "libros" | "menu" | "efectos";
   cover: 1 | 2;
   librosPart: "bandas" | "texto" | "imagenes" | "sticker" | "fondo";
-  onSection: (section: "portada" | "banners" | "libros" | "menu") => void;
+  onSection: (section: "portada" | "banners" | "libros" | "menu" | "efectos") => void;
   onCover: (cover: 1 | 2) => void;
   onLibros: (part: "bandas" | "texto" | "imagenes" | "sticker" | "fondo") => void;
 }) {
@@ -118,6 +119,16 @@ export function PanelSide({
             ))}
           </ul>
         </div>
+        <button
+          type="button"
+          className="panel-nav-row"
+          data-active={section === "efectos" ? "true" : "false"}
+          aria-current={section === "efectos" ? "page" : undefined}
+          onClick={() => onSection("efectos")}
+        >
+          <Sparkles aria-hidden="true" />
+          <span>Efectos</span>
+        </button>
         <button
           type="button"
           className="panel-nav-row"
